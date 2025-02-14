@@ -16,7 +16,7 @@ const LoginBtn = () => {
       w="184px"
       h="61px"
       borderRadius="12px"
-      fontSize="18px"
+      textStyle="md"
       color="main.white_1"
       onClick={handleLogin}
     >

@@ -4,10 +4,9 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import KakaoLoginBtnSVG from '@/public/assets/KakaoLoginBtn.svg';
 import NaverLoginBtnSVG from '@/public/assets/NaverLoginBtn.svg';
-import { OAUTH } from '@/src/app/config/auth';
+import { OAUTH } from '@/src/config/auth';
 import Footer from '../components/Footer/Footer';
-import { useToast } from '../hooks/useToast';
-import Logo from '../components/Logo/Logo';
+import Logo from '../common/Logo/Logo';
 
 const handleKakaoLogin = () => {
   window.location.href = OAUTH.KAKAO.AUTH_URL;
@@ -20,13 +19,6 @@ const handleNaverLogin = () => {
 };
 
 const Login = () => {
-  useToast({
-    title: '로그인 실패',
-    description: '로그인에 실패했습니다.',
-    type: 'error',
-    searchParam: 'error',
-  });
-
   return (
     <Flex width="100%" height="100vh" flexDirection="column">
       <Box width="1920px" padding="38px 320px" borderTop="2px solid #f2f3f5">
@@ -50,7 +42,7 @@ const Login = () => {
           <Text
             fontSize="16px"
             fontWeight="400"
-            color="main.gray_1"
+            color="main.black_2"
             mt="36px"
             textAlign="center"
             maxWidth="333px"

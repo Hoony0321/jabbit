@@ -1,6 +1,6 @@
 import jwt, { Secret } from 'jsonwebtoken';
-import { JWT } from '@/src/app/config/jwt';
-import { User } from '@/src/app/store/authStore';
+import { JWT } from '@/src/config/jwt';
+import { User } from '@/src/store/authStore';
 
 export const createJwtToken = (user: User) => {
   const jwtToken = jwt.sign(

@@ -49,7 +49,7 @@ const CategoryStack = () => {
 
   return (
     <Flex flexDirection="column" gap="114px" width="1280px" position="relative">
-      <Text fontSize="45px" fontWeight={600} color="main.black_1">
+      <Text textStyle="xxl" color="main.black_1">
         어떤 재무고민이 있으신가요?
       </Text>
 
@@ -82,7 +82,7 @@ const CategoryStack = () => {
             >
               {item.image}
             </Flex>
-            <Text fontSize="23px" color="main.black_1">
+            <Text textStyle="lg" color="main.black_1">
               {item.title}
             </Text>
           </Flex>

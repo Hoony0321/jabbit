@@ -202,11 +202,11 @@ const HoverMenu = ({ tag, hover }: HoverMenuProps) => {
           >
             {selectedTag.contents.map((content, index) => (
               <Flex key={index} flexDirection="column" gap="20px">
-                <Text fontSize="25px" color="#666">
+                <Text fontSize="25px" color="main.black_2">
                   {content.title}
                 </Text>
                 <Box width="304px">
-                  <Text fontSize="18px" color="#a3a3a3">
+                  <Text textStyle="md" color="main.black_4">
                     {content.description}
                   </Text>
                 </Box>
