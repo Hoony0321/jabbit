@@ -57,8 +57,8 @@ const Banner = (props: BannerComponentProps) => {
       >
         <Flex flexDirection="column" gap="14px">
           <Text
-            color="#a8adcd"
-            fontSize="18px"
+            color="#primary_3"
+            textStyle="md"
             dangerouslySetInnerHTML={{ __html: title }}
           />
           <Text
@@ -67,8 +67,8 @@ const Banner = (props: BannerComponentProps) => {
             dangerouslySetInnerHTML={{ __html: mainText }}
           />
           <Text
-            color="#7c83b0"
-            fontSize="23px"
+            color="#primary_2"
+            textStyle="lg"
             dangerouslySetInnerHTML={{ __html: subText }}
           />
         </Flex>

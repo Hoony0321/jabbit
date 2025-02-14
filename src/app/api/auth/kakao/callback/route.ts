@@ -1,13 +1,16 @@
 import { NextResponse } from 'next/server';
-import { createJwtToken } from '@/src/app/utils/jwt';
-import { getAccessToken, getUserInfo } from '@/src/app/utils/auth';
+import { createJwtToken } from '@/src/utils/jwt';
+import { getAccessToken, getUserInfo } from '@/src/utils/auth';
+import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
+
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const code = url.searchParams.get('code');
 
   if (!code) {
-    return NextResponse.redirect(
-      new URL('/login?error=No_authorization_code_provided', req.url),
+    return NextResponse.json(
+      { success: false, errorInfoKey: 'auth.noCode' },
+      { status: ERROR_INFOS['auth.noCode'].statusCode },
     );
   }
 
@@ -15,8 +18,9 @@ export async function GET(req: Request) {
     // 인증 코드로 access_token 요청
     const tokenData = await getAccessToken(code, 'KAKAO');
     if (!tokenData.access_token) {
-      return NextResponse.redirect(
-        new URL('/login?error=Failed_to_get_access_token', req.url),
+      return NextResponse.json(
+        { success: false, errorInfoKey: 'auth.accessTokenFailed' },
+        { status: ERROR_INFOS['auth.accessTokenFailed'].statusCode },
       );
     }
 
@@ -35,10 +39,10 @@ export async function GET(req: Request) {
       provider: 'KAKAO',
       token: jwtToken,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
-      { error: 'Server error', details: error },
-      { status: 500 },
+      { success: false, errorInfoKey: 'auth.fetchUserInfoFailed' },
+      { status: ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode },
     );
   }
 }
