@@ -1,16 +1,19 @@
-import { NextResponse } from 'next/server';
 import { createJwtToken } from '@/src/utils/jwt';
 import { getAccessToken, getUserInfo } from '@/src/utils/auth';
 import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
-
+import {
+  createErrorApiResponse,
+  createSuccessApiResponse,
+} from '@/src/server/utils/apiResponseUtils';
+import { API_MESSAGES } from '@/src/server/constants/API_MESSAGES';
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const code = url.searchParams.get('code');
 
   if (!code) {
-    return NextResponse.json(
-      { success: false, errorInfoKey: 'auth.noCode' },
-      { status: ERROR_INFOS['auth.noCode'].statusCode },
+    return createErrorApiResponse(
+      ERROR_INFOS['auth.noCode'].statusCode,
+      'auth.noCode',
     );
   }
 
@@ -18,9 +21,9 @@ export async function GET(req: Request) {
     // 인증 코드로 access_token 요청
     const tokenData = await getAccessToken(code, 'KAKAO');
     if (!tokenData.access_token) {
-      return NextResponse.json(
-        { success: false, errorInfoKey: 'auth.accessTokenFailed' },
-        { status: ERROR_INFOS['auth.accessTokenFailed'].statusCode },
+      return createErrorApiResponse(
+        ERROR_INFOS['auth.accessTokenFailed'].statusCode,
+        'auth.accessTokenFailed',
       );
     }
 
@@ -33,16 +36,19 @@ export async function GET(req: Request) {
       provider: 'KAKAO',
     });
 
-    return NextResponse.json({
-      success: true,
-      id: userData.id,
-      provider: 'KAKAO',
-      token: jwtToken,
-    });
+    return createSuccessApiResponse(
+      200,
+      {
+        id: userData.id,
+        provider: 'KAKAO',
+        token: jwtToken,
+      },
+      API_MESSAGES['READ_SUCCESS'],
+    );
   } catch {
-    return NextResponse.json(
-      { success: false, errorInfoKey: 'auth.fetchUserInfoFailed' },
-      { status: ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode },
+    return createErrorApiResponse(
+      ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
+      'auth.fetchUserInfoFailed',
     );
   }
 }

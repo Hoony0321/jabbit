@@ -8,6 +8,7 @@ export const ERROR_INFOS = {
   networkError: { message: '네트워크 오류가 발생했습니다.', statusCode: 503 },
   unknownError: { message: '알 수 없는 오류가 발생했습니다.', statusCode: 500 },
 
+  // auth
   'auth.accessTokenFailed': {
     message: '액세스 토큰 발급에 실패했습니다.',
     statusCode: 400,
@@ -20,6 +21,20 @@ export const ERROR_INFOS = {
   'auth.invalidToken': {
     message: '유효하지 않은 토큰입니다.',
     statusCode: 401,
+  },
+
+  // google sheet
+  'googleSheet.noData': {
+    message: '데이터를 가져오지 못했습니다.',
+    statusCode: 404,
+  },
+  'googleSheet.parseError': {
+    message: '데이터를 파싱하지 못했습니다.',
+    statusCode: 500,
+  },
+  'googleSheet.expertNotFound': {
+    message: '전문가를 찾을 수 없습니다.',
+    statusCode: 404,
   },
 } as const;
 
