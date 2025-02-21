@@ -15,4 +15,10 @@ export class ProductSimpleDto {
     this.priceInfos = product.priceInfos;
     this.detailFields = product.detailFields;
   }
+
+  getMinimumPriceInfo(): ProductPriceInfo {
+    return this.priceInfos.reduce((min, current) => {
+      return current.price < min.price ? current : min;
+    });
+  }
 }

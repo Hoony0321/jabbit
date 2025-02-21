@@ -10,6 +10,7 @@ import RealEstateSVG from '@/public/assets/realestate.svg';
 import SeedMoneySVG from '@/public/assets/seed_money.svg';
 import { useState } from 'react';
 import HoverMenu from './HoverMenu/HoverMenu';
+import { useRouter } from 'next/navigation';
 
 const CATEGORY_ITEMS = [
   {
@@ -46,6 +47,11 @@ const CATEGORY_ITEMS = [
 const CategoryStack = () => {
   const [hover, setHover] = useState(false);
   const [selectedTag, setSelectedTag] = useState('');
+  const router = useRouter();
+
+  const handleCategoryClick = (title: string) => {
+    router.push(`/experts?specialty=${encodeURIComponent(title)}`);
+  };
 
   return (
     <Flex flexDirection="column" gap="114px" width="1280px" position="relative">
@@ -68,6 +74,8 @@ const CategoryStack = () => {
               setHover(false);
               setSelectedTag('');
             }}
+            onClick={() => handleCategoryClick(item.title)}
+            cursor="pointer"
           >
             <Flex
               width="100px"

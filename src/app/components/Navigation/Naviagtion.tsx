@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Flex, Group } from '@chakra-ui/react';
+import { Button, Flex, Group, Link } from '@chakra-ui/react';
 import AuthBtn from '../AuthBtn/AuthBtn';
 import Logo from '../../common/Logo/Logo';
 
@@ -16,7 +16,14 @@ const Navigation = () => {
       <Logo />
       <Group>
         <Button color="main.black_1" variant="plain" textStyle="md">
-          전문가 찾기
+          <Link
+            href="/experts"
+            textDecor="none"
+            _focus={{ outline: 'none' }}
+            _active={{ outline: 'none' }}
+          >
+            전문가 찾기
+          </Link>
         </Button>
         <Button variant="plain" textStyle="md">
           상품 견적 요청
