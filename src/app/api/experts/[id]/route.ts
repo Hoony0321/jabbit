@@ -11,11 +11,16 @@ import {
   createSuccessApiResponse,
 } from '@/src/server/utils/apiResponseUtils';
 import { API_MESSAGES } from '@/src/server/constants/API_MESSAGES';
-
+import { handlePreflight } from '@/src/server/utils/apiResponseUtils';
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const preflightResponse = handlePreflight(_request);
+  if (preflightResponse) {
+    return preflightResponse;
+  }
+
   const { id } = await params;
   const expertId = id;
 

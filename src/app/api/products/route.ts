@@ -8,6 +8,7 @@ import { PRODUCT_SHEET_NAME } from '@/src/server/constants/SHEET_INFOS';
 import {
   createErrorApiResponse,
   createSuccessApiResponse,
+  handlePreflight,
 } from '@/src/server/utils/apiResponseUtils';
 import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
 import { ProductMapper } from '@/src/server/mappers/product.mapper';
@@ -15,7 +16,12 @@ import { ProductSimpleDto } from '@/src/server/dtos/product.simple.dto';
 import { ExpertMapper } from '@/src/server/mappers/expert.mapper';
 import { API_MESSAGES } from '@/src/server/constants/API_MESSAGES';
 
-export async function GET() {
+export async function GET(req: Request) {
+  const preflightResponse = handlePreflight(req);
+  if (preflightResponse) {
+    return preflightResponse;
+  }
+
   const { headerRow: productHeaderRow, dataRows: productDataRows } =
     await readSheetData(PRODUCT_SHEET_NAME, PRODUCT_SHEET_RANGE);
   if (!productHeaderRow || !productDataRows) {

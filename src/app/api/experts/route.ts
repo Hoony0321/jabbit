@@ -9,10 +9,16 @@ import { ExpertSimpleDto } from '@/src/server/dtos/expert.simple.dto';
 import {
   createErrorApiResponse,
   createSuccessApiResponse,
+  handlePreflight,
 } from '@/src/server/utils/apiResponseUtils';
 import { API_MESSAGES } from '@/src/server/constants/API_MESSAGES';
 
-export async function GET() {
+export async function GET(req: Request) {
+  const preflightResponse = handlePreflight(req);
+  if (preflightResponse) {
+    return preflightResponse;
+  }
+
   const { headerRow, dataRows } = await readSheetData(
     EXPERT_SHEET_NAME,
     EXPERT_SHEET_RANGE,

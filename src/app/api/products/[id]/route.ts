@@ -13,12 +13,18 @@ import { ProductMapper } from '@/src/server/mappers/product.mapper';
 import {
   createErrorApiResponse,
   createSuccessApiResponse,
+  handlePreflight,
 } from '@/src/server/utils/apiResponseUtils';
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const preflightResponse = handlePreflight(request);
+  if (preflightResponse) {
+    return preflightResponse;
+  }
+
   const { id } = await params;
   const productId = id;
 
