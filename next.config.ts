@@ -12,6 +12,27 @@ const nextConfig: NextConfig = {
     });
     return config;
   },
+  async headers() {
+    return [
+      {
+        source: '/api/:path*', // API 요청에 대해 CORS 적용
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://www.jabbit.my', // 특정 도메인만 허용
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
