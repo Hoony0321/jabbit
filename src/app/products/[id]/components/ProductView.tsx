@@ -52,6 +52,7 @@ const ProductView = ({ productData }: ProductDetailViewProps) => {
             priceTags={productData.data.priceInfos}
             handlePriceTagClick={handlePriceTagClick}
             selectedPriceTagIndex={selectedPriceTagIndex}
+            googleFormUrl={productData.data.googleFormUrl}
           />
         </Flex>
       </Flex>

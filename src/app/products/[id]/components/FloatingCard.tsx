@@ -12,6 +12,7 @@ interface FloatingCardProps {
   }[];
   handlePriceTagClick: (index: number) => void;
   selectedPriceTagIndex: number;
+  googleFormUrl: string;
 }
 
 const FloatingCard = ({
@@ -20,6 +21,7 @@ const FloatingCard = ({
   priceTags,
   handlePriceTagClick,
   selectedPriceTagIndex,
+  googleFormUrl,
 }: FloatingCardProps) => {
   return (
     <Flex
@@ -133,6 +135,9 @@ const FloatingCard = ({
           borderRadius="10px"
           bg="primary"
           fontSize="20px"
+          onClick={() => {
+            window.open(googleFormUrl, '_blank');
+          }}
         >
           상담 신청하기
         </Button>

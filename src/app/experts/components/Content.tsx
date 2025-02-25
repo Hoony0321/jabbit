@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import { AppError } from '@/src/errors/AppError';
 import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
 import { useErrorToast } from '@/src/errors/useErrorToast';
+import { BASE_URL } from '@/src/constants/API';
 
 const Content = () => {
   const searchParams = useSearchParams();
@@ -28,7 +29,7 @@ const Content = () => {
 
   const fetchProducts = async () => {
     setIsLoading(true);
-    fetch('http://localhost:3000/api/products')
+    fetch(`${BASE_URL}/products`)
       .then(async (res) => {
         const resData = await res.json();
         if (res.status != 200 || !resData.success) {

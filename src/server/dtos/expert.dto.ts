@@ -11,6 +11,7 @@ export class ExpertDto {
   activities: Activity[];
   isVerified: boolean;
   profileImageUrl?: string;
+  yearsOfExperience: number;
 
   constructor(expert: Expert) {
     this.id = expert.id;
@@ -21,5 +22,6 @@ export class ExpertDto {
     this.activities = expert.activities;
     this.isVerified = expert.isVerified;
     this.profileImageUrl = expert.profileImageUrl;
+    this.yearsOfExperience = expert.yearsOfExperience;
   }
 }

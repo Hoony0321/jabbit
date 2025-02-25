@@ -7,6 +7,9 @@ import NaverLoginBtnSVG from '@/public/assets/NaverLoginBtn.svg';
 import { OAUTH } from '@/src/config/auth';
 import Footer from '../components/Footer/Footer';
 import Logo from '../common/Logo/Logo';
+import { TERMS_OF_SERVICE_URL } from '@/src/constants/URL';
+import { PRIVACY_POLICY_URL } from '@/src/constants/URL';
+import BaseLink from '../common/BaseLink/BaseLink';
 
 const handleKakaoLogin = () => {
   window.location.href = OAUTH.KAKAO.AUTH_URL;
@@ -48,8 +51,10 @@ const Login = () => {
             maxWidth="333px"
             wordBreak="keep-all"
           >
-            신규 회원가입시 서비스 이용 약관 및 개인정보 수집에 동의한 것으로
-            간주됩니다.
+            신규 회원가입시{' '}
+            <BaseLink href={TERMS_OF_SERVICE_URL}>서비스 이용 약관</BaseLink> 및{' '}
+            <BaseLink href={PRIVACY_POLICY_URL}>개인정보 수집</BaseLink>에
+            동의한 것으로 간주됩니다.
           </Text>
         </Flex>
       </Flex>

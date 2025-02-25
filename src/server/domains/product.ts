@@ -13,4 +13,5 @@ export interface Product {
   detailFields: string[];
   targetDescription: string;
   productDescription: string;
+  googleFormUrl: string;
 }

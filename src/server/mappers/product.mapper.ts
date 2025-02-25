@@ -34,6 +34,7 @@ export class ProductMapper {
       detailFields: JSON.parse(dataRow[columnIndexes.detailFields]) as string[],
       targetDescription: dataRow[columnIndexes.targetDescription],
       productDescription: dataRow[columnIndexes.productDescription],
+      googleFormUrl: dataRow[columnIndexes.googleFormUrl],
     };
   }
 }

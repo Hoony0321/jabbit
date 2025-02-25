@@ -30,6 +30,7 @@ export class ExpertMapper {
       activities: JSON.parse(dataRow[columnIndexes.activities]) as Activity[],
       isVerified: dataRow[columnIndexes.isVerified] === 'TRUE',
       profileImageUrl: dataRow[columnIndexes.profileImageUrl] || undefined,
+      yearsOfExperience: parseInt(dataRow[columnIndexes.yearsOfExperience]),
     };
   }
 }

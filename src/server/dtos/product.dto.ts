@@ -9,7 +9,7 @@ export class ProductDto {
   detailFields: string[];
   targetDescription: string;
   productDescription: string;
-
+  googleFormUrl: string;
   constructor(product: Product) {
     this.id = product.id;
     this.expert = new ExpertDto(product.expert);
@@ -18,5 +18,6 @@ export class ProductDto {
     this.detailFields = product.detailFields;
     this.targetDescription = product.targetDescription;
     this.productDescription = product.productDescription;
+    this.googleFormUrl = product.googleFormUrl;
   }
 }

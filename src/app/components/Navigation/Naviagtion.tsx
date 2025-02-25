@@ -25,16 +25,16 @@ const Navigation = () => {
             전문가 찾기
           </Link>
         </Button>
-        <Button variant="plain" textStyle="md">
+        <Button variant="plain" textStyle="md" display="none">
           상품 견적 요청
         </Button>
-        <Button variant="plain" textStyle="md">
+        <Button variant="plain" textStyle="md" display="none">
           AI 무료 진단
         </Button>
-        <Button variant="plain" textStyle="md">
+        <Button variant="plain" textStyle="md" display="none">
           금융 미션
         </Button>
-        <Button variant="plain" textStyle="md">
+        <Button variant="plain" textStyle="md" display="none">
           커뮤니티
         </Button>
       </Group>

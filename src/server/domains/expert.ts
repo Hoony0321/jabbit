@@ -18,4 +18,5 @@ export interface Expert {
   activities: Activity[];
   isVerified: boolean;
   profileImageUrl?: string;
+  yearsOfExperience: number;
 }

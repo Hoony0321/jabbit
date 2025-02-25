@@ -1,5 +1,5 @@
 export const EXPERT_SHEET_NAME = 'expert';
-export const EXPERT_SHEET_RANGE = 'A1:H';
+export const EXPERT_SHEET_RANGE = 'A1:I';
 export const EXPERT_SHEET_HEADERS = [
   'id',
   'name',
@@ -9,10 +9,11 @@ export const EXPERT_SHEET_HEADERS = [
   'activities',
   'isVerified',
   'profileImageUrl',
+  'yearsOfExperience',
 ];
 
 export const PRODUCT_SHEET_NAME = 'product';
-export const PRODUCT_SHEET_RANGE = 'A1:G';
+export const PRODUCT_SHEET_RANGE = 'A1:H';
 export const PRODUCT_SHEET_HEADERS = [
   'id',
   'expertId',
@@ -21,4 +22,5 @@ export const PRODUCT_SHEET_HEADERS = [
   'detailFields',
   'targetDescription',
   'productDescription',
+  'googleFormUrl',
 ];
