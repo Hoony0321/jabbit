@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^3.5.1",
+    "@channel.io/channel-web-sdk-loader": "^2.0.0",
     "@emotion/react": "^11.14.0",
     "@next/third-parties": "^15.1.7",
     "googleapis": "^144.0.0",
