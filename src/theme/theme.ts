@@ -77,6 +77,9 @@ const customConfig = defineConfig({
           black_4: {
             value: '#a3a3a3',
           },
+          line: {
+            value: '#f2f3f5',
+          },
         },
       },
     },
