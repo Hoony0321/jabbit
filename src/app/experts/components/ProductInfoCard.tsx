@@ -1,7 +1,8 @@
-import { Box, Flex, Text, Image, Link } from '@chakra-ui/react';
+import { Box, Flex, Text, Link } from '@chakra-ui/react';
 import { ProductSimpleDto } from '@/src/server/dtos/product.simple.dto';
 import VerifiedBadgeSVG from '@/public/assets/verifiedBadge.svg';
 import type { ProductPriceInfo } from '@/src/server/domains/product';
+import Image from 'next/image';
 
 const ProductTitle = ({ name }: { name: string }) => {
   return (
@@ -62,22 +63,29 @@ const ProductPriceInfo = ({ priceInfo }: { priceInfo: ProductPriceInfo }) => {
 };
 
 const ProfileImage = ({ product }: { product: ProductSimpleDto }) => {
+  const imageStyle = {
+    width: '140px',
+    height: '140px',
+    objectFit: 'cover' as const,
+    objectPosition: 'top' as const,
+    borderRadius: '20px',
+  };
+
   return product.expert.profileImageUrl ? (
     <Image
       src={product.expert.profileImageUrl}
       alt="profile image"
-      w="140px"
-      h="140px"
-      style={{ objectPosition: 'top' }}
-      borderRadius="20px"
+      width={140}
+      height={140}
+      style={imageStyle}
     />
   ) : (
     <Image
       src="/assets/TestProfile.png"
       alt="profile image"
-      w="140px"
-      h="140px"
-      borderRadius="20px"
+      width={140}
+      height={140}
+      style={imageStyle}
     />
   );
 };
