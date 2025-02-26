@@ -10,6 +10,7 @@ export class ProductDto {
   targetDescription: string;
   productDescription: string;
   googleFormUrl: string;
+  category: string;
   constructor(product: Product) {
     this.id = product.id;
     this.expert = new ExpertDto(product.expert);
@@ -19,5 +20,6 @@ export class ProductDto {
     this.targetDescription = product.targetDescription;
     this.productDescription = product.productDescription;
     this.googleFormUrl = product.googleFormUrl;
+    this.category = product.category;
   }
 }

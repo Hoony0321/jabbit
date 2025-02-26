@@ -35,6 +35,7 @@ export class ProductMapper {
       targetDescription: dataRow[columnIndexes.targetDescription],
       productDescription: dataRow[columnIndexes.productDescription],
       googleFormUrl: dataRow[columnIndexes.googleFormUrl],
+      category: dataRow[columnIndexes.category],
     };
   }
 }

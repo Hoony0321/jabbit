@@ -67,8 +67,8 @@ const Content = () => {
 
   useEffect(() => {
     if (products.length > 0) {
-      const filteredProducts = products.filter((product) =>
-        product.expert.specialties.includes(selectedSpecialty),
+      const filteredProducts = products.filter(
+        (product) => product.category === selectedSpecialty,
       );
       setFilteredProducts(filteredProducts);
     }

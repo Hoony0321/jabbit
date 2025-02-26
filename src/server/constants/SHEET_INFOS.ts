@@ -13,7 +13,7 @@ export const EXPERT_SHEET_HEADERS = [
 ];
 
 export const PRODUCT_SHEET_NAME = 'product';
-export const PRODUCT_SHEET_RANGE = 'A1:H';
+export const PRODUCT_SHEET_RANGE = 'A1:I';
 export const PRODUCT_SHEET_HEADERS = [
   'id',
   'expertId',
@@ -23,4 +23,5 @@ export const PRODUCT_SHEET_HEADERS = [
   'targetDescription',
   'productDescription',
   'googleFormUrl',
+  'category',
 ];

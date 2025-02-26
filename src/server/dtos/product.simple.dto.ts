@@ -7,6 +7,7 @@ export class ProductSimpleDto {
   name: string;
   priceInfos: ProductPriceInfo[];
   detailFields: string[];
+  category: string;
 
   constructor(product: Product) {
     this.id = product.id;
@@ -14,6 +15,7 @@ export class ProductSimpleDto {
     this.name = product.name;
     this.priceInfos = product.priceInfos;
     this.detailFields = product.detailFields;
+    this.category = product.category;
   }
 
   getMinimumPriceInfo(): ProductPriceInfo {

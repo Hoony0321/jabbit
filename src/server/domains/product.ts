@@ -14,4 +14,5 @@ export interface Product {
   targetDescription: string;
   productDescription: string;
   googleFormUrl: string;
+  category: string;
 }
