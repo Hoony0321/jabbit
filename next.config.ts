@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@chakra-ui/react'],
   },
+  images: {
+    domains: ['i.imgur.com'],
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,

@@ -94,7 +94,7 @@ const HOVER_MENU_ITEMS = [
   },
   {
     tag: '지출관리',
-    title: '',
+    title: '상세한 고민이 있다면?',
     contents: [
       {
         title: '소비습관 점검',

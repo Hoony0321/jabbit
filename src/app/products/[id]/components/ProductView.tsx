@@ -48,7 +48,7 @@ const ProductView = ({ productData }: ProductDetailViewProps) => {
         <Flex width="50%">
           <FloatingCard
             expertName={productData.data.expert.name}
-            expertImage={'/assets/test.png'}
+            expertImage={productData.data.expert.profileImageUrl}
             priceTags={productData.data.priceInfos}
             handlePriceTagClick={handlePriceTagClick}
             selectedPriceTagIndex={selectedPriceTagIndex}

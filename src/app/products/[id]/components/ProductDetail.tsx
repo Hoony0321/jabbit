@@ -76,12 +76,8 @@ const ProductDetail = ({
           )}
         </Flex>
         <Flex gap="10px">
-          {certifications.map((certification, index) => (
-            <Certification
-              key={index}
-              certification={certification}
-              isVerified={certification === '재무설계(국가공인)'}
-            />
+          {certifications.map((certificationName, index) => (
+            <Certification key={index} certificationName={certificationName} />
           ))}
         </Flex>
       </Flex>
@@ -133,11 +129,15 @@ const ProductDetail = ({
             상세 소개
           </Text>
           <Box>
-            {parseDescription(productDescription).map((line, index) => (
-              <Text key={index} textStyle="md" color="main.black_2">
-                {line}
-              </Text>
-            ))}
+            {parseDescription(productDescription).map((line, index) =>
+              line === '' ? (
+                <br key={index} />
+              ) : (
+                <Text key={index} textStyle="md" color="main.black_2">
+                  {line}
+                </Text>
+              ),
+            )}
           </Box>
         </Flex>
       </Flex>

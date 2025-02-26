@@ -1,16 +1,23 @@
 'use client';
 
+import { EXPERT_CERTIFICATIONS } from '@/src/constants/EXPERT';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
-const Certification = ({
-  certification,
-  isVerified,
-}: {
-  certification: string;
-  isVerified: boolean;
-}) => {
+interface CertificationProps {
+  certificationName: string;
+}
+
+const Certification = ({ certificationName }: CertificationProps) => {
   const [isHover, setIsHover] = useState(false);
+
+  const certification = EXPERT_CERTIFICATIONS.find(
+    (certification) => certificationName === certification.originalName,
+  );
+
+  const isVerified = certification?.isOfficialCertification;
+  const displayName = certification?.displayName;
+  const hoverName = certification?.hoverName;
 
   if (isVerified) {
     return (
@@ -23,7 +30,7 @@ const Certification = ({
         onMouseLeave={() => setIsHover(false)}
       >
         <Text fontSize="16px" color="#798c71" fontWeight={500}>
-          {certification}
+          {displayName}
         </Text>
         {isHover && (
           <Flex
@@ -58,7 +65,7 @@ const Certification = ({
               padding="10px 8px"
               whiteSpace="nowrap"
             >
-              AFPK 공인재무설계사 자격보유
+              {hoverName}
             </Text>
           </Flex>
         )}
@@ -76,7 +83,7 @@ const Certification = ({
       onMouseLeave={() => setIsHover(false)}
     >
       <Text fontSize="16px" color="#7d7d7d" fontWeight={500}>
-        {certification}
+        {displayName}
       </Text>
       {isHover && (
         <Flex
@@ -111,7 +118,7 @@ const Certification = ({
             padding="10px 8px"
             whiteSpace="nowrap"
           >
-            CISA 증권투자상담사 자격보유
+            {hoverName}
           </Text>
         </Flex>
       )}

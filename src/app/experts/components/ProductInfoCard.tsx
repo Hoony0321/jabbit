@@ -68,6 +68,7 @@ const ProfileImage = ({ product }: { product: ProductSimpleDto }) => {
       alt="profile image"
       w="140px"
       h="140px"
+      style={{ objectPosition: 'top' }}
       borderRadius="20px"
     />
   ) : (
