@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const ProductTitle = ({ name }: { name: string }) => {
   return (
-    <Text fontSize="28px" fontWeight="600" color="main.black_1">
+    <Text maxW="400px" fontSize="28px" fontWeight="600" color="main.black_1">
       {name}
     </Text>
   );
@@ -118,7 +118,7 @@ const ProductInfoCard = ({ product }: { product: ProductSimpleDto }) => {
         cursor="pointer"
         justifyContent="space-between"
       >
-        <Flex w="400px" h="100%" flexDirection="column">
+        <Flex w="auto" h="100%" flexDirection="column">
           <ProductTitle name={product.name} />
           <Box h="16px" />
           <ExpertNameWithVerifiedBadge
