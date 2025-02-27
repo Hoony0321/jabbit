@@ -51,4 +51,10 @@ export const EXPERT_CERTIFICATIONS = [
     hoverName: 'CIM 투자자산운용사 자격 보유',
     isOfficialCertification: false,
   },
+  {
+    originalName: '공인중개사',
+    displayName: '공인중개',
+    hoverName: '공인중개 자격 보유',
+    isOfficialCertification: false,
+  },
 ];
