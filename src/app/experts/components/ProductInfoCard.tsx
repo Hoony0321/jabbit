@@ -109,6 +109,7 @@ const ProductInfoCard = ({ product }: { product: ProductSimpleDto }) => {
   return (
     <Link
       href={`/products/${product.id}`}
+      target="_blank"
       style={{ textDecoration: 'none', outline: 'none' }}
     >
       <Flex
