@@ -1,6 +1,6 @@
-import { createJwtToken } from '@/src/utils/jwt';
-import { getAccessToken, getUserInfo } from '@/src/utils/auth';
-import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
+import { createJwtToken } from '@/src/client/utils/jwt';
+import { getAccessToken, getUserInfo } from '@/src/client/utils/auth';
+import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
 import {
   createErrorApiResponse,
   createSuccessApiResponse,

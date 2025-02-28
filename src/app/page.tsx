@@ -4,7 +4,7 @@ import BannerSVG from '@/public/assets/banner_image.svg';
 import CertificationSVG from '@/public/assets/certification.svg';
 import Banner from './components/Banner/Banner';
 import Accordion from './components/Accordion/Accordion';
-import FAQ_CONTENT from '../constants/FAQ';
+import FAQ_CONTENT from '../client/constants/FAQ';
 import Footer from './components/Footer/Footer';
 import CategoryStack from './components/CategoryStack/CategoryStack';
 

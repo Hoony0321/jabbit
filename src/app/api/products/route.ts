@@ -10,7 +10,7 @@ import {
   createSuccessApiResponse,
   handlePreflight,
 } from '@/src/server/utils/apiResponseUtils';
-import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
+import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
 import { ProductMapper } from '@/src/server/mappers/product.mapper';
 import { ProductSimpleDto } from '@/src/server/dtos/product.simple.dto';
 import { ExpertMapper } from '@/src/server/mappers/expert.mapper';

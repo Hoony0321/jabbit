@@ -1,4 +1,4 @@
-import { BASE_URL } from '@/src/constants/API';
+import { BASE_URL } from '@/src/client/constants/API';
 import ProductView from './components/ProductView';
 
 const Products = async ({ params }: { params: Promise<{ id: string }> }) => {

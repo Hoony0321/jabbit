@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuthStore } from '../../../store/authStore';
+import { useAuthStore } from '../../../client/store/authStore';
 import LogoutBtn from './LogoutBtn';
 import LoginBtn from './LoginBtn';
 

@@ -1,5 +1,5 @@
 import { findSheetDataById } from '@/src/server/service/googleSheet/googleSheetService';
-import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
+import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
 import {
   EXPERT_SHEET_NAME,
   EXPERT_SHEET_RANGE,

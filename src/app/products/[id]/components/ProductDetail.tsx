@@ -3,9 +3,9 @@ import VerifiedIconSVG from '@/public/assets/verifiedBadge.svg';
 import Specialties from './Specialties';
 import Certification from './Certification';
 import SpecialtyDetailBadge from './SpecialtyDetailBadge';
-import { parseDescription } from '@/src/utils/parser';
+import { parseDescription } from '@/src/client/utils/parser';
 import Experience from './Experience';
-import { activity } from '@/src/types/activity';
+import { activity } from '@/src/client/types/activity';
 import Activity from './Activity';
 
 type experience = {

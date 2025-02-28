@@ -1,8 +1,8 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import FooterLogoSVG from '@/public/assets/logo_footer.svg';
 import BaseLink from '@/src/app/common/BaseLink/BaseLink';
-import { PRIVACY_POLICY_URL } from '@/src/constants/URL';
-import { TERMS_OF_SERVICE_URL } from '@/src/constants/URL';
+import { PRIVACY_POLICY_URL } from '@/src/client/constants/URL';
+import { TERMS_OF_SERVICE_URL } from '@/src/client/constants/URL';
 
 const Footer = () => {
   return (

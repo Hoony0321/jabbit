@@ -2,7 +2,7 @@
 
 import { Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '../../../store/authStore';
+import { useAuthStore } from '../../../client/store/authStore';
 
 const LogoutBtn = () => {
   const router = useRouter();

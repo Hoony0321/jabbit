@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { Provider } from '@/src/components/ui/provider';
+import { Provider } from '@/src/client/components/ui/provider';
 import { Theme } from '@chakra-ui/react';
 import localFont from 'next/font/local';
-import { Toaster } from '@/src/components/ui/toaster';
+import { Toaster } from '@/src/client/components/ui/toaster';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import ChannelTalk from './common/ChannelTalk/ChannelTalk';
 import MobileNotSupported from './components/MobileNotSupported/MobileNotSupported';
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const pretendard = localFont({
-  src: '../font/PretendardVariable.woff2',
+  src: '../client/font/PretendardVariable.woff2',
   display: 'swap',
 });
 

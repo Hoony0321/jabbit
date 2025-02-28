@@ -1,5 +1,5 @@
 import { API_MESSAGES } from '@/src/server/constants/API_MESSAGES';
-import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
+import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
 import {
   EXPERT_SHEET_NAME,
   EXPERT_SHEET_RANGE,

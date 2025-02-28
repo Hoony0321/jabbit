@@ -4,11 +4,11 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import KakaoLoginBtnSVG from '@/public/assets/KakaoLoginBtn.svg';
 import NaverLoginBtnSVG from '@/public/assets/NaverLoginBtn.svg';
-import { OAUTH } from '@/src/config/auth';
+import { OAUTH } from '@/src/client/config/auth';
 import Footer from '../components/Footer/Footer';
 import Logo from '../common/Logo/Logo';
-import { TERMS_OF_SERVICE_URL } from '@/src/constants/URL';
-import { PRIVACY_POLICY_URL } from '@/src/constants/URL';
+import { TERMS_OF_SERVICE_URL } from '@/src/client/constants/URL';
+import { PRIVACY_POLICY_URL } from '@/src/client/constants/URL';
 import BaseLink from '../common/BaseLink/BaseLink';
 
 const handleKakaoLogin = () => {

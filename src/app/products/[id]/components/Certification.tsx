@@ -1,6 +1,6 @@
 'use client';
 
-import { EXPERT_CERTIFICATIONS } from '@/src/constants/EXPERT';
+import { EXPERT_CERTIFICATIONS } from '@/src/client/constants/EXPERT';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 

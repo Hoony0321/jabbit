@@ -1,6 +1,6 @@
-import { ApiResponse } from '@/src/types/apiResponse';
+import { ApiResponse } from '@/src/client/types/apiResponse';
 import { NextResponse } from 'next/server';
-import { ErrorInfoKey } from '@/src/constants/ERROR_INFOS';
+import { ErrorInfoKey } from '@/src/client/constants/ERROR_INFOS';
 
 const ALLOWED_ORIGIN = 'https://www.jabbit.my';
 const ALLOWED_METHODS = 'GET, POST, PUT, DELETE, OPTIONS';

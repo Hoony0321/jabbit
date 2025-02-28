@@ -1,4 +1,4 @@
-import { OAUTH } from '@/src/config/auth';
+import { OAUTH } from '@/src/client/config/auth';
 
 export const getAccessToken = async (
   code: string,

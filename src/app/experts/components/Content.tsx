@@ -8,10 +8,10 @@ import Footer from '../../components/Footer/Footer';
 import { ProductSimpleDto } from '@/src/server/dtos/product.simple.dto';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { AppError } from '@/src/errors/AppError';
-import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
-import { useErrorToast } from '@/src/errors/useErrorToast';
-import { BASE_URL } from '@/src/constants/API';
+import { AppError } from '@/src/client/errors/AppError';
+import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
+import { useErrorToast } from '@/src/client/errors/useErrorToast';
+import { BASE_URL } from '@/src/client/constants/API';
 
 const Content = () => {
   const searchParams = useSearchParams();

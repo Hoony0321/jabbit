@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { parseActivity } from '@/src/utils/parser';
-import { activity } from '@/src/types/activity';
+import { parseActivity } from '@/src/client/utils/parser';
+import { activity } from '@/src/client/types/activity';
 interface ActivityProps {
   activities: activity[];
 }

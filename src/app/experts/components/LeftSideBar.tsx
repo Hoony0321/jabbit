@@ -1,4 +1,4 @@
-import { EXPERT_SPECIALTIES } from '@/src/constants/EXPERT';
+import { EXPERT_SPECIALTIES } from '@/src/client/constants/EXPERT';
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 
 const LeftSideBar = ({

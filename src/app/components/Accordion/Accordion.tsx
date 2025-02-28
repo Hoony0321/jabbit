@@ -1,11 +1,11 @@
 import { Flex, Text } from '@chakra-ui/react';
-import AccordionItemType from '../../../types/accordionItem';
+import AccordionItemType from '../../../client/types/accordionItem';
 import {
   AccordionItem,
   AccordionItemContent,
   AccordionItemTrigger,
   AccordionRoot,
-} from '@/src/components/ui/accordion';
+} from '@/src/client/components/ui/accordion';
 
 interface AccordionProps {
   title?: string;

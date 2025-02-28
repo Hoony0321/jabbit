@@ -1,8 +1,8 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { ERROR_INFOS } from '@/src/constants/ERROR_INFOS';
-import { AppError } from '@/src/errors/AppError';
-import { useErrorToast } from '@/src/errors/useErrorToast';
-import { useAuthStore, User } from '@/src/store/authStore';
+import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
+import { AppError } from '@/src/client/errors/AppError';
+import { useErrorToast } from '@/src/client/errors/useErrorToast';
+import { useAuthStore, User } from '@/src/client/store/authStore';
 import { Spinner } from '@chakra-ui/react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
