@@ -42,9 +42,8 @@ const MobileNotSupported = ({ children }: { children: React.ReactNode }) => {
         xl: '45px',
       }}
     >
-      <Text>현재 모바일 기기 지원을 열심히 제작하고 있어요.</Text>
-      <Text>1280px 이상 너비의 기기에서 사용해주세요.</Text>
-      <Text>현재 화면 너비: {windowWidth}px</Text>
+      <Text>재빗은 PC에서 쓸 수 있어요.</Text>
+      <Text>지금 접속하면 [영업없는 재무상담]을 받을 수 있어요! </Text>
     </Flex>
   );
 };

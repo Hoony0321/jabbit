@@ -12,7 +12,8 @@ const Experience = ({ type, description }: ExperienceProps) => {
     <Flex gap="10px" alignItems="center">
       {type === '현' ? <CurrentExperienceSVG /> : <FormerExperienceSVG />}
       <Text fontSize="16px" color="main.black_4">
-        {description}
+        {type}
+        {')'} {description}
       </Text>
     </Flex>
   );

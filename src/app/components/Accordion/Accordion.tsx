@@ -28,7 +28,11 @@ const Accordion = ({ title, content }: AccordionProps) => {
                 color="main.black_2"
                 paddingLeft="32px"
               >
-                {item.text}
+                {item.text.split('\n').map((line, index) => (
+                  <Text key={index} marginBottom="4px">
+                    {line}
+                  </Text>
+                ))}
               </AccordionItemContent>
             </AccordionItem>
           ))}
