@@ -26,7 +26,9 @@ const FloatingCard = ({
   return (
     <Flex
       w="563px"
-      h="817px"
+      h="72vh"
+      maxH="817px"
+      minH="min-content"
       padding="44px 0"
       position="fixed"
       borderRadius="10px"
@@ -44,13 +46,26 @@ const FloatingCard = ({
         <VerifiedIconSVG />
       </Flex>
       {/* 이미지 카드, 버튼 섹션 */}
-      <Flex flexDirection="column" gap="50px">
-        <Box w="400px" h="400px" borderRadius="10px" overflow="hidden">
+      <Flex
+        flexDirection="column"
+        h="75%"
+        justifyContent="space-between"
+        gap="10px"
+      >
+        <Box
+          position="relative"
+          maxW="400px"
+          maxH="400px"
+          width="100%"
+          height="45dvh"
+          borderRadius="10px"
+          overflow="hidden"
+        >
           <Image
-            width={400}
-            height={400}
             src={expertImage}
             alt="expert_image"
+            style={{ objectFit: 'cover' }}
+            fill
           />
         </Box>
         <Flex gap="18px">
@@ -98,7 +113,7 @@ const FloatingCard = ({
         </Flex>
       </Flex>
       {/* 상담신청 버튼 섹션 */}
-      <Box position="relative">
+      <Box position="relative" flexShrink={0}>
         <Flex
           zIndex="10"
           position="absolute"
