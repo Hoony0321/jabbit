@@ -5,16 +5,20 @@ import { useErrorToast } from '@/src/client/errors/useErrorToast';
 import { useAuthStore, User } from '@/src/client/store/authStore';
 import { Spinner } from '@chakra-ui/react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const AuthPageContent = () => {
   const router = useRouter();
   const code = useSearchParams().get('code');
   const { setUser } = useAuthStore();
   const { showErrorToast } = useErrorToast();
+  const [isFetching, setIsFetching] = useState(false);
+  const [executedCode, setExecutedCode] = useState<string | null>(null);
 
   useEffect(() => {
-    if (code) {
+    if (code && executedCode !== code && !isFetching) {
+      setExecutedCode(code);
+      setIsFetching(true);
       fetch(`/api/auth/kakao/callback?code=${code}`)
         .then(async (res) => {
           const data = await res.json();
@@ -45,9 +49,12 @@ const AuthPageContent = () => {
 
           showErrorToast(error);
           router.replace('/login');
+        })
+        .finally(() => {
+          setIsFetching(false);
         });
     }
-  }, [code, router, setUser]);
+  }, [code]);
 
   return (
     <Flex

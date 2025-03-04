@@ -1,6 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { parseActivity } from '@/src/client/utils/parser';
 import { activity } from '@/src/client/types/activity';
+import BaseLink from '@/src/app/common/BaseLink/BaseLink';
 interface ActivityProps {
   activities: activity[];
 }
@@ -35,17 +36,29 @@ const Activity = ({ activities }: ActivityProps) => {
             보도/방송
           </Text>
           <Flex flexDirection="column">
-            {parsedActivity.press.map((activity) => (
-              <Text
-                key={activity}
-                fontSize="16px"
-                fontWeight={500}
-                color="main.black_4"
-                textDecoration="underline"
-              >
-                {activity}
-              </Text>
-            ))}
+            {parsedActivity.press.map((activity) => {
+              return activity.url ? (
+                <BaseLink key={activity.string} href={activity.url}>
+                  <Text
+                    fontSize="16px"
+                    fontWeight={500}
+                    color="main.black_4"
+                    textDecoration="underline"
+                  >
+                    {activity.string}
+                  </Text>
+                </BaseLink>
+              ) : (
+                <Text
+                  key={activity.string}
+                  fontSize="16px"
+                  fontWeight={500}
+                  color="main.black_4"
+                >
+                  {activity.string}
+                </Text>
+              );
+            })}
           </Flex>
         </Flex>
       )}

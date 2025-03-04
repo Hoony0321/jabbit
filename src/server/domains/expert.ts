@@ -7,6 +7,7 @@ export interface Activity {
   type: string;
   year: string;
   description: string;
+  url?: string;
 }
 
 export interface Expert {

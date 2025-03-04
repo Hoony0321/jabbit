@@ -5,16 +5,21 @@ import { useErrorToast } from '@/src/client/errors/useErrorToast';
 import { useAuthStore, User } from '@/src/client/store/authStore';
 import { Spinner } from '@chakra-ui/react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const AuthPageContent = () => {
   const router = useRouter();
   const code = useSearchParams().get('code');
   const { setUser } = useAuthStore();
   const { showErrorToast } = useErrorToast();
+  const [executedCode, setExecutedCode] = useState<string | null>(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    if (code) {
+    if (code && executedCode !== code && !isFetching) {
+      setExecutedCode(code);
+      setIsFetching(true);
+
       const state = localStorage.getItem('naverState');
       fetch(`/api/auth/naver/callback?code=${code}&state=${state}`)
         .then(async (res) => {
@@ -31,6 +36,7 @@ const AuthPageContent = () => {
             id: data.id,
             provider: data.provider,
           };
+
           setUser(user, data.token);
           router.replace('/');
         })
@@ -46,9 +52,12 @@ const AuthPageContent = () => {
 
           showErrorToast(error);
           router.replace('/login');
+        })
+        .finally(() => {
+          setIsFetching(false);
         });
     }
-  }, [code, router, setUser]);
+  }, [code]);
 
   return (
     <Flex
