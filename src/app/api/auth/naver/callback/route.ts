@@ -30,7 +30,7 @@ export async function GET(req: Request) {
 
     // access_token으로 사용자 정보 요청
     const userData = await getUserInfo(tokenData.access_token, 'NAVER');
-    if (!userData.response.id) {
+    if (userData.message !== 'success') {
       return createErrorApiResponse(
         ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
         'auth.fetchUserInfoFailed',

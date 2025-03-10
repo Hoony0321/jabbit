@@ -29,6 +29,12 @@ export async function GET(req: Request) {
 
     // access_token으로 사용자 정보 요청
     const userData = await getUserInfo(tokenData.access_token, 'KAKAO');
+    if (!userData.id) {
+      return createErrorApiResponse(
+        ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
+        'auth.fetchUserInfoFailed',
+      );
+    }
 
     // JWT 토큰 생성
     const jwtToken = createJwtToken({
