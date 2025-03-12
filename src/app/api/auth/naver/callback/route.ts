@@ -30,6 +30,7 @@ export async function GET(req: Request) {
 
     // access_token으로 사용자 정보 요청
     const userData = await getUserInfo(tokenData.access_token, 'NAVER');
+    console.log('userData', userData);
     if (userData.message !== 'success') {
       return createErrorApiResponse(
         ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
@@ -52,7 +53,8 @@ export async function GET(req: Request) {
       },
       API_MESSAGES['READ_SUCCESS'],
     );
-  } catch {
+  } catch (error) {
+    console.error('Naver 인증 콜백 오류:', error);
     return createErrorApiResponse(
       ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
       'auth.fetchUserInfoFailed',
