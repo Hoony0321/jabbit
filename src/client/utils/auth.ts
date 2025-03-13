@@ -3,6 +3,7 @@ import { OAUTH } from '@/src/client/config/auth';
 export const getAccessToken = async (
   code: string,
   provider: keyof typeof OAUTH,
+  state?: string,
 ) => {
   const response = await fetch(OAUTH[provider].TOKEN_URL, {
     method: 'POST',
@@ -13,6 +14,7 @@ export const getAccessToken = async (
       client_secret: process.env[`${provider}_CLIENT_SECRET`] ?? '',
       redirect_uri: process.env[`${provider}_REDIRECT_URI`] ?? '',
       code,
+      state: state ?? '',
     }),
   });
 
