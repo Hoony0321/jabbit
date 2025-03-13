@@ -22,6 +22,7 @@ export async function GET(req: Request) {
 
   try {
     // 인증 코드로 access_token 요청
+    await fetch('https://nid.naver.com', { method: 'HEAD' }).catch(() => {});
     const tokenData = await getAccessToken(code, 'NAVER', state);
     console.log('tokenData', tokenData);
     if (!tokenData.access_token) {
