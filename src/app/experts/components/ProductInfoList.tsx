@@ -1,9 +1,8 @@
 import { Flex, Spinner, Text, Center } from '@chakra-ui/react';
 import ProductInfoCard from './ProductInfoCard';
-import { ProductSimpleDto } from '@/src/server/dtos/product.simple.dto';
-
+import { SimpleProduct } from '@/src/client/types/product';
 interface ProductInfoListProps {
-  products: ProductSimpleDto[];
+  products: SimpleProduct[];
   isLoading: boolean;
 }
 

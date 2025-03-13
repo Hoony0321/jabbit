@@ -1,11 +1,11 @@
 'use client';
 import { Suspense } from 'react';
-import Content from './components/Content';
+import ExpertsPageContainer from './components/ExpertsPageContainer';
 
 const ExpertsPage = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Content />
+      <ExpertsPageContainer />
     </Suspense>
   );
 };

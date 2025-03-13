@@ -1,8 +1,7 @@
 import { Box, Flex, Text, Link } from '@chakra-ui/react';
-import { ProductSimpleDto } from '@/src/server/dtos/product.simple.dto';
 import VerifiedBadgeSVG from '@/public/assets/verifiedBadge.svg';
-import type { ProductPriceInfo } from '@/src/server/domains/product';
 import Image from 'next/image';
+import { SimpleProduct, ProductPriceInfo } from '@/src/client/types/product';
 
 const ProductTitle = ({ name }: { name: string }) => {
   return (
@@ -49,20 +48,30 @@ const formatKRW = (price: number) => {
   }).format(price);
 };
 
-const ProductPriceInfo = ({ priceInfo }: { priceInfo: ProductPriceInfo }) => {
+const ProductMinimumPriceInfo = ({
+  name,
+  price,
+}: {
+  name: string;
+  price: number;
+}) => {
   return (
     <Flex flexDirection="row">
       <Text fontSize="14px" fontWeight="500" color="primary">
-        {priceInfo.name}
+        {name}
       </Text>
       <Text fontSize="14px" fontWeight="500" color="#93844F" ml="4px">
-        {` | ${formatKRW(priceInfo.price)}원 ~`}
+        {` | ${formatKRW(price)}원 ~`}
       </Text>
     </Flex>
   );
 };
 
-const ProfileImage = ({ product }: { product: ProductSimpleDto }) => {
+const ProfileImage = ({
+  profileImageUrl,
+}: {
+  profileImageUrl: string | undefined;
+}) => {
   const imageStyle = {
     width: '140px',
     height: '140px',
@@ -71,9 +80,9 @@ const ProfileImage = ({ product }: { product: ProductSimpleDto }) => {
     borderRadius: '20px',
   };
 
-  return product.expert.profileImageUrl ? (
+  return profileImageUrl ? (
     <Image
-      src={product.expert.profileImageUrl}
+      src={profileImageUrl}
       alt="profile image"
       width={140}
       height={140}
@@ -105,7 +114,13 @@ const MoreInfoButton = () => {
     </Text>
   );
 };
-const ProductInfoCard = ({ product }: { product: ProductSimpleDto }) => {
+const ProductInfoCard = ({ product }: { product: SimpleProduct }) => {
+  const minimumPriceInfo = product.priceInfos.reduce(
+    (min: ProductPriceInfo, current: ProductPriceInfo) => {
+      return current.price < min.price ? current : min;
+    },
+  );
+
   return (
     <Link
       href={`/products/${product.id}`}
@@ -129,10 +144,13 @@ const ProductInfoCard = ({ product }: { product: ProductSimpleDto }) => {
           <Box h="16px" />
           <ProductDetailFields fields={product.detailFields} />
           <Box h="30px" />
-          <ProductPriceInfo priceInfo={product.getMinimumPriceInfo()} />
+          <ProductMinimumPriceInfo
+            name={minimumPriceInfo.name}
+            price={minimumPriceInfo.price}
+          />
         </Flex>
         <Flex flexDirection="column" alignItems="center">
-          <ProfileImage product={product} />
+          <ProfileImage profileImageUrl={product.expert.profileImageUrl} />
           <Box h="40px" />
           <MoreInfoButton />
         </Flex>

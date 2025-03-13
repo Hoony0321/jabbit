@@ -10,8 +10,6 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const code = url.searchParams.get('code');
   const state = url.searchParams.get('state');
-  console.log('code', code);
-  console.log('state', state);
 
   if (!code || !state) {
     return createErrorApiResponse(
@@ -24,7 +22,6 @@ export async function GET(req: Request) {
     // 인증 코드로 access_token 요청
     await fetch('https://nid.naver.com', { method: 'HEAD' }).catch(() => {});
     const tokenData = await getAccessToken(code, 'NAVER', state);
-    console.log('tokenData', tokenData);
     if (!tokenData.access_token) {
       return createErrorApiResponse(
         ERROR_INFOS['auth.accessTokenFailed'].statusCode,
@@ -34,7 +31,6 @@ export async function GET(req: Request) {
 
     // access_token으로 사용자 정보 요청
     const userData = await getUserInfo(tokenData.access_token, 'NAVER');
-    console.log('userData', userData);
     if (userData.message !== 'success') {
       return createErrorApiResponse(
         ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
@@ -57,8 +53,7 @@ export async function GET(req: Request) {
       },
       API_MESSAGES['READ_SUCCESS'],
     );
-  } catch (error) {
-    console.error('Naver 인증 콜백 오류:', error);
+  } catch {
     return createErrorApiResponse(
       ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
       'auth.fetchUserInfoFailed',

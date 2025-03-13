@@ -18,8 +18,6 @@ export const getAccessToken = async (
     }),
   });
 
-  console.log('get access token response', response);
-
   const tokenData = await response.json();
   return tokenData;
 };

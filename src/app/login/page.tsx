@@ -18,7 +18,6 @@ const handleKakaoLogin = () => {
 const handleNaverLogin = () => {
   const naverState = uuidv4();
   localStorage.setItem('naverState', naverState);
-  console.log('naverState', naverState);
   window.location.href = OAUTH.NAVER.AUTH_URL(naverState);
 };
 
