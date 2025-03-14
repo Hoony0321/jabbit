@@ -25,7 +25,7 @@ export const ERROR_INFOS = {
 
   // google sheet
   'googleSheet.noData': {
-    message: '데이터를 가져오지 못했습니다.',
+    message: '데이터를 찾을 수 없습니다.',
     statusCode: 404,
   },
   'googleSheet.parseError': {

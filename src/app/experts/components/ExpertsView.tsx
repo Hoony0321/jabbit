@@ -23,9 +23,7 @@ const ExpertsView = ({ data, isLoading }: ExpertsViewProps) => {
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
   useEffect(() => {
-    console.log('data', data);
     if (data.length > 0) {
-      console.log('data', data);
       const filteredProducts = data.filter(
         (product) => product.category === selectedSpecialty,
       );

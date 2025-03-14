@@ -6,6 +6,7 @@ import {
   createSuccessApiResponse,
 } from '@/src/server/utils/apiResponseUtils';
 import { API_MESSAGES } from '@/src/server/constants/API_MESSAGES';
+import { BASE_URL } from '@/src/server/constants/API';
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const code = url.searchParams.get('code');
@@ -32,6 +33,27 @@ export async function GET(req: Request) {
     // access_token으로 사용자 정보 요청
     const userData = await getUserInfo(tokenData.access_token, 'NAVER');
     if (userData.message !== 'success') {
+      return createErrorApiResponse(
+        ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
+        'auth.fetchUserInfoFailed',
+      );
+    }
+
+    // 사용자 정보 조회
+    const userReadResponse = await fetch(
+      `${BASE_URL}/users/${userData.response.id}`,
+    );
+    if (userReadResponse.status === 404) {
+      // 사용자 정보가 없으면 생성
+      await fetch(`${BASE_URL}/users`, {
+        method: 'POST',
+        body: JSON.stringify({
+          id: userData.response.id,
+          provider: 'NAVER',
+          createdAt: new Date(),
+        }),
+      });
+    } else if (userReadResponse.status !== 200) {
       return createErrorApiResponse(
         ERROR_INFOS['auth.fetchUserInfoFailed'].statusCode,
         'auth.fetchUserInfoFailed',

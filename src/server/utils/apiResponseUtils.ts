@@ -1,6 +1,6 @@
 import { ApiResponse } from '@/src/client/types/apiResponse';
 import { NextResponse } from 'next/server';
-import { ErrorInfoKey } from '@/src/client/constants/ERROR_INFOS';
+import { ERROR_INFOS, ErrorInfoKey } from '@/src/client/constants/ERROR_INFOS';
 
 const ALLOWED_ORIGIN = 'https://www.jabbit.my';
 const ALLOWED_METHODS = 'GET, POST, PUT, DELETE, OPTIONS';
@@ -52,7 +52,11 @@ export const createErrorApiResponse = (
   errorInfoKey: ErrorInfoKey,
 ): NextResponse<ApiResponse> => {
   const response = NextResponse.json(
-    { success: false, status, errorInfoKey },
+    {
+      success: false,
+      status,
+      message: ERROR_INFOS[errorInfoKey].message,
+    },
     { status },
   );
 
