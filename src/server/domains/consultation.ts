@@ -1,3 +1,8 @@
+export interface Proposal {
+  title: string;
+  description: string;
+}
+
 export interface Consultation {
   id: string;
   userId: string;
@@ -5,8 +10,8 @@ export interface Consultation {
   expertName: string;
   title: string;
   field: string;
-  mainProposals: string[];
-  additionalProposals: string[];
+  mainProposals: Proposal[];
+  additionalProposals: Proposal[];
   status: string;
   createdAt: string;
 }

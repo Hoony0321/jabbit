@@ -1,4 +1,4 @@
-import { Consultation } from '@/src/server/domains/consultation';
+import { Consultation, Proposal } from '@/src/server/domains/consultation';
 
 export class ConsultationDto {
   id: string;
@@ -7,8 +7,8 @@ export class ConsultationDto {
   expertName: string;
   title: string;
   field: string;
-  mainProposals: string[];
-  additionalProposals: string[];
+  mainProposals: Proposal[];
+  additionalProposals: Proposal[];
   status: string;
   createdAt: string;
 
