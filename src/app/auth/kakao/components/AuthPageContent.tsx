@@ -21,14 +21,16 @@ const AuthPageContent = () => {
       setIsFetching(true);
       fetch(`/api/auth/kakao/callback?code=${code}`)
         .then(async (res) => {
-          const data = await res.json();
+          const response = await res.json();
 
-          if (!data.success) {
+          if (!response.success) {
             throw new AppError({
               statusCode: res.status,
-              errorInfoKey: data.errorInfoKey || 'unknownError',
+              errorInfoKey: response.errorInfoKey || 'unknownError',
             });
           }
+
+          const data = response.data;
 
           const user: User = {
             id: data.id,
