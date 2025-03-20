@@ -27,11 +27,11 @@ export const PRODUCT_SHEET_HEADERS = [
 ];
 
 export const USER_SHEET_NAME = 'user';
-export const USER_SHEET_RANGE = 'A1:C';
-export const USER_SHEET_HEADERS = ['id', 'provider', 'createdAt'];
+export const USER_SHEET_RANGE = 'A1:D';
+export const USER_SHEET_HEADERS = ['id', 'provider', 'email', 'createdAt'];
 
 export const CONSULTATION_SHEET_NAME = 'consultation';
-export const CONSULTATION_SHEET_RANGE = 'A1:J';
+export const CONSULTATION_SHEET_RANGE = 'A1:M';
 export const CONSULTATION_SHEET_HEADERS = [
   'id',
   'userId',
@@ -43,4 +43,7 @@ export const CONSULTATION_SHEET_HEADERS = [
   'additionalProposals',
   'status',
   'createdAt',
+  'profits',
+  'profitInfo',
+  'weeklyMissions',
 ];

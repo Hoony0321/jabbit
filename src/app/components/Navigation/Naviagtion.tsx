@@ -3,6 +3,7 @@
 import { Button, Flex, Group, Link } from '@chakra-ui/react';
 import AuthBtn from '../AuthBtn/AuthBtn';
 import Logo from '../../common/Logo/Logo';
+import MyPageBtn from '../MyPageBtn/MyPageBtn';
 
 const Navigation = () => {
   return (
@@ -38,7 +39,10 @@ const Navigation = () => {
           커뮤니티
         </Button>
       </Group>
-      <AuthBtn />
+      <Group>
+        <MyPageBtn />
+        <AuthBtn />
+      </Group>
     </Flex>
   );
 };

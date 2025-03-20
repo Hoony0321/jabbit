@@ -39,6 +39,7 @@ export async function GET(req: Request) {
 
     // 사용자 정보 조회
     const userReadResponse = await fetch(`${BASE_URL}/users/${userData.id}`);
+    console.log(userData);
     if (userReadResponse.status === 404) {
       // 사용자 정보가 없으면 생성
       await fetch(`${BASE_URL}/users`, {
@@ -46,7 +47,8 @@ export async function GET(req: Request) {
         body: JSON.stringify({
           id: userData.id,
           provider: 'KAKAO',
-          createdAt: new Date(),
+          email: userData.kakao_account.email,
+          createdAt: new Date(new Date().getTime() + 9 * 60 * 60 * 1000),
         }),
       });
     } else if (userReadResponse.status !== 200) {

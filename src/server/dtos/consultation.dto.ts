@@ -1,4 +1,10 @@
-import { Consultation, Proposal } from '@/src/server/domains/consultation';
+import {
+  Consultation,
+  Mission,
+  ProfitInfo,
+  Profits,
+  Proposal,
+} from '@/src/server/domains/consultation';
 
 export class ConsultationDto {
   id: string;
@@ -11,6 +17,9 @@ export class ConsultationDto {
   additionalProposals: Proposal[];
   status: string;
   createdAt: string;
+  profits: Profits;
+  profitInfo: ProfitInfo;
+  weeklyMissions: Mission[];
 
   constructor(consultation: Consultation) {
     this.id = consultation.id;
@@ -23,5 +32,8 @@ export class ConsultationDto {
     this.additionalProposals = consultation.additionalProposals;
     this.status = consultation.status;
     this.createdAt = consultation.createdAt;
+    this.profits = consultation.profits;
+    this.profitInfo = consultation.profitInfo;
+    this.weeklyMissions = consultation.weeklyMissions;
   }
 }

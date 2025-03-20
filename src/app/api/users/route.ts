@@ -42,8 +42,10 @@ export async function POST(req: Request) {
     return preflightResponse;
   }
 
-  const { id, provider, createdAt } = await req.json();
-  await appendSheetData(USER_SHEET_NAME, 'A:A', [[id, provider, createdAt]]);
+  const { id, provider, email, createdAt } = await req.json();
+  await appendSheetData(USER_SHEET_NAME, 'A:A', [
+    [id, provider, email, createdAt],
+  ]);
 
   return createSuccessApiResponse(200, [], API_MESSAGES['CREATE_SUCCESS']);
 }

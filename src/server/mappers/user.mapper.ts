@@ -21,6 +21,7 @@ export class UserMapper {
     return {
       id: dataRow[columnIndexes.id],
       provider: dataRow[columnIndexes.provider],
+      email: dataRow[columnIndexes.email],
       createdAt: new Date(dataRow[columnIndexes.createdAt]),
     };
   }

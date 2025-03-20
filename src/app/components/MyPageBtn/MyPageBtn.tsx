@@ -1,16 +1,19 @@
 'use client';
 
+import { useAuthStore } from '@/src/client/store/authStore';
 import { Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '../../../client/store/authStore';
 
-const LogoutBtn = () => {
+const MyPageBtn = () => {
   const router = useRouter();
-  const { logout } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
 
-  const handleLogout = () => {
-    logout();
-    router.replace('/');
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  const handleMyPage = () => {
+    router.push('/mypage');
   };
 
   return (
@@ -20,7 +23,7 @@ const LogoutBtn = () => {
       color="main.black_2"
       cursor="pointer"
       h="61px"
-      onClick={handleLogout}
+      onClick={handleMyPage}
       transition="all 0.2s ease-in-out"
       textAlign="center"
       display="flex"
@@ -31,10 +34,11 @@ const LogoutBtn = () => {
         transform: 'scale(1.05)',
         textDecoration: 'underline',
       }}
+      mr="40px"
     >
-      로그아웃
+      마이페이지
     </Text>
   );
 };
 
-export default LogoutBtn;
+export default MyPageBtn;
