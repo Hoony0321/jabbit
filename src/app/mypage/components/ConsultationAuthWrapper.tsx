@@ -13,7 +13,7 @@ const ConsultationAuthWrapper = ({
   targetUserId,
 }: ConsultationAuthWrapperProps) => {
   const { user } = useAuthStore();
-  if (!user || user.id !== targetUserId) {
+  if (!user || user.id != targetUserId) {
     redirect('/');
   }
   return children;
