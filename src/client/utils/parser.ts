@@ -39,3 +39,10 @@ export const parseActivity = (activities: activity[]) => {
 
   return parsedActivity;
 };
+
+export const parseLastTwoNumberOfYear = (date: string) => {
+  const year = date.split('.')[0];
+  const month = date.split('.')[1];
+  const day = date.split('.')[2];
+  return `${year.slice(-2)}.${month}.${day}`;
+};
