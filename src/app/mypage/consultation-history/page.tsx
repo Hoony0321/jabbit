@@ -6,7 +6,7 @@ import NoData from '../components/NoData';
 const ConsultationHistory = async ({
   searchParams,
 }: {
-  searchParams: { userId: string };
+  searchParams: Promise<{ userId: string }>;
 }) => {
   const params = await searchParams;
   const userId = params.userId;

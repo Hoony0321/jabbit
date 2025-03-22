@@ -5,8 +5,8 @@ const ConsultationReportPage = async ({
   params,
   searchParams,
 }: {
-  params: { consultationId: string };
-  searchParams: { userId: string };
+  params: Promise<{ consultationId: string }>;
+  searchParams: Promise<{ userId: string }>;
 }) => {
   const paramsData = await params;
   const searchParamsData = await searchParams;
