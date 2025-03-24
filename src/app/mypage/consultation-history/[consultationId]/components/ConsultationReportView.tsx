@@ -92,9 +92,12 @@ const ConsultationReportView = ({
             <Text fontSize="20px" fontWeight="600">
               주간 미션을 추천드려요
             </Text>
-            {weeklyMissions.map((mission, index) => (
-              <MissionAccordion key={index} index={index} {...mission} />
-            ))}
+            {weeklyMissions.map((mission, index) => {
+            const rank = index + 1;
+            return (
+              <MissionAccordion key={index} rank={rank} {...mission} />
+            );
+            })}
           </Flex>
         </Flex>
         <Box margin="54px auto 120px auto" position="relative" flexShrink={0}>
