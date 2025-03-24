@@ -41,7 +41,7 @@ const MissionAccordion = ({
               color="
             #B0AB9A"
             >
-              미션# {rank}
+              미션 #{rank}
             </Text>
           </Flex>
 
