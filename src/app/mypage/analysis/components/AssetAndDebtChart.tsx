@@ -5,17 +5,19 @@ import { formatKoreanCurrency } from '@/src/client/utils/currency';
 import RatioWithColorBox from './RatioWithColorBox';
 
 interface AssetAndDebtChartProps {
-  totalAsset: number;
-  totalDebt: number;
+  totalAssets: number;
+  debt: number;
+  netWorth: number;
 }
 
 const AssetAndDebtChart = ({
-  totalAsset,
-  totalDebt,
+  totalAssets,
+  debt,
+  netWorth,
 }: AssetAndDebtChartProps) => {
   const { debtToAssetRatio, netWorthRatio } = calculateDebtToAssetRatio(
-    totalAsset,
-    totalDebt,
+    totalAssets,
+    debt,
   );
   return (
     <Flex
@@ -32,7 +34,7 @@ const AssetAndDebtChart = ({
           자산/부채
         </Text>
         <Text fontSize="18px" fontWeight="500">
-          총 자산 {formatKoreanCurrency(totalAsset)}원
+          총 자산 {formatKoreanCurrency(totalAssets)}원
         </Text>
       </Flex>
       <HalfPieChart firstRatio={netWorthRatio} secondRatio={debtToAssetRatio} />
@@ -41,13 +43,13 @@ const AssetAndDebtChart = ({
           color="#fbde8c"
           ratio={netWorthRatio}
           text="순자산"
-          value={totalAsset - totalDebt}
+          value={netWorth}
         />
         <RatioWithColorBox
           color="#5751be"
           ratio={debtToAssetRatio}
           text="부채"
-          value={totalDebt}
+          value={debt}
         />
       </Flex>
     </Flex>

@@ -1,34 +1,42 @@
-'use client';
-import { Flex } from '@chakra-ui/react';
-import AnalysisTab from './components/AnalysisTab';
-import { ANALYSIS_TAB_DATA } from '@/src/client/constants/MYPAGE';
-import { useSearchParams } from 'next/navigation';
-import Summary from './components/Tab/Summary';
-import DignosticEvaluation from './components/Tab/DignosticEvaluation';
-
-const Analysis = () => {
-  const searchParams = useSearchParams();
-  const currentTab = searchParams.get('tab') || ANALYSIS_TAB_DATA[0];
-
-  const renderTabContent = () => {
-    switch (currentTab) {
-      case '요약':
-        return <Summary />;
-      case '진단평가':
-        return <DignosticEvaluation />;
-      default:
-        return null;
-    }
-  };
-
+import AnalysisClient from './AnalysisClient';
+import { Suspense } from 'react';
+import { BASE_URL } from '@/src/client/constants/API';
+import LoadingPage from '@/src/app/common/LoadingPage/LoadingPage';
+import NoData from '../components/NoData';
+export default async function AnalysisPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ userId: string }>;
+}) {
   return (
-    <Flex flexDirection="column" w="100%">
-      <AnalysisTab defaultTab={ANALYSIS_TAB_DATA[0]} />
-      <Flex width="100%" mt="24px">
-        {renderTabContent()}
-      </Flex>
-    </Flex>
+    <Suspense fallback={<LoadingPage />}>
+      <AnalysisContent searchParams={searchParams} />
+    </Suspense>
   );
-};
+}
 
-export default Analysis;
+const AnalysisContent = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ userId: string }>;
+}) => {
+  const params = await searchParams;
+  const userId = params.userId;
+
+  const response = await fetch(
+    `${BASE_URL}/users/${userId}/financial-analysis`,
+    {
+      method: 'GET',
+      cache: 'no-store',
+    },
+  );
+
+  const financialAnalysisData = await response.json();
+  const data = financialAnalysisData.data;
+
+  if (!data) {
+    return <NoData page="analysis" />;
+  }
+
+  return <AnalysisClient data={data} />;
+};

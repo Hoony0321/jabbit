@@ -5,10 +5,19 @@ import LifeCycleDescription from './LifeCycleDescription';
 import { lifeCycleDescription } from '@/src/client/services/analysis/lifeCycle';
 
 interface LifeCycleSectionProps {
-  age: number;
+  birthYear: number;
+  financialGoal: {
+    goal: string;
+    recommendedGoals: string[];
+    advices: string[];
+  };
 }
 
-const LifeCycleSection = ({ age }: LifeCycleSectionProps) => {
+const LifeCycleSection = ({
+  birthYear,
+  financialGoal,
+}: LifeCycleSectionProps) => {
+  const age = new Date().getFullYear() - birthYear;
   return (
     <Flex flexDirection="column" gap="36px">
       <Flex flexDirection="column" gap="12px">
@@ -22,13 +31,9 @@ const LifeCycleSection = ({ age }: LifeCycleSectionProps) => {
       <LifeCycleChart age={age} />
       <LifeCycleDescription {...lifeCycleDescription(age)} />
       <Accordion
-        goal="사회초년기에 속해있는 분들을 위한 재무목표를 추천드려요!"
-        recommendedGoals={['전세 자금 마련하기', '결혼 자금 마련하기']}
-        advices={[
-          '사회초년기는 재무 습관을 형성하는 중요한 시기예요.',
-          '작은 금액이라도 꾸준히 저축하고, 신용점수를 관리하며 미래에 대출 여력을 확보하는 것도 중요해요.',
-          '가능하면 급여의 일정 비율을 저축하거나 투자하는 습관을 길러보세요!',
-        ]}
+        goal={financialGoal.goal}
+        recommendedGoals={financialGoal.recommendedGoals}
+        advices={financialGoal.advices}
       />
     </Flex>
   );

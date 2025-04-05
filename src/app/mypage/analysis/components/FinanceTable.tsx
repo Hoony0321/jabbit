@@ -1,10 +1,19 @@
 import { Flex, Text } from '@chakra-ui/react';
 import './financeTable.css';
+import {
+  EvaluatedResult,
+  FinancialRatioConfig,
+} from '@/src/client/types/financial';
+
 interface FinanceTableProps {
-  title: string;
+  ratioConstant: FinancialRatioConfig;
+  evaluatedResult: EvaluatedResult[];
 }
 
-const FinanceTable = ({ title }: FinanceTableProps) => {
+const FinanceTable = ({
+  ratioConstant,
+  evaluatedResult,
+}: FinanceTableProps) => {
   return (
     <Flex
       flexDirection="column"
@@ -14,7 +23,7 @@ const FinanceTable = ({ title }: FinanceTableProps) => {
       border="2px solid var(--chakra-colors-main-line)"
     >
       <Text fontSize="20px" fontWeight="600" color="main.black_1">
-        {title}
+        평가 결과
       </Text>
       <table style={{ width: '100%' }}>
         <thead>
@@ -26,14 +35,16 @@ const FinanceTable = ({ title }: FinanceTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td className={item.isFulfilled ? 'fulfilled' : 'not-fulfilled'}>
-                {item.evaluation}
+          {evaluatedResult.map((item: EvaluatedResult) => (
+            <tr key={item.name}>
+              <td>{ratioConstant[item.name].label}</td>
+              <td className={item.evaluation ? 'fulfilled' : 'not-fulfilled'}>
+                {item.evaluation ? '적정' : '부족'}
               </td>
               <td>{item.myRatio}%</td>
-              <td className="recommended-ratio">{item.recommendedRatio}</td>
+              <td className="recommended-ratio">
+                {ratioConstant[item.name].displayText}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -41,58 +52,4 @@ const FinanceTable = ({ title }: FinanceTableProps) => {
     </Flex>
   );
 };
-
-const items = [
-  {
-    id: 1,
-    name: '지출',
-    evaluation: '적정',
-    myRatio: 61.2,
-    recommendedRatio: '70% 이하',
-    isFulfilled: true,
-  },
-  {
-    id: 2,
-    name: '보험료',
-    evaluation: '적정',
-    myRatio: 999.99,
-    recommendedRatio: 999.99,
-    isFulfilled: false,
-  },
-  {
-    id: 3,
-    name: '저축',
-    evaluation: '적정',
-    myRatio: 999.99,
-    recommendedRatio: 999.99,
-  },
-  {
-    id: 4,
-    name: '투자',
-    evaluation: '적정',
-    myRatio: 999.99,
-    recommendedRatio: 999.99,
-  },
-  {
-    id: 5,
-    name: '부채 상환',
-    evaluation: '적정',
-    myRatio: 999.99,
-    recommendedRatio: 999.99,
-  },
-  {
-    id: 6,
-    name: '노후 대비',
-    evaluation: '적정',
-    myRatio: 999.99,
-    recommendedRatio: 999.99,
-  },
-  {
-    id: 7,
-    name: '비상자금 보유',
-    evaluation: '적정',
-    myRatio: 999.99,
-    recommendedRatio: 999.99,
-  },
-];
 export default FinanceTable;

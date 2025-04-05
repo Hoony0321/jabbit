@@ -23,19 +23,8 @@ const NoData = ({ page }: { page: 'analysis' | 'consultation-history' }) => {
           fontSize="20px"
         >
           <Text>아직 재무 정보를 작성하지 않았어요.</Text>
-          <Text>재무 분석을 받고 싶다면 서둘러 주세요.</Text>
+          <Text>재무 분석을 받고 싶다면 채널톡으로 말씀 해주세요.</Text>
         </Flex>
-        <Button
-          bg="primary"
-          color="white"
-          w="240px"
-          h="50px"
-          borderRadius="10px"
-        >
-          <Text fontSize="18px" fontWeight="500">
-            재무 정보 작성하기
-          </Text>
-        </Button>
       </Flex>
     );
   }

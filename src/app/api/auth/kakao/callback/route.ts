@@ -39,7 +39,6 @@ export async function GET(req: Request) {
 
     // 사용자 정보 조회
     const userReadResponse = await fetch(`${BASE_URL}/users/${userData.id}`);
-    console.log(userData);
     if (userReadResponse.status === 404) {
       // 사용자 정보가 없으면 생성
       await fetch(`${BASE_URL}/users`, {

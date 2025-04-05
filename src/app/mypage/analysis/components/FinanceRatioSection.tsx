@@ -1,8 +1,49 @@
 import { Flex, Text } from '@chakra-ui/react';
 import FinanceTable from './FinanceTable';
 import TableBadge from './TableBadge';
+import { evaluateFinancialRatio } from '@/src/client/services/analysis/evaluateFinancialRatio';
+import { getFinancialRatioByBirthYear } from '@/src/client/services/analysis/getFinancialRatioConstant';
+import { EvaluatedResult } from '@/src/client/types/financial';
 
-const FinanceRatioSection = () => {
+// 타입 정의
+type FinancialRatioKey =
+  | 'expense'
+  | 'insurance'
+  | 'saving'
+  | 'investment'
+  | 'debtRepayment'
+  | 'retirement';
+
+type FinancialRatios = Record<FinancialRatioKey, number>;
+
+interface FinanceRatioSectionProps {
+  birthYear: number;
+  financialRatios: FinancialRatios;
+}
+
+const FinanceRatioSection = ({
+  birthYear,
+  financialRatios,
+}: FinanceRatioSectionProps) => {
+  const ratioConstant = getFinancialRatioByBirthYear(birthYear);
+
+  const evaluatedResult: EvaluatedResult[] = Object.entries(
+    financialRatios,
+  ).map(([key, value]) => {
+    const ratio = ratioConstant[key as keyof typeof ratioConstant];
+    const evaluation = evaluateFinancialRatio(
+      ratio.condition,
+      value,
+      ratio.value,
+    );
+    return {
+      name: key,
+      label: ratio.label,
+      evaluation,
+      myRatio: value,
+    };
+  });
+
   return (
     <Flex flexDirection="column" gap="36px">
       <Flex flexDirection="column" gap="12px">
@@ -13,7 +54,10 @@ const FinanceRatioSection = () => {
           매월 소득을 잘 쓰고 있는지 알려드릴게요
         </Text>
       </Flex>
-      <FinanceTable title="평가 결과" />
+      <FinanceTable
+        ratioConstant={ratioConstant}
+        evaluatedResult={evaluatedResult}
+      />
       <ul>
         <li
           style={{
@@ -26,8 +70,15 @@ const FinanceRatioSection = () => {
           <Flex gap="10px">
             <Text>잘하고 있어요</Text>
             <Flex gap="4px">
-              <TableBadge title="지출" evaluation={true} />
-              <TableBadge title="부채 상환" evaluation={true} />
+              {evaluatedResult.map((item) =>
+                item.evaluation ? (
+                  <TableBadge
+                    title={item.label}
+                    evaluation={item.evaluation}
+                    key={item.name}
+                  />
+                ) : null,
+              )}
             </Flex>
           </Flex>
         </li>
@@ -35,11 +86,15 @@ const FinanceRatioSection = () => {
           <Flex gap="10px">
             <Text>보완해야 돼요</Text>
             <Flex gap="4px">
-              <TableBadge title="보험료" evaluation={false} />
-              <TableBadge title="저축" evaluation={false} />
-              <TableBadge title="투자" evaluation={false} />
-              <TableBadge title="노후 대비" evaluation={false} />
-              <TableBadge title="대출 상환" evaluation={false} />
+              {evaluatedResult.map((item) =>
+                !item.evaluation ? (
+                  <TableBadge
+                    title={item.label}
+                    evaluation={item.evaluation}
+                    key={item.name}
+                  />
+                ) : null,
+              )}
             </Flex>
           </Flex>
         </li>

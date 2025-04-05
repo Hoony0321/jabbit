@@ -47,3 +47,32 @@ export const CONSULTATION_SHEET_HEADERS = [
   'profitInfo',
   'weeklyMissions',
 ];
+
+export const FINANCIAL_SUMMARY_SHEET_NAME = 'financialSummary';
+export const FINANCIAL_SUMMARY_SHEET_RANGE = 'A1:I';
+export const FINANCIAL_SUMMARY_SHEET_HEADERS = [
+  'id',
+  'userId',
+  'income',
+  'investment',
+  'savings',
+  'expenses',
+  'totalAssets',
+  'netWorth',
+  'debt',
+];
+
+export const FINANCIAL_DIAGNOSIS_SHEET_NAME = 'financialDiagnosis';
+export const FINANCIAL_DIAGNOSIS_SHEET_RANGE = 'A1:J';
+export const FINANCIAL_DIAGNOSIS_SHEET_HEADERS = [
+  'id',
+  'userId',
+  'birthYear',
+  'mainInvestmentStrategies',
+  'mainFinancialIssues',
+  'financialGoal',
+  'financialRatios',
+  'isMarried',
+  'hasChildren',
+  'groupComparison',
+];

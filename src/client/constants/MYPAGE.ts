@@ -26,7 +26,11 @@ export const MYPAGE_SIDEBAR_DATA = [
   },
 ];
 
-export const ANALYSIS_TAB_DATA = ['요약', '진단평가', '미래예측'];
+// 정식 오픈 시 사용될 데이터
+// export const ANALYSIS_TAB_DATA = ['요약', '진단평가', '미래예측'];
+
+// 임시 데이터
+export const ANALYSIS_TAB_DATA = ['요약', '진단평가'];
 
 export const LIFE_CYCLE_DESCRIPTION = [
   {
@@ -75,34 +79,119 @@ export const LIFE_CYCLE_DESCRIPTION = [
   },
 ];
 
-export const FINANCIAL_RATIO = [
-  {
-    title: '지출',
-    recommendedRatio: 70,
+export const FINANCIAL_RATIO_AVG = {
+  expense: {
+    label: '지출',
+    condition: 'max',
+    displayText: '70% 이하',
+    value: 70,
   },
-  {
-    title: '보험료',
-    recommendedRatio: 8,
-    maxRecommendedRatio: 10,
+  insurance: {
+    label: '보험료',
+    condition: 'range',
+    value: [8, 10],
+    displayText: '8~10% 이하',
   },
-  {
-    title: '저축',
-    recommendedRatio: 30,
+  saving: {
+    label: '저축',
+    condition: 'min',
+    displayText: '30% 이상',
+    value: 30,
   },
-  {
-    title: '투자',
-    recommendedRatio: 40,
+  investment: {
+    label: '투자',
+    condition: 'min',
+    displayText: '30% 이상',
+    value: 30,
   },
-  {
-    title: '부채 상환',
-    recommendedRatio: 25,
+  debtRepayment: {
+    label: '부채 상환',
+    condition: 'max',
+    displayText: '30% 이하',
+    value: 30,
   },
-  {
-    title: '노후 대비',
-    recommendedRatio: 50,
+  retirement: {
+    label: '노후 대비',
+    condition: 'min',
+    displayText: '50% 이상',
+    value: 50,
   },
-  {
-    title: '비상자금 보유',
-    recommendedRatio: 3,
+};
+
+export const FINANCIAL_RATIO_20S = {
+  expense: {
+    label: '지출',
+    condition: 'max',
+    displayText: '50% 이하',
+    value: 50,
   },
-];
+  insurance: {
+    label: '보험료',
+    condition: 'range',
+    value: [8, 10],
+    displayText: '8~10% 이하',
+  },
+  saving: {
+    label: '저축',
+    condition: 'min',
+    displayText: '50% 이상',
+    value: 50,
+  },
+  investment: {
+    label: '투자',
+    condition: 'min',
+    displayText: '50% 이상',
+    value: 50,
+  },
+  debtRepayment: {
+    label: '부채 상환',
+    condition: 'max',
+    displayText: '25% 이하',
+    value: 25,
+  },
+  retirement: {
+    label: '노후 대비',
+    condition: 'min',
+    displayText: '50% 이상',
+    value: 50,
+  },
+};
+
+export const FINANCIAL_RATIO_30S = {
+  expense: {
+    label: '지출',
+    condition: 'max',
+    displayText: '70% 이하',
+    value: 70,
+  },
+  insurance: {
+    label: '보험료',
+    condition: 'range',
+    value: [8, 10],
+    displayText: '8~10% 이하',
+  },
+  saving: {
+    label: '저축',
+    condition: 'min',
+    displayText: '30% 이상',
+    value: 30,
+  },
+  investment: {
+    label: '투자',
+    condition: 'min',
+    displayText: '40% 이상',
+    value: 50,
+  },
+  debtRepayment: {
+    label: '부채 상환',
+    condition: 'max',
+    displayText: '25% 이하',
+    value: 25,
+  },
+  retirement: {
+    label: '노후 대비',
+    condition: 'min',
+    displayText: '50% 이상',
+    value: 50,
+  },
+};

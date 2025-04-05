@@ -1,5 +1,3 @@
-import { FINANCIAL_RATIO } from '../../constants/MYPAGE';
-
 export const calculateMonthlyCashFlowChartData = (
   monthlyIncome: number,
   monthlySaving: number,
@@ -51,46 +49,5 @@ export const calculateDebtToAssetRatio = (
   return {
     netWorthRatio,
     debtToAssetRatio,
-  };
-};
-
-export const calculateFinancialRatio = (
-  expense: number,
-  insurance: number,
-  saving: number,
-  investment: number,
-  debt: number,
-  retirement: number,
-  emergency: number,
-) => {
-  const insuranceRatio = FINANCIAL_RATIO[1].recommendedRatio;
-  const insuranceMaxRatio = FINANCIAL_RATIO[1]?.maxRecommendedRatio;
-  const expenseEvaluation =
-    expense <= FINANCIAL_RATIO[0].recommendedRatio ? true : false;
-  const insuranceEvaluation =
-    insuranceMaxRatio &&
-    insurance <= insuranceMaxRatio &&
-    insurance >= insuranceRatio
-      ? true
-      : false;
-  const savingEvaluation =
-    saving >= FINANCIAL_RATIO[2].recommendedRatio ? true : false;
-  const investmentEvaluation =
-    investment >= FINANCIAL_RATIO[3].recommendedRatio ? true : false;
-  const debtEvaluation =
-    debt < FINANCIAL_RATIO[4].recommendedRatio ? true : false;
-  const retirementEvaluation =
-    retirement >= FINANCIAL_RATIO[5].recommendedRatio ? true : false;
-  const emergencyEvaluation =
-    emergency >= FINANCIAL_RATIO[6].recommendedRatio ? true : false;
-
-  return {
-    expenseEvaluation,
-    insuranceEvaluation,
-    savingEvaluation,
-    investmentEvaluation,
-    debtEvaluation,
-    retirementEvaluation,
-    emergencyEvaluation,
   };
 };
