@@ -10,7 +10,10 @@ const LogoutBtn = () => {
 
   const handleLogout = () => {
     logout();
-    router.replace('/');
+    // 렌더링 오류로 인해 setTimeout으로 다음 틱 처리
+    setTimeout(() => {
+      router.replace('/');
+    }, 0);
   };
 
   return (

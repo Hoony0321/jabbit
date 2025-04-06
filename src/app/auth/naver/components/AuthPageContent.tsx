@@ -28,13 +28,20 @@ const AuthPageContent = () => {
           if (!data.success) {
             throw new AppError({
               statusCode: res.status,
-              errorInfoKey: data.errorInfoKey || 'unknownError',
+              errorInfoKey: data.errorInfoKey || 'auth.fetchUserInfoFailed',
+            });
+          }
+
+          if (!data.data) {
+            throw new AppError({
+              statusCode: res.status,
+              errorInfoKey: data.errorInfoKey || 'auth.fetchUserInfoFailed',
             });
           }
 
           const user: User = {
-            id: data.id,
-            provider: data.provider,
+            id: data.data.id,
+            provider: data.data.provider,
           };
 
           setUser(user, data.token);
