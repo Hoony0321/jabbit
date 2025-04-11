@@ -27,10 +27,10 @@ export const MYPAGE_SIDEBAR_DATA = [
 ];
 
 // 정식 오픈 시 사용될 데이터
-// export const ANALYSIS_TAB_DATA = ['요약', '진단평가', '미래예측'];
+export const ANALYSIS_TAB_DATA = ['요약', '진단평가', '미래예측'];
 
 // 임시 데이터
-export const ANALYSIS_TAB_DATA = ['요약', '진단평가'];
+// export const ANALYSIS_TAB_DATA = ['요약', '진단평가'];
 
 export const LIFE_CYCLE_DESCRIPTION = [
   {

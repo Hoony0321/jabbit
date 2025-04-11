@@ -76,3 +76,13 @@ export const FINANCIAL_DIAGNOSIS_SHEET_HEADERS = [
   'hasChildren',
   'groupComparison',
 ];
+
+export const FINANCIAL_PREDICTION_SHEET_NAME = 'financialPrediction';
+export const FINANCIAL_PREDICTION_SHEET_RANGE = 'A1:E';
+export const FINANCIAL_PREDICTION_SHEET_HEADERS = [
+  'id',
+  'userId',
+  'futureFinancialPrediction',
+  'goalAchievementPredictions',
+  'consultingSuggestion',
+];

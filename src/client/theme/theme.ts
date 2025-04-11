@@ -77,6 +77,12 @@ const customConfig = defineConfig({
           black_4: {
             value: '#a3a3a3',
           },
+          black_5: {
+            value: '#c3c2c2',
+          },
+          black_6: {
+            value: '#e1e1eb',
+          },
           line: {
             value: '#f2f3f5',
           },

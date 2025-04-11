@@ -5,6 +5,7 @@ import { ANALYSIS_TAB_DATA } from '@/src/client/constants/MYPAGE';
 import { useSearchParams } from 'next/navigation';
 import Summary from './components/Tab/Summary';
 import DignosticEvaluation from './components/Tab/DignosticEvaluation';
+import FinancialPrediction from './components/Tab/FinancialPrediction';
 
 interface AnalysisClientProps {
   data: any;
@@ -39,6 +40,18 @@ const AnalysisClient = ({ data }: AnalysisClientProps) => {
             financialGoal={data.financialDiagnosis.financialGoal}
             financialRatios={data.financialDiagnosis.financialRatios}
             groupComparison={data.financialDiagnosis.groupComparison}
+          />
+        );
+      case '미래예측':
+        return (
+          <FinancialPrediction
+            futureFinancialPrediction={
+              data.financialPrediction.futureFinancialPrediction
+            }
+            goalAchievementPrediction={
+              data.financialPrediction.goalAchievementPredictions
+            }
+            consultingSuggestion={data.financialPrediction.consultingSuggestion}
           />
         );
       default:

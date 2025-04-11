@@ -4,6 +4,8 @@ import {
   FINANCIAL_DIAGNOSIS_SHEET_NAME,
   FINANCIAL_SUMMARY_SHEET_NAME,
   FINANCIAL_SUMMARY_SHEET_RANGE,
+  FINANCIAL_PREDICTION_SHEET_RANGE,
+  FINANCIAL_PREDICTION_SHEET_NAME,
 } from '@/src/server/constants/SHEET_INFOS';
 import { readSheetData } from '@/src/server/service/googleSheet/googleSheetService';
 import {
@@ -15,6 +17,8 @@ import { FinancialSummaryMapper } from '@/src/server/mappers/financialSummary.ma
 import { FinancialSummaryDto } from '@/src/server/dtos/financialSummary.dto';
 import { FinancialDiagnosisMapper } from '@/src/server/mappers/financialDiagnosis.mapper';
 import { FinancialDiagnosisDto } from '@/src/server/dtos/financialDiagnosis.dto';
+import { FinancialPredictionMapper } from '@/src/server/mappers/financialPrediction.mapper';
+import { FinancialPredictionDto } from '@/src/server/dtos/financialPrediction.dto';
 
 export async function GET(
   req: Request,
@@ -43,11 +47,21 @@ export async function GET(
     FINANCIAL_DIAGNOSIS_SHEET_RANGE,
   );
 
+  const {
+    headerRow: financialPredictionHeaderRow,
+    dataRows: financialPredictionDataRows,
+  } = await readSheetData(
+    FINANCIAL_PREDICTION_SHEET_NAME,
+    FINANCIAL_PREDICTION_SHEET_RANGE,
+  );
+
   if (
     !financialSummaryHeaderRow ||
     !financialSummaryDataRows ||
     !financialDiagnosisHeaderRow ||
-    !financialDiagnosisDataRows
+    !financialDiagnosisDataRows ||
+    !financialPredictionHeaderRow ||
+    !financialPredictionDataRows
   ) {
     return createSuccessApiResponse(200, [], API_MESSAGES['READ_SUCCESS']);
   }
@@ -74,7 +88,24 @@ export async function GET(
     }
   });
 
-  if (!userFinancialSummaryDto || !userFinancialDiagnosisDto) {
+  let userFinancialPredictionDto: FinancialPredictionDto | null = null;
+  financialPredictionDataRows.map((dataRow) => {
+    const financialPrediction = FinancialPredictionMapper.fromSheetRow(
+      financialPredictionHeaderRow,
+      dataRow,
+    );
+    if (financialPrediction.userId === userId) {
+      userFinancialPredictionDto = new FinancialPredictionDto(
+        financialPrediction,
+      );
+    }
+  });
+
+  if (
+    !userFinancialSummaryDto ||
+    !userFinancialDiagnosisDto ||
+    !userFinancialPredictionDto
+  ) {
     return createErrorApiResponse(404, 'notFound');
   }
 
@@ -83,6 +114,7 @@ export async function GET(
     {
       financialSummary: userFinancialSummaryDto,
       financialDiagnosis: userFinancialDiagnosisDto,
+      financialPrediction: userFinancialPredictionDto,
     },
     API_MESSAGES['READ_SUCCESS'],
   );
