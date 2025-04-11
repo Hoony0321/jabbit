@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import { useState } from 'react';
-import FinancialDynamicPresentationSVG from '@/public/assets/Financial_Dynamic_Presentation.svg';
+import FinancialDynamicPresentationSVG from '@/public/assets/financial_dynamic_presentation.svg';
 import { useRouter } from 'next/navigation';
 const AccordionTrigger = ({
   isOpen,
