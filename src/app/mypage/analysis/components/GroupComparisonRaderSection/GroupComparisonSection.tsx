@@ -13,11 +13,11 @@ const GroupComparisonSection = ({
     <div>
       <Flex flexDirection="column">
         <Text fontSize="24px" fontWeight="semibold">
-          그룹 비교
+          연령대 비교
         </Text>
         <Box h="12px" />
         <Text fontSize="16px" fontWeight="medium" color="main.black_3">
-          내가 속한 그룹 평균과 비교해 드릴게요
+          내가 속한 연령대 평균과 비교해 드릴게요
         </Text>
         <Box h="34px" />
         <GroupComparisonRadarChart data={groupComparison} />

@@ -32,11 +32,11 @@ const DignosticEvaluation = ({
   return (
     <Flex flexDirection="column" gap="64px">
       <LifeCycleSection birthYear={birthYear} financialGoal={financialGoal} />
+      <GroupComparisonSection groupComparison={groupComparison} />
       <FinanceRatioSection
         financialRatios={financialRatios}
         birthYear={birthYear}
       />
-      <GroupComparisonSection groupComparison={groupComparison} />
     </Flex>
   );
 };
