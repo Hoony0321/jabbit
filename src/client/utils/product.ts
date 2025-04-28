@@ -1,33 +1,37 @@
-export const extractProductDetailData = (productData: any) => {
+import { ConsultingProductWithExpert } from '@/src/server/types/domains';
+
+export const extractProductDetailData = (
+  consultingProduct: ConsultingProductWithExpert,
+) => {
   const productDetailData = {
-    productTitle: productData.data.name,
-    expertName: productData.data.expert.name,
-    isVerified: productData.data.expert.isVerified,
-    certifications: productData.data.expert.certificates,
-    specialties: productData.data.expert.specialties,
-    specialtyDetail: productData.data.detailFields,
-    activities: productData.data.expert.activities,
-    targetDescription: productData.data.targetDescription,
-    productDescription: productData.data.productDescription,
-    experiences: productData.data.expert.experiences,
-    yearsOfExperience: productData.data.expert.yearsOfExperience,
+    productTitle: consultingProduct.title,
+    expertName: consultingProduct.experts.name,
+    isVerified: consultingProduct.experts.is_verified,
+    certifications: consultingProduct.experts.certificates,
+    specialties: consultingProduct.experts.primary_fields,
+    specialtyDetail: consultingProduct.detail_fields,
+    activities: consultingProduct.experts.activities,
+    targetDescription: consultingProduct.target_descriptions,
+    productDescription: consultingProduct.product_description,
+    experiences: consultingProduct.experts.experiences,
+    yearsOfExperience: consultingProduct.experts.yearsOfExperience,
   };
 
   return productDetailData;
 };
 
 export const extractFloatingCardData = (
-  productData: any,
+  consultingProduct: ConsultingProductWithExpert,
   handlePriceTagClick: (index: number) => void,
   selectedPriceTagIndex: number,
 ) => {
   const floatingCardData = {
-    expertName: productData.data.expert.name,
-    expertImage: productData.data.expert.profileImageUrl,
-    priceTags: productData.data.priceInfos,
+    expertName: consultingProduct.experts.name,
+    expertImage: consultingProduct.experts.profile_image_url,
+    priceTags: consultingProduct.prices,
     handlePriceTagClick: handlePriceTagClick,
     selectedPriceTagIndex: selectedPriceTagIndex,
-    googleFormUrl: productData.data.googleFormUrl,
+    googleFormUrl: consultingProduct.google_form_link,
   };
 
   return floatingCardData;

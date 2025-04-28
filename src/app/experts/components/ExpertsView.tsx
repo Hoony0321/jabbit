@@ -7,9 +7,9 @@ import ProductInfoList from './ProductInfoList';
 import Footer from '../../components/Footer/Footer';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { SimpleProduct } from '@/src/client/types/product';
+import { ConsultingProductWithExpert } from '@/src/server/types/domains';
 interface ExpertsViewProps {
-  data: SimpleProduct[];
+  data: ConsultingProductWithExpert[];
   isLoading: boolean;
 }
 
@@ -20,7 +20,9 @@ const ExpertsView = ({ data, isLoading }: ExpertsViewProps) => {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>(
     specialty || '종합재무상담',
   );
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<
+    ConsultingProductWithExpert[]
+  >([]);
 
   useEffect(() => {
     if (data.length > 0) {

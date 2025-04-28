@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
-import { GoalAchievementInfo } from './GoalAchievementPredictionSection';
+import { FinancialPredictionGoalAchievementPrediction } from '@/src/server/types/domains';
 import { formatKoreanCurrency } from '@/src/client/utils/currency';
 
 const Tag = ({
@@ -25,7 +25,7 @@ const GoalAchievementCard = ({
   targetDate,
   targetAmount,
   estimatedAchievementDate,
-}: GoalAchievementInfo) => {
+}: FinancialPredictionGoalAchievementPrediction) => {
   const isPossible = estimatedAchievementDate < targetDate;
   const leftYear =
     new Date(targetDate).getFullYear() - new Date().getFullYear();

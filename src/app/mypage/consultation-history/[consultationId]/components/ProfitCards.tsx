@@ -4,18 +4,14 @@ import ChickenSVG from '@/public/assets/chicken.svg';
 import CoffeeSVG from '@/public/assets/coffee.svg';
 import { formatKoreanCurrency } from '@/src/client/utils/currency';
 import { calculateByItem } from '@/src/client/utils/number';
+import {
+  ConsultingHistoryProfitInfo,
+  ConsultingHistoryProfits,
+} from '@/src/server/types/domains';
 
 interface ProfitCardsProps {
-  profits: {
-    today: number;
-    weekly: number;
-    monthly: number;
-    yearly: number;
-  };
-  profitInfo: {
-    title: string;
-    contents: string[];
-  };
+  profits: ConsultingHistoryProfits;
+  profitInfo: ConsultingHistoryProfitInfo;
 }
 
 const ProfitCards = ({ profits, profitInfo }: ProfitCardsProps) => {

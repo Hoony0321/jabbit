@@ -1,6 +1,10 @@
-import { ApiResponse } from '@/src/client/types/apiResponse';
 import { NextResponse } from 'next/server';
-import { ERROR_INFOS, ErrorInfoKey } from '@/src/client/constants/ERROR_INFOS';
+import {
+  API_ERROR_INFOS,
+  API_SUCCESS_INFOS,
+  ApiErrorInfoKeys,
+  ApiSuccessInfoKeys,
+} from '../constants/API_MESSAGES';
 
 const ALLOWED_ORIGIN = 'https://www.jabbit.my';
 const ALLOWED_METHODS = 'GET, POST, PUT, DELETE, OPTIONS';
@@ -25,18 +29,17 @@ export const handlePreflight = (req: Request) => {
   return null;
 };
 export const createSuccessApiResponse = <T>(
-  status: number,
+  apiSuccessInfoKey: ApiSuccessInfoKeys,
   data?: T,
-  message?: string,
-): NextResponse<ApiResponse<T>> => {
+) => {
   const response = NextResponse.json(
     {
       success: true,
-      status,
+      status: API_SUCCESS_INFOS[apiSuccessInfoKey].statusCode,
       data,
-      message,
+      message: API_SUCCESS_INFOS[apiSuccessInfoKey].message,
     },
-    { status },
+    { status: API_SUCCESS_INFOS[apiSuccessInfoKey].statusCode },
   );
 
   // CORS 헤더 설정
@@ -47,17 +50,14 @@ export const createSuccessApiResponse = <T>(
   return response;
 };
 
-export const createErrorApiResponse = (
-  status: number,
-  errorInfoKey: ErrorInfoKey,
-): NextResponse<ApiResponse> => {
+export const createErrorApiResponse = (errorInfoKey: ApiErrorInfoKeys) => {
   const response = NextResponse.json(
     {
       success: false,
-      status,
-      message: ERROR_INFOS[errorInfoKey].message,
+      status: API_ERROR_INFOS[errorInfoKey].statusCode,
+      message: API_ERROR_INFOS[errorInfoKey].message,
     },
-    { status },
+    { status: API_ERROR_INFOS[errorInfoKey].statusCode },
   );
 
   // CORS 헤더 설정

@@ -1,5 +1,4 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
 import { AppError } from '@/src/client/errors/AppError';
 import { useErrorToast } from '@/src/client/errors/useErrorToast';
 import { useAuthStore, User } from '@/src/client/store/authStore';
@@ -23,40 +22,31 @@ const AuthPageContent = () => {
       const state = localStorage.getItem('naverState');
       fetch(`/api/auth/naver/callback?code=${code}&state=${state}`)
         .then(async (res) => {
-          const data = await res.json();
+          const response = await res.json();
 
-          if (!data.success) {
+          if (!response.success) {
             throw new AppError({
-              statusCode: res.status,
-              errorInfoKey: data.errorInfoKey || 'auth.fetchUserInfoFailed',
+              name: response.name,
+              message: response.message,
             });
           }
 
-          if (!data.data) {
+          if (!response.data) {
             throw new AppError({
-              statusCode: res.status,
-              errorInfoKey: data.errorInfoKey || 'auth.fetchUserInfoFailed',
+              name: response.name,
+              message: response.message,
             });
           }
 
           const user: User = {
-            id: data.data.id,
-            provider: data.data.provider,
+            id: response.data.id,
+            provider: response.data.provider,
           };
 
-          setUser(user, data.token);
+          setUser(user, response.data.token);
           router.replace('/');
         })
         .catch((error) => {
-          const isAppError = error instanceof AppError;
-
-          if (!isAppError) {
-            error = new AppError({
-              statusCode: ERROR_INFOS['fetchFailed'].statusCode,
-              errorInfoKey: 'fetchFailed',
-            });
-          }
-
           showErrorToast(error);
           router.replace('/login');
         })

@@ -7,40 +7,25 @@ import ReportAccordion from './ReportAccordion';
 import ProfitCards from './ProfitCards';
 import MissionAccordion from './MissionAccordion';
 import { formatKoreanCurrency } from '@/src/client/utils/currency';
-
-interface ConsultationReportViewProps {
-  userId: string;
-  createdAt: string;
-  field: string;
-  expertName: string;
-  mainProposals: any[];
-  additionalProposals: any[];
-  profits: any;
-  profitInfo: any;
-  weeklyMissions: any[];
-}
+import { ConsultingHistoryWithProductAndExpert } from '@/src/server/types/domains';
 
 const ConsultationReportView = ({
-  userId,
-  createdAt,
-  field,
-  expertName,
-  mainProposals,
-  additionalProposals,
-  profits,
-  profitInfo,
-  weeklyMissions,
-}: ConsultationReportViewProps) => {
+  consultingHistory,
+}: {
+  consultingHistory: ConsultingHistoryWithProductAndExpert;
+}) => {
   return (
-    <ConsultationAuthWrapper targetUserId={userId}>
+    <ConsultationAuthWrapper targetUserId={consultingHistory.user_id}>
       <Flex flexDirection="column" gap="54px">
         <Flex flexDirection="column" gap="32px">
           <Text fontSize="24px" fontWeight="600">
-            {parseLastTwoNumberOfYear(createdAt)} {field} 결과
+            {parseLastTwoNumberOfYear(new Date(consultingHistory.created_at))}{' '}
+            {consultingHistory.consulting_products.category} 결과
           </Text>
           <Flex flexDirection="column" gap="12px">
             <Text fontSize="20px" fontWeight="500">
-              {expertName} 전문가님이 제안했어요
+              {consultingHistory.consulting_products.experts.name} 전문가님이
+              제안했어요
             </Text>
             <Text textStyle="sm" color="main.black_3">
               전문가님이 선정한 우선순위 대로 보여드릴게요!
@@ -50,9 +35,9 @@ const ConsultationReportView = ({
         <Flex flexDirection="column" gap="64px">
           <Flex flexDirection="column" gap="28px" w="100%">
             <Text fontSize="20px" fontWeight="600">
-              핵심제안 {mainProposals.length}가지 알려드려요
+              핵심제안 {consultingHistory.main_proposals.length}가지 알려드려요
             </Text>
-            {mainProposals.map((proposal, index) => {
+            {consultingHistory.main_proposals.map((proposal, index) => {
               const rank = index + 1;
               return (
                 <ReportAccordion
@@ -69,7 +54,7 @@ const ConsultationReportView = ({
             <Text fontSize="20px" fontWeight="600">
               추가적인 제안들도 알려드려요
             </Text>
-            {additionalProposals.map((proposal, index) => {
+            {consultingHistory.additional_proposals.map((proposal, index) => {
               const rank = index + 1;
               return (
                 <ReportAccordion
@@ -86,13 +71,16 @@ const ConsultationReportView = ({
             <Text fontSize="20px" fontWeight="600">
               지금 제안들을 실행하면 얼마나 이득일까요?
             </Text>
-            <ProfitCards profits={profits} profitInfo={profitInfo} />
+            <ProfitCards
+              profits={consultingHistory.profits}
+              profitInfo={consultingHistory.profit_info}
+            />
           </Flex>
           <Flex flexDirection="column" gap="34px">
             <Text fontSize="20px" fontWeight="600">
               주간 미션을 추천드려요
             </Text>
-            {weeklyMissions.map((mission, index) => {
+            {consultingHistory.weekly_missions.map((mission, index) => {
               const rank = index + 1;
               return <MissionAccordion key={index} rank={rank} {...mission} />;
             })}
@@ -130,7 +118,8 @@ const ConsultationReportView = ({
               color="#5971b2"
               whiteSpace="nowrap"
             >
-              오늘 시작하면 {formatKoreanCurrency(profits.today)}원 이득!
+              오늘 시작하면{' '}
+              {formatKoreanCurrency(consultingHistory.profits.today)}원 이득!
             </Text>
           </Flex>
           <Button w="300px" borderRadius="10px" bg="primary" cursor="pointer">

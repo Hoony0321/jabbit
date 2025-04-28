@@ -1,9 +1,5 @@
-import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
-import { API_MESSAGES } from '@/src/server/constants/API_MESSAGES';
-import { USER_SHEET_NAME } from '@/src/server/constants/SHEET_INFOS';
-import { USER_SHEET_RANGE } from '@/src/server/constants/SHEET_INFOS';
-import { UserMapper } from '@/src/server/mappers/user.mapper';
-import { findSheetDataById } from '@/src/server/service/googleSheet/googleSheetService';
+import UserService from '@/src/server/services/userService';
+import { createSupabasePublicDBClient } from '@/src/server/supabase/clients';
 import {
   createErrorApiResponse,
   createSuccessApiResponse,
@@ -19,20 +15,15 @@ export async function GET(
     return preflightResponse;
   }
 
-  const { userId } = await params;
+  const supabase = createSupabasePublicDBClient();
+  const userService = new UserService(supabase);
 
-  const { headerRow, dataRows } = await findSheetDataById(
-    USER_SHEET_NAME,
-    USER_SHEET_RANGE,
-    userId,
-  );
-  if (!headerRow || !dataRows) {
-    return createErrorApiResponse(
-      ERROR_INFOS['googleSheet.noData'].statusCode,
-      'googleSheet.noData',
-    );
+  try {
+    const { userId } = await params;
+    const user = await userService.getUserById(userId);
+    return createSuccessApiResponse('READ_SUCCESS', user);
+  } catch (error) {
+    console.error(error);
+    return createErrorApiResponse('FETCH_FAILED');
   }
-
-  const userDto = UserMapper.fromSheetRow(headerRow, dataRows);
-  return createSuccessApiResponse(200, userDto, API_MESSAGES['READ_SUCCESS']);
 }

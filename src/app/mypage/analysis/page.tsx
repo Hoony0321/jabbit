@@ -1,8 +1,9 @@
 import AnalysisClient from './AnalysisClient';
 import { Suspense } from 'react';
-import { BASE_URL } from '@/src/client/constants/API';
 import LoadingPage from '@/src/app/common/LoadingPage/LoadingPage';
 import NoData from '../components/NoData';
+import getUserFinancialInfoByUserId from '@/src/client/lib/api/getUserFinancialAnalysisByUserId';
+
 export default async function AnalysisPage({
   searchParams,
 }: {
@@ -23,20 +24,16 @@ const AnalysisContent = async ({
   const params = await searchParams;
   const userId = params.userId;
 
-  const response = await fetch(
-    `${BASE_URL}/users/${userId}/financial-analysis`,
-    {
-      method: 'GET',
-      cache: 'no-store',
-    },
-  );
+  const response = await getUserFinancialInfoByUserId(userId);
+  const financialAnalysisData = response.data;
 
-  const financialAnalysisData = await response.json();
-  const data = financialAnalysisData.data;
-
-  if (!data) {
+  if (
+    !financialAnalysisData.user_financial_info &&
+    !financialAnalysisData.user_financial_diagnosis &&
+    !financialAnalysisData.user_financial_prediction
+  ) {
     return <NoData page="analysis" />;
   }
 
-  return <AnalysisClient data={data} />;
+  return <AnalysisClient userFinancialAnalysis={financialAnalysisData} />;
 };

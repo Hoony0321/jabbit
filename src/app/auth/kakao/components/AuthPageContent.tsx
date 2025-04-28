@@ -1,5 +1,4 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
 import { AppError } from '@/src/client/errors/AppError';
 import { useErrorToast } from '@/src/client/errors/useErrorToast';
 import { useAuthStore, User } from '@/src/client/store/authStore';
@@ -22,15 +21,14 @@ const AuthPageContent = () => {
       fetch(`/api/auth/kakao/callback?code=${code}`)
         .then(async (res) => {
           const response = await res.json();
+          const data = response.data;
 
-          if (!response.success) {
+          if (!response.success || !data) {
             throw new AppError({
-              statusCode: res.status,
-              errorInfoKey: response.errorInfoKey || 'unknownError',
+              name: response.name,
+              message: response.message,
             });
           }
-
-          const data = response.data;
 
           const user: User = {
             id: data.id,
@@ -40,15 +38,6 @@ const AuthPageContent = () => {
           router.replace('/');
         })
         .catch((error) => {
-          const isAppError = error instanceof AppError;
-
-          if (!isAppError) {
-            error = new AppError({
-              statusCode: ERROR_INFOS['fetchFailed'].statusCode,
-              errorInfoKey: 'fetchFailed',
-            });
-          }
-
           showErrorToast(error);
           router.replace('/login');
         })

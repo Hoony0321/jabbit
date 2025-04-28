@@ -1,43 +1,29 @@
-import { BASE_URL } from '@/src/client/constants/API';
 import ExpertsView from './ExpertsView';
 import { useEffect, useState } from 'react';
-import { ERROR_INFOS } from '@/src/client/constants/ERROR_INFOS';
 import { AppError } from '@/src/client/errors/AppError';
 import { useErrorToast } from '@/src/client/errors/useErrorToast';
-import { SimpleProduct } from '@/src/client/types/product';
+import getAllConsultingProductsWithExpert from '@/src/client/lib/api/getAllConsultingProductsWithExpert';
+import { ConsultingProductWithExpert } from '@/src/server/types/domains';
+
 const ExpertsPageContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { showErrorToast } = useErrorToast();
-  const [data, setData] = useState<SimpleProduct[]>([]);
+  const [data, setData] = useState<ConsultingProductWithExpert[]>([]);
 
   const fetchProducts = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${BASE_URL}/products/`, {
-        method: 'GET',
-        cache: 'no-store',
-      });
+      const response = await getAllConsultingProductsWithExpert();
 
-      const responseJson = await response.json();
-
-      if (!responseJson.success)
+      if (!response.success)
         throw new AppError({
-          statusCode: ERROR_INFOS['fetchFailed'].statusCode,
-          errorInfoKey: 'fetchFailed',
+          name: response.name,
+          message: response.message,
         });
 
-      setData(responseJson.data);
+      setData(response.data);
     } catch (error) {
-      const isAppError = error instanceof AppError;
-
-      if (!isAppError) {
-        error = new AppError({
-          statusCode: ERROR_INFOS['fetchFailed'].statusCode,
-          errorInfoKey: 'fetchFailed',
-        });
-      }
-
-      showErrorToast(error as AppError);
+      showErrorToast(error as Error);
     } finally {
       setIsLoading(false);
     }

@@ -1,4 +1,4 @@
-import { activity } from '../types/activity';
+import { ExpertActivity } from '@/src/server/types/domains';
 
 export const parseDescription = (description: string) => {
   return description.split('\n').map((line) => line);
@@ -9,7 +9,7 @@ interface PressActivity {
   url?: string;
 }
 
-export const parseActivity = (activities: activity[]) => {
+export const parseActivity = (activities: ExpertActivity[]) => {
   const parsedActivity = {
     education: [] as string[],
     press: [] as PressActivity[],
@@ -40,9 +40,8 @@ export const parseActivity = (activities: activity[]) => {
   return parsedActivity;
 };
 
-export const parseLastTwoNumberOfYear = (date: string) => {
-  const year = date.split('.')[0];
-  const month = date.split('.')[1];
-  const day = date.split('.')[2];
-  return `${year.slice(-2)}.${month}.${day}`;
+export const parseLastTwoNumberOfYear = (date: Date) => {
+  return `${String(date.getFullYear()).slice(2)}.${String(
+    date.getMonth() + 1,
+  ).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
 };

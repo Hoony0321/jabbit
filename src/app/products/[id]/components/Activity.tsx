@@ -1,9 +1,9 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { parseActivity } from '@/src/client/utils/parser';
-import { activity } from '@/src/client/types/activity';
+import { ExpertActivity } from '@/src/server/types/domains';
 import BaseLink from '@/src/app/common/BaseLink/BaseLink';
 interface ActivityProps {
-  activities: activity[];
+  activities: ExpertActivity[];
 }
 
 const Activity = ({ activities }: ActivityProps) => {

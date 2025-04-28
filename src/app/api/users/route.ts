@@ -1,14 +1,8 @@
-import { API_MESSAGES } from '@/src/server/constants/API_MESSAGES';
-import { USER_SHEET_NAME } from '@/src/server/constants/SHEET_INFOS';
-import { USER_SHEET_RANGE } from '@/src/server/constants/SHEET_INFOS';
-import { UserDto } from '@/src/server/dtos/user.dto';
-import { UserMapper } from '@/src/server/mappers/user.mapper';
-import {
-  appendSheetData,
-  readSheetData,
-} from '@/src/server/service/googleSheet/googleSheetService';
+import UserService from '@/src/server/services/userService';
+import { createSupabasePublicDBClient } from '@/src/server/supabase/clients';
 import {
   createSuccessApiResponse,
+  createErrorApiResponse,
   handlePreflight,
 } from '@/src/server/utils/apiResponseUtils';
 
@@ -18,22 +12,16 @@ export async function GET(req: Request) {
     return preflightResponse;
   }
 
-  const { headerRow, dataRows } = await readSheetData(
-    USER_SHEET_NAME,
-    USER_SHEET_RANGE,
-  );
+  const supabase = createSupabasePublicDBClient();
+  const userService = new UserService(supabase);
 
-  if (!headerRow || !dataRows) {
-    return createSuccessApiResponse(200, [], API_MESSAGES['READ_SUCCESS']);
+  try {
+    const users = await userService.getAllUsers();
+    return createSuccessApiResponse('READ_SUCCESS', users);
+  } catch (error) {
+    console.error(error);
+    return createErrorApiResponse('UNKNOWN_ERROR');
   }
-
-  const userDtos: UserDto[] = [];
-  for (const user of dataRows) {
-    const userDto = UserMapper.fromSheetRow(headerRow, user);
-    userDtos.push(userDto);
-  }
-
-  return createSuccessApiResponse(200, userDtos, API_MESSAGES['READ_SUCCESS']);
 }
 
 export async function POST(req: Request) {
@@ -42,10 +30,19 @@ export async function POST(req: Request) {
     return preflightResponse;
   }
 
-  const { id, provider, email, createdAt } = await req.json();
-  await appendSheetData(USER_SHEET_NAME, 'A:A', [
-    [id, provider, email, createdAt],
-  ]);
+  const supabase = createSupabasePublicDBClient();
+  const userService = new UserService(supabase);
 
-  return createSuccessApiResponse(200, [], API_MESSAGES['CREATE_SUCCESS']);
+  try {
+    const { provider_id, provider, email } = await req.json();
+    const user = await userService.createUser({
+      provider_id,
+      provider,
+      email,
+    });
+    return createSuccessApiResponse('CREATE_SUCCESS', user);
+  } catch (error) {
+    console.error(error);
+    return createErrorApiResponse('UNKNOWN_ERROR');
+  }
 }

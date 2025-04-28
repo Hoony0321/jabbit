@@ -1,25 +1,21 @@
 import { Flex } from '@chakra-ui/react';
 import Title from './Title';
 import GoalAchievenmentList from './GoalAchievenmentList';
-
-export interface GoalAchievementInfo {
-  title: string;
-  targetDate: Date;
-  targetAmount: number;
-  estimatedAchievementDate: Date;
-}
+import { FinancialPredictionGoalAchievementPrediction } from '@/src/server/types/domains';
 
 interface GoalAchievementPredictionSectionProps {
-  goalAchievementInfos: GoalAchievementInfo[];
+  goalAchievementPredictions: FinancialPredictionGoalAchievementPrediction[];
 }
 
 const GoalAchievementPredictionSection = ({
-  goalAchievementInfos,
+  goalAchievementPredictions,
 }: GoalAchievementPredictionSectionProps) => {
   return (
     <Flex flexDir="column" gap="24px">
       <Title />
-      <GoalAchievenmentList goalAchievementInfos={goalAchievementInfos} />
+      <GoalAchievenmentList
+        goalAchievementPredictions={goalAchievementPredictions}
+      />
     </Flex>
   );
 };

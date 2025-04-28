@@ -2,15 +2,14 @@ import { Box, Flex } from '@chakra-ui/react';
 import FutureFinancialPredictionTitle from './FutureFinancialPredictionTitle';
 import FutureFinancialPredictionBarChart from './PredictionChart.tsx/FutureFinancialPredictionChart';
 import FutureFinancialChangeSummary from './FutureFinancialChangeSummary';
-
+import { FinancialPredictionFutureFinancialPrediction } from '@/src/server/types/domains';
 interface FutureFinancialPredictionSectionProps {
-  futureFinancialPrediction: any;
+  futureFinancialPrediction: FinancialPredictionFutureFinancialPrediction;
 }
 
 const FutureFinancialPredictionSection = ({
   futureFinancialPrediction,
 }: FutureFinancialPredictionSectionProps) => {
-  console.log(futureFinancialPrediction);
   return (
     <Flex flexDir="column">
       <FutureFinancialPredictionTitle />

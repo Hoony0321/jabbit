@@ -8,11 +8,11 @@ import { EvaluatedResult } from '@/src/client/types/financial';
 // 타입 정의
 type FinancialRatioKey =
   | 'expense'
-  | 'insurance'
+  // | 'insurance'
   | 'saving'
   | 'investment'
-  | 'debtRepayment'
-  | 'retirement';
+  | 'debtRepayment';
+// | 'retirement';
 
 type FinancialRatios = Record<FinancialRatioKey, number>;
 

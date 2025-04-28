@@ -1,7 +1,7 @@
 import { Box, Flex, Text, Link } from '@chakra-ui/react';
 import VerifiedBadgeSVG from '@/public/assets/verifiedBadge.svg';
 import Image from 'next/image';
-import { SimpleProduct, ProductPriceInfo } from '@/src/client/types/product';
+import { ConsultingProductWithExpert } from '@/src/server/types/domains';
 
 const ProductTitle = ({ name }: { name: string }) => {
   return (
@@ -114,12 +114,14 @@ const MoreInfoButton = () => {
     </Text>
   );
 };
-const ProductInfoCard = ({ product }: { product: SimpleProduct }) => {
-  const minimumPriceInfo = product.priceInfos.reduce(
-    (min: ProductPriceInfo, current: ProductPriceInfo) => {
-      return current.price < min.price ? current : min;
-    },
-  );
+const ProductInfoCard = ({
+  product,
+}: {
+  product: ConsultingProductWithExpert;
+}) => {
+  const minimumPriceInfo = product.prices.reduce((min, current) => {
+    return current.price < min.price ? current : min;
+  });
 
   return (
     <Link
@@ -135,14 +137,14 @@ const ProductInfoCard = ({ product }: { product: SimpleProduct }) => {
         justifyContent="space-between"
       >
         <Flex w="auto" h="100%" flexDirection="column">
-          <ProductTitle name={product.name} />
+          <ProductTitle name={product.title} />
           <Box h="16px" />
           <ExpertNameWithVerifiedBadge
-            name={product.expert.name}
-            isVerified={product.expert.isVerified}
+            name={product.experts.name}
+            isVerified={product.experts.is_verified}
           />
           <Box h="16px" />
-          <ProductDetailFields fields={product.detailFields} />
+          <ProductDetailFields fields={product.detail_fields} />
           <Box h="30px" />
           <ProductMinimumPriceInfo
             name={minimumPriceInfo.name}
@@ -150,7 +152,7 @@ const ProductInfoCard = ({ product }: { product: SimpleProduct }) => {
           />
         </Flex>
         <Flex flexDirection="column" alignItems="center">
-          <ProfileImage profileImageUrl={product.expert.profileImageUrl} />
+          <ProfileImage profileImageUrl={product.experts.profile_image_url} />
           <Box h="40px" />
           <MoreInfoButton />
         </Flex>

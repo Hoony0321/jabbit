@@ -1,8 +1,8 @@
 import { Flex } from '@chakra-ui/react';
 import ConsultationCard from '../components/ConsultationCard';
-import { BASE_URL } from '@/src/client/constants/API';
 import NoData from '../components/NoData';
-
+import getAllUserConsultingHistories from '@/src/client/lib/api/getAllUserConsultingHistories';
+import { ConsultingHistoryWithProductAndExpert } from '@/src/server/types/domains';
 const ConsultationHistory = async ({
   searchParams,
 }: {
@@ -11,13 +11,8 @@ const ConsultationHistory = async ({
   const params = await searchParams;
   const userId = params.userId;
 
-  const response = await fetch(`${BASE_URL}/users/${userId}/consultations`, {
-    method: 'GET',
-    cache: 'no-store',
-  });
-
-  const consultationHistoryData = await response.json();
-  const data = consultationHistoryData.data;
+  const response = await getAllUserConsultingHistories(userId);
+  const data = response.data;
 
   if (!data || data.length === 0) {
     return <NoData page="consultation-history" />;
@@ -25,8 +20,11 @@ const ConsultationHistory = async ({
 
   return (
     <Flex flexDirection="column" gap="64px" w="100%">
-      {data.map((consultation: any) => (
-        <ConsultationCard key={consultation.id} {...consultation} />
+      {data.map((consultation: ConsultingHistoryWithProductAndExpert) => (
+        <ConsultationCard
+          key={consultation.id}
+          consultingHistory={consultation}
+        />
       ))}
     </Flex>
   );

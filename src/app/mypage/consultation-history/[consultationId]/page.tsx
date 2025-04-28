@@ -1,5 +1,5 @@
-import { BASE_URL } from '@/src/client/constants/API';
 import ConsultationReportView from './components/ConsultationReportView';
+import getUserConsultingHistoryById from '@/src/client/lib/api/getUserConsultingHistoryById';
 
 const ConsultationReportPage = async ({
   params,
@@ -13,19 +13,10 @@ const ConsultationReportPage = async ({
 
   const consultationId = paramsData.consultationId;
   const userId = searchParamsData.userId;
+  const response = await getUserConsultingHistoryById(userId, consultationId);
+  const data = response.data;
 
-  const response = await fetch(
-    `${BASE_URL}/users/${userId}/consultations/${consultationId}`,
-    {
-      method: 'GET',
-      cache: 'no-store',
-    },
-  );
-
-  const consultationData = await response.json();
-  const data = consultationData.data;
-
-  return <ConsultationReportView {...data} />;
+  return <ConsultationReportView consultingHistory={data} />;
 };
 
 export default ConsultationReportPage;

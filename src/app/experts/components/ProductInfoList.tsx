@@ -1,8 +1,8 @@
 import { Flex, Spinner, Text, Center } from '@chakra-ui/react';
 import ProductInfoCard from './ProductInfoCard';
-import { SimpleProduct } from '@/src/client/types/product';
+import { ConsultingProductWithExpert } from '@/src/server/types/domains';
 interface ProductInfoListProps {
-  products: SimpleProduct[];
+  products: ConsultingProductWithExpert[];
   isLoading: boolean;
 }
 

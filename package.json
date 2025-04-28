@@ -6,13 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "supabase:gen": "supabase gen types typescript --project-id mqqdyqutxdatzhxwqzuy --schema public > src/server/types/supabase.ts"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.5.1",
     "@channel.io/channel-web-sdk-loader": "^2.0.0",
     "@emotion/react": "^11.14.0",
     "@next/third-parties": "^15.1.7",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.49.4",
     "chart.js": "^4.4.8",
     "googleapis": "^144.0.0",
     "jsonwebtoken": "^9.0.2",
@@ -23,6 +26,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "recharts": "^2.15.2",
+    "supabase": "^2.22.4",
     "uuid": "^11.0.5",
     "zustand": "^5.0.3"
   },

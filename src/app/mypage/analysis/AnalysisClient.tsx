@@ -6,52 +6,87 @@ import { useSearchParams } from 'next/navigation';
 import Summary from './components/Tab/Summary';
 import DignosticEvaluation from './components/Tab/DignosticEvaluation';
 import FinancialPrediction from './components/Tab/FinancialPrediction';
+import { UserFinancialAnalysis } from '@/src/server/types/domains';
+import { getGroupComparison } from '@/src/client/services/analysis/getGroupComparison';
+import getFinancialRatio from '@/src/client/services/analysis/getFinancialRatio';
 
 interface AnalysisClientProps {
-  data: any;
+  userFinancialAnalysis: UserFinancialAnalysis;
 }
 
-const AnalysisClient = ({ data }: AnalysisClientProps) => {
+const AnalysisClient = ({ userFinancialAnalysis }: AnalysisClientProps) => {
   const searchParams = useSearchParams();
-  const currentTab = searchParams.get('tab') || ANALYSIS_TAB_DATA[0];
+
+  const availableTabs = ANALYSIS_TAB_DATA.filter((tab) => {
+    if (tab === '요약') {
+      return userFinancialAnalysis.user_financial_info ? true : false;
+    }
+    if (tab === '진단평가') {
+      return userFinancialAnalysis.user_financial_diagnosis ? true : false;
+    }
+    if (tab === '미래예측') {
+      return userFinancialAnalysis.user_financial_prediction ? true : false;
+    }
+    return false;
+  });
+
+  const currentTab = searchParams.get('tab') || availableTabs[0];
 
   const renderTabContent = () => {
     switch (currentTab) {
       case '요약':
         return (
           <Summary
-            income={data.financialSummary.income}
-            savings={data.financialSummary.savings}
-            investment={data.financialSummary.investment}
-            expenses={data.financialSummary.expenses}
-            totalAssets={data.financialSummary.totalAssets}
-            netWorth={data.financialSummary.netWorth}
-            debt={data.financialSummary.debt}
+            income={userFinancialAnalysis.user_financial_info!.monthly_income}
+            savings={userFinancialAnalysis.user_financial_info!.monthly_savings}
+            investment={
+              userFinancialAnalysis.user_financial_info!.monthly_investment
+            }
+            expenses={
+              userFinancialAnalysis.user_financial_info!.monthly_expenses
+            }
+            netWorth={userFinancialAnalysis.user_financial_info!.net_worth}
+            debt={userFinancialAnalysis.user_financial_info!.total_debt}
           />
         );
       case '진단평가':
         return (
           <DignosticEvaluation
-            birthYear={data.financialDiagnosis.birthYear}
-            mainInvestmentStrategies={
-              data.financialDiagnosis.mainInvestmentStrategies
+            financialGoal={
+              userFinancialAnalysis.user_financial_diagnosis!.financial_goal
             }
-            mainFinancialIssues={data.financialDiagnosis.mainFinancialIssues}
-            financialGoal={data.financialDiagnosis.financialGoal}
-            financialRatios={data.financialDiagnosis.financialRatios}
-            groupComparison={data.financialDiagnosis.groupComparison}
+            mainInvestmentStrategies={
+              userFinancialAnalysis.user_financial_diagnosis!
+                .main_investment_strategies
+            }
+            mainFinancialIssues={
+              userFinancialAnalysis.user_financial_diagnosis!
+                .main_financial_issues
+            }
+            birthYear={userFinancialAnalysis.birth_year || 1998} // TODO : 나중에 birth_year 값 추가 후 삭제
+            groupComparison={getGroupComparison(
+              userFinancialAnalysis.user_financial_info!,
+            )}
+            financialRatios={getFinancialRatio(
+              userFinancialAnalysis.user_financial_info!,
+            )}
           />
         );
       case '미래예측':
         return (
           <FinancialPrediction
             futureFinancialPrediction={
-              data.financialPrediction.futureFinancialPrediction
+              userFinancialAnalysis.user_financial_prediction!
+                .future_financial_prediction
             }
-            goalAchievementPrediction={
-              data.financialPrediction.goalAchievementPredictions
+            goalAchievementPredictions={
+              userFinancialAnalysis.user_financial_prediction!
+                .goal_achievement_predictions
             }
-            consultingSuggestion={data.financialPrediction.consultingSuggestion}
+            consultingSuggestion={
+              userFinancialAnalysis.user_financial_prediction!
+                .consulting_suggestion
+            }
           />
         );
       default:
@@ -61,7 +96,7 @@ const AnalysisClient = ({ data }: AnalysisClientProps) => {
 
   return (
     <Flex flexDirection="column" w="100%">
-      <AnalysisTab defaultTab={ANALYSIS_TAB_DATA[0]} />
+      <AnalysisTab availableTabs={availableTabs} />
       <Flex width="100%" mt="24px" mb="100px">
         {renderTabContent()}
       </Flex>

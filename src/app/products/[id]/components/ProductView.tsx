@@ -6,25 +6,21 @@ import FloatingCard from './FloatingCard';
 import { useState } from 'react';
 import ProductDetail from './ProductDetail';
 import Footer from '@/src/app/components/Footer/Footer';
-import {
-  extractFloatingCardData,
-  extractProductDetailData,
-} from '@/src/client/utils/product';
-
+import { extractFloatingCardData } from '@/src/client/utils/product';
+import { ConsultingProductWithExpert } from '@/src/server/types/domains';
 interface ProductDetailViewProps {
-  productData: any;
+  consultingProduct: ConsultingProductWithExpert;
 }
 
-const ProductView = ({ productData }: ProductDetailViewProps) => {
+const ProductView = ({ consultingProduct }: ProductDetailViewProps) => {
   const [selectedPriceTagIndex, setSelectedPriceTagIndex] = useState(0);
 
   const handlePriceTagClick = (index: number) => {
     setSelectedPriceTagIndex(index);
   };
 
-  const productDetailData = extractProductDetailData(productData);
   const floatingCardData = extractFloatingCardData(
-    productData,
+    consultingProduct,
     handlePriceTagClick,
     selectedPriceTagIndex,
   );
@@ -41,7 +37,7 @@ const ProductView = ({ productData }: ProductDetailViewProps) => {
       <Navigation />
       <Flex width="1280px" justifyContent="space-between" gap="78px">
         <Flex width="50%" flexDirection="column">
-          <ProductDetail {...productDetailData} />
+          <ProductDetail {...consultingProduct} />
           <Footer />
         </Flex>
         <Flex width="50%">

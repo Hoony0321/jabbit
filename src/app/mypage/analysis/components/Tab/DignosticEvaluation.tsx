@@ -14,11 +14,11 @@ interface DignosticEvaluationProps {
   };
   financialRatios: {
     expense: number;
-    insurance: number;
+    // insurance: number;
     saving: number;
     investment: number;
     debtRepayment: number;
-    retirement: number;
+    // retirement: number;
   };
   groupComparison: GroupComparison;
 }

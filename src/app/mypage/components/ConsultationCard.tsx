@@ -1,32 +1,20 @@
 'use client';
 
+import { ConsultingHistoryWithProductAndExpert } from '@/src/server/types/domains';
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-
-interface ConsultationCardProps {
-  id: string;
-  userId: string;
-  expertId: string;
-  expertName: string;
-  title: string;
-  field: string;
-  status: string;
-  createdAt: string;
-}
-
+import { parseLastTwoNumberOfYear } from '@/src/client/utils/parser';
 const ConsultationCard = ({
-  id,
-  userId,
-  createdAt,
-  title,
-  field,
-  expertName,
-  status,
-}: ConsultationCardProps) => {
+  consultingHistory,
+}: {
+  consultingHistory: ConsultingHistoryWithProductAndExpert;
+}) => {
   const router = useRouter();
   const handleConsultationResult = () => {
-    if (status === 'completed') {
-      router.push(`/mypage/consultation-history/${id}?userId=${userId}`);
+    if (consultingHistory.status === 'completed') {
+      router.push(
+        `/mypage/consultation-history/${consultingHistory.id}?userId=${consultingHistory.user_id}`,
+      );
     }
   };
 
@@ -43,31 +31,37 @@ const ConsultationCard = ({
       <Flex flexDirection="column" gap="12px">
         <Flex flexDirection="column" gap="8px">
           <Text fontSize="12px" fontWeight="400">
-            {createdAt}
+            {parseLastTwoNumberOfYear(new Date(consultingHistory.created_at))}
           </Text>
           <Text fontSize="14px" fontWeight="600">
-            {title}
+            {consultingHistory.consulting_products.title}
           </Text>
           <Text fontSize="12px" fontWeight="400" color="main.black_3">
-            {field}
+            {consultingHistory.consulting_products.category}
           </Text>
         </Flex>
         <Text fontSize="12px" fontWeight="400">
-          {expertName} 재무설계사
+          {consultingHistory.consulting_products.experts.name} 재무설계사
         </Text>
       </Flex>
       <Button
         w="150px"
         h="40px"
         borderRadius="10px"
-        bg={status === 'completed' ? 'primary' : '#d9d9d9'}
-        color={status === 'completed' ? 'main.white_1' : 'main.black_1'}
+        bg={consultingHistory.status === 'completed' ? 'primary' : '#d9d9d9'}
+        color={
+          consultingHistory.status === 'completed'
+            ? 'main.white_1'
+            : 'main.black_1'
+        }
         fontSize="12px"
         fontWeight="400"
-        disabled={status !== 'completed'}
+        disabled={consultingHistory.status !== 'completed'}
         onClick={handleConsultationResult}
       >
-        {status === 'completed' ? '상담 결과 보기' : '상담 결과 작성 중'}
+        {consultingHistory.status === 'completed'
+          ? '상담 결과 보기'
+          : '상담 결과 작성 중'}
       </Button>
     </Flex>
   );

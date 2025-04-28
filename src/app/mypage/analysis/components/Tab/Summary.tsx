@@ -7,7 +7,6 @@ interface FinancialSummaryProps {
   savings: number;
   investment: number;
   expenses: number;
-  totalAssets: number;
   netWorth: number;
   debt: number;
 }
@@ -17,7 +16,6 @@ const Summary = ({
   savings,
   investment,
   expenses,
-  totalAssets,
   netWorth,
   debt,
 }: FinancialSummaryProps) => {
@@ -30,7 +28,7 @@ const Summary = ({
         monthlyExpense={expenses}
       />
       <AssetAndDebtChart
-        totalAssets={totalAssets}
+        totalAssets={netWorth - debt}
         netWorth={netWorth}
         debt={debt}
       />

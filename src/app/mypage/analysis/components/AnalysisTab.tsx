@@ -4,8 +4,7 @@ import { Flex } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface AnalysisTabProps {
-  defaultTab?: string;
-  currentTab?: string;
+  availableTabs: string[];
 }
 
 const TabItem = ({
@@ -46,10 +45,10 @@ const TabItem = ({
   );
 };
 
-const AnalysisTab = ({ defaultTab, currentTab }: AnalysisTabProps) => {
+const AnalysisTab = ({ availableTabs }: AnalysisTabProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const activeTab = currentTab || searchParams.get('tab') || defaultTab;
+  const activeTab = searchParams.get('tab') || availableTabs[0];
 
   const handleTab = (tab: string) => {
     const params = new URLSearchParams(searchParams.toString());

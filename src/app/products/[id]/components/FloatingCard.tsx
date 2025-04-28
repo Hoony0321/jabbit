@@ -3,7 +3,7 @@ import VerifiedIconSVG from '@/public/assets/verify_badge.svg';
 import Image from 'next/image';
 import { formatKoreanCurrency } from '@/src/client/utils/currency';
 
-interface FloatingCardProps {
+export interface FloatingCardProps {
   expertName: string;
   expertImage: string;
   priceTags: {

@@ -1,20 +1,20 @@
 import { SimpleGrid } from '@chakra-ui/react';
 import GoalAchievementCard from './GoalAchievementCard';
-import { GoalAchievementInfo } from './GoalAchievementPredictionSection';
+import { FinancialPredictionGoalAchievementPrediction } from '@/src/server/types/domains';
 
 interface GoalAchievenmentListProps {
-  goalAchievementInfos: GoalAchievementInfo[];
+  goalAchievementPredictions: FinancialPredictionGoalAchievementPrediction[];
 }
 
 const GoalAchievenmentList = ({
-  goalAchievementInfos,
+  goalAchievementPredictions,
 }: GoalAchievenmentListProps) => {
   return (
     <SimpleGrid columns={3} gap="18px">
-      {goalAchievementInfos.map((goalAchievementInfo) => (
+      {goalAchievementPredictions.map((goalAchievementPrediction) => (
         <GoalAchievementCard
-          key={goalAchievementInfo.title}
-          {...goalAchievementInfo}
+          key={goalAchievementPrediction.title}
+          {...goalAchievementPrediction}
         />
       ))}
     </SimpleGrid>
