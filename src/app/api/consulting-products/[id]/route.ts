@@ -10,7 +10,6 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  console.log('request', request);
   const preflightResponse = handlePreflight(request);
   if (preflightResponse) {
     return preflightResponse;

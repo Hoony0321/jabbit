@@ -95,6 +95,85 @@ export type Database = {
         }
         Relationships: []
       }
+      user_asset: {
+        Row: {
+          amount: number
+          category: string
+          id: number
+          memo: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          id?: number
+          memo?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          id?: number
+          memo?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_asset_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_cashflows: {
+        Row: {
+          id: string
+          income_memo: string | null
+          investment_memo: string | null
+          irregular_income: number
+          irregular_investment: number
+          irregular_saving: number
+          regular_income: number
+          regular_investment: number
+          regular_saving: number
+          saving_memo: string | null
+        }
+        Insert: {
+          id: string
+          income_memo?: string | null
+          investment_memo?: string | null
+          irregular_income?: number
+          irregular_investment?: number
+          irregular_saving?: number
+          regular_income?: number
+          regular_investment?: number
+          regular_saving?: number
+          saving_memo?: string | null
+        }
+        Update: {
+          id?: string
+          income_memo?: string | null
+          investment_memo?: string | null
+          irregular_income?: number
+          irregular_investment?: number
+          irregular_saving?: number
+          regular_income?: number
+          regular_investment?: number
+          regular_saving?: number
+          saving_memo?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_cashflows_user_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_consulting_histories: {
         Row: {
           additional_proposals: Json
@@ -149,6 +228,102 @@ export type Database = {
           },
         ]
       }
+      user_debt: {
+        Row: {
+          amount: number
+          category: string
+          id: number
+          memo: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          id?: number
+          memo: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          id?: number
+          memo?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_debt_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_expense: {
+        Row: {
+          amount: number
+          category: string
+          id: number
+          memo: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          id?: number
+          memo?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          id?: number
+          memo?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_expense_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_financial_concern: {
+        Row: {
+          concern_detail: string | null
+          concern_period: Database["public"]["Enums"]["concern_period"]
+          concern_with_expert: string
+          concerns: string[]
+          id: string
+        }
+        Insert: {
+          concern_detail?: string | null
+          concern_period?: Database["public"]["Enums"]["concern_period"]
+          concern_with_expert: string
+          concerns: string[]
+          id: string
+        }
+        Update: {
+          concern_detail?: string | null
+          concern_period?: Database["public"]["Enums"]["concern_period"]
+          concern_with_expert?: string
+          concerns?: string[]
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_financial_concern_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_financial_diagnosis: {
         Row: {
           created_at: string
@@ -177,6 +352,41 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "user_financial_diagnosis_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_financial_goal: {
+        Row: {
+          goal_title: string
+          goal_type: Database["public"]["Enums"]["financial_goal_type"]
+          id: number
+          target_amount: number
+          target_years: number
+          user_id: string
+        }
+        Insert: {
+          goal_title: string
+          goal_type: Database["public"]["Enums"]["financial_goal_type"]
+          id?: number
+          target_amount: number
+          target_years: number
+          user_id: string
+        }
+        Update: {
+          goal_title?: string
+          goal_type?: Database["public"]["Enums"]["financial_goal_type"]
+          id?: number
+          target_amount?: number
+          target_years?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_financial_goal_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -263,6 +473,56 @@ export type Database = {
           },
         ]
       }
+      user_personal_info: {
+        Row: {
+          birth_year: number
+          employment_status: Database["public"]["Enums"]["employment_stability"]
+          family_support_status: Database["public"]["Enums"]["family_support_status"]
+          gender: Database["public"]["Enums"]["gender"]
+          health_status: Database["public"]["Enums"]["health_status"]
+          id: string
+          independent_status: Database["public"]["Enums"]["independence_status"]
+          job: string
+          marital_status: Database["public"]["Enums"]["marital_status"]
+          name: string
+          years_of_experience: number
+        }
+        Insert: {
+          birth_year: number
+          employment_status: Database["public"]["Enums"]["employment_stability"]
+          family_support_status: Database["public"]["Enums"]["family_support_status"]
+          gender: Database["public"]["Enums"]["gender"]
+          health_status: Database["public"]["Enums"]["health_status"]
+          id: string
+          independent_status: Database["public"]["Enums"]["independence_status"]
+          job?: string
+          marital_status: Database["public"]["Enums"]["marital_status"]
+          name: string
+          years_of_experience: number
+        }
+        Update: {
+          birth_year?: number
+          employment_status?: Database["public"]["Enums"]["employment_stability"]
+          family_support_status?: Database["public"]["Enums"]["family_support_status"]
+          gender?: Database["public"]["Enums"]["gender"]
+          health_status?: Database["public"]["Enums"]["health_status"]
+          id?: string
+          independent_status?: Database["public"]["Enums"]["independence_status"]
+          job?: string
+          marital_status?: Database["public"]["Enums"]["marital_status"]
+          name?: string
+          years_of_experience?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_personal_info_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           birth_year: number | null
@@ -304,7 +564,25 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      concern_period:
+        | "right_now"
+        | "1_to_3_months"
+        | "6_to_12_months"
+        | "1_to_5_years"
+        | "not_sure"
+      employment_stability: "stable" | "unstable"
+      family_support_status:
+        | "providing_support"
+        | "no_support"
+        | "partial_support"
+      financial_goal_type: "short_term" | "mid_term" | "long_term"
+      gender: "male" | "female"
+      health_status: "healthy" | "normal" | "treatment"
+      independence_status:
+        | "living_with_parents"
+        | "independent_no_support"
+        | "independent_partial_support"
+      marital_status: "married" | "single"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -419,6 +697,29 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      concern_period: [
+        "right_now",
+        "1_to_3_months",
+        "6_to_12_months",
+        "1_to_5_years",
+        "not_sure",
+      ],
+      employment_stability: ["stable", "unstable"],
+      family_support_status: [
+        "providing_support",
+        "no_support",
+        "partial_support",
+      ],
+      financial_goal_type: ["short_term", "mid_term", "long_term"],
+      gender: ["male", "female"],
+      health_status: ["healthy", "normal", "treatment"],
+      independence_status: [
+        "living_with_parents",
+        "independent_no_support",
+        "independent_partial_support",
+      ],
+      marital_status: ["married", "single"],
+    },
   },
 } as const

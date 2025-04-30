@@ -155,3 +155,45 @@ export type UserFinancialAnalysis = User & {
   user_financial_diagnosis: UserFinancialDiagnosis | null;
   user_financial_prediction: UserFinancialPrediction | null;
 };
+
+// UserPersonalInfo domain type
+export type UserPersonalInfo = Tables<
+  { schema: 'public' },
+  'user_personal_info'
+>;
+
+// UserFinancialGoal domain type
+export type UserFinancialGoal = Tables<
+  { schema: 'public' },
+  'user_financial_goal'
+>;
+
+// UserFinancialConcern domain type
+export type UserFinancialConcern = Tables<
+  { schema: 'public' },
+  'user_financial_concern'
+>;
+
+// UserCashflows domain type
+export type UserCashflows = Tables<{ schema: 'public' }, 'user_cashflows'>;
+
+// UserExpense domain type
+export type UserExpense = Tables<{ schema: 'public' }, 'user_expense'>;
+
+// UserDebt domain type
+export type UserDebt = Tables<{ schema: 'public' }, 'user_debt'>;
+
+// UserAsset domain type
+export type UserAsset = Tables<{ schema: 'public' }, 'user_asset'>;
+
+// UserAllInfo domain type
+export type UserAllInfo = {
+  user: User;
+  personal_info: Omit<UserPersonalInfo, 'user_id'>;
+  financial_goals: Omit<UserFinancialGoal, 'user_id'>[];
+  financial_concern: Omit<UserFinancialConcern, 'user_id'>[];
+  cashflow: Omit<UserCashflows, 'user_id'>[];
+  expenses: Omit<UserExpense, 'user_id'>[];
+  debts: Omit<UserDebt, 'user_id'>[];
+  assets: Omit<UserAsset, 'user_id'>[];
+};
