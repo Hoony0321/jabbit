@@ -50,7 +50,7 @@ const Navigation = () => {
         </Button>
         <Button variant="plain" textStyle="md">
           <BaseLink
-            href="https://ludicrous-icebreaker-097.notion.site/1d7771a76bb58080bc68ce76057ede42?pvs=4"
+            href="https://jabbit.oopy.io/"
             isExternal={true}
             style={{ textDecoration: 'none' }}
           >
