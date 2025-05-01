@@ -1,5 +1,4 @@
 'use client';
-import { ANALYSIS_TAB_DATA } from '@/src/client/constants/MYPAGE';
 import { Flex } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -64,7 +63,7 @@ const AnalysisTab = ({ availableTabs }: AnalysisTabProps) => {
       position="relative"
       mb="64px"
     >
-      {ANALYSIS_TAB_DATA.map((tab) => (
+      {availableTabs.map((tab) => (
         <TabItem
           key={tab}
           tab={tab}
