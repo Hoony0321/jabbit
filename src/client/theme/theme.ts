@@ -6,9 +6,15 @@ import {
 } from '@chakra-ui/react';
 
 export const textStyles = defineTextStyles({
-  sm: {
+  xs: {
     value: {
       fontSize: '14px',
+      fontWeight: '500',
+    },
+  },
+  sm: {
+    value: {
+      fontSize: '16px',
       fontWeight: '500',
     },
   },
@@ -86,6 +92,20 @@ const customConfig = defineConfig({
           line: {
             value: '#f2f3f5',
           },
+        },
+      },
+    },
+
+    semanticTokens: {
+      colors: {
+        primary: {
+          solid: { value: '{colors.primary}' },
+          // contrast: { value: '{colors.primary}' },
+          // fg: { value: '{colors.primary}' },
+          // muted: { value: '{colors.primary}' },
+          // subtle: { value: '{colors.primary}' },
+          // emphasized: { value: '{colors.primary}' },
+          // focusRing: { value: '{colors.primary}' },
         },
       },
     },

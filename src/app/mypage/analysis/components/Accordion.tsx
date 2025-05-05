@@ -31,7 +31,7 @@ const Accordion = ({ goal, recommendedGoals, advices }: AccordionProps) => {
           >
             <Text
               textAlign="center"
-              textStyle="sm"
+              textStyle="xs"
               color="
             #83889F"
             >
@@ -42,7 +42,7 @@ const Accordion = ({ goal, recommendedGoals, advices }: AccordionProps) => {
           <Flex flexDirection="column" justifyContent="center">
             <Flex minHeight="40px" alignItems="center">
               <Text
-                textStyle="sm"
+                textStyle="xs"
                 color="#222"
                 wordBreak="keep-all"
                 fontWeight="600"

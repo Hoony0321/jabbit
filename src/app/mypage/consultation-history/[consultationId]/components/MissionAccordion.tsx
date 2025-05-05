@@ -37,7 +37,7 @@ const MissionAccordion = ({
           >
             <Text
               textAlign="center"
-              textStyle="sm"
+              textStyle="xs"
               color="
             #B0AB9A"
             >
@@ -48,7 +48,7 @@ const MissionAccordion = ({
           <Flex flexDirection="column" justifyContent="center">
             <Flex minHeight="40px" alignItems="center">
               <Text
-                textStyle="sm"
+                textStyle="xs"
                 color="#222"
                 wordBreak="keep-all"
                 fontWeight="600"
@@ -71,7 +71,7 @@ const MissionAccordion = ({
             >
               <Flex flexDirection="column" gap="20px">
                 <Flex flexDirection="column" gap="12px">
-                  <Text textStyle="sm" color="main.black_2" fontWeight="600">
+                  <Text textStyle="xs" color="main.black_2" fontWeight="600">
                     📌 미션 내용
                   </Text>
                   <ul>
@@ -92,12 +92,12 @@ const MissionAccordion = ({
                   </ul>
                 </Flex>
                 <Flex flexDirection="column" gap="12px">
-                  <Text textStyle="sm" color="main.black_2" fontWeight="600">
+                  <Text textStyle="xs" color="main.black_2" fontWeight="600">
                     ✅ 미션 방법
                   </Text>
                   <Box>
                     {methods.map((method, index) => (
-                      <Text key={method} textStyle="sm" color="main.black_3">
+                      <Text key={method} textStyle="xs" color="main.black_3">
                         {index + 1}. {method}
                       </Text>
                     ))}

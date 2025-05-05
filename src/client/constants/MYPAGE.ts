@@ -17,6 +17,10 @@
 // 임시 데이터
 export const MYPAGE_SIDEBAR_DATA = [
   {
+    title: '재무 정보',
+    slug: 'info',
+  },
+  {
     title: '재무 분석',
     slug: 'analysis',
   },

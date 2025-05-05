@@ -38,7 +38,7 @@ const ReportAccordion = ({
           >
             <Text
               textAlign="center"
-              textStyle="sm"
+              textStyle="xs"
               color="
             #83889F"
             >
@@ -49,7 +49,7 @@ const ReportAccordion = ({
           <Flex flexDirection="column" justifyContent="center">
             <Flex minHeight="40px" alignItems="center">
               <Text
-                textStyle="sm"
+                textStyle="xs"
                 color="#222"
                 wordBreak="keep-all"
                 fontWeight="600"
@@ -69,7 +69,7 @@ const ReportAccordion = ({
               opacity={isOpen ? 1 : 0}
               transitionProperty="padding-top,max-height, opacity"
             >
-              <Text textStyle="sm" color="main.black_2" whiteSpace="pre-wrap">
+              <Text textStyle="xs" color="main.black_2" whiteSpace="pre-wrap">
                 {description}
               </Text>
             </Box>

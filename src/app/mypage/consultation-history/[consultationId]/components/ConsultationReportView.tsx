@@ -27,7 +27,7 @@ const ConsultationReportView = ({
               {consultingHistory.consulting_products.experts.name} 전문가님이
               제안했어요
             </Text>
-            <Text textStyle="sm" color="main.black_3">
+            <Text textStyle="xs" color="main.black_3">
               전문가님이 선정한 우선순위 대로 보여드릴게요!
             </Text>
           </Flex>
@@ -113,7 +113,7 @@ const ConsultationReportView = ({
             }}
           >
             <Text
-              textStyle="sm"
+              textStyle="xs"
               fontWeight={600}
               color="#5971b2"
               whiteSpace="nowrap"

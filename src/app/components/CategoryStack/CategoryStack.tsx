@@ -1,46 +1,47 @@
 'use client';
 
-import { Flex, HStack, Text } from '@chakra-ui/react';
-import ConsultingSVG from '@/public/assets/consulting.svg';
-import InsuranceSVG from '@/public/assets/insurance.svg';
-import DebtSVG from '@/public/assets/debt.svg';
-import ExpenditureSVG from '@/public/assets/expenditure_management.svg';
-import InvestmentSVG from '@/public/assets/invest_consulting.svg';
-import RealEstateSVG from '@/public/assets/realestate.svg';
-import SeedMoneySVG from '@/public/assets/seed_money.svg';
 import { useState } from 'react';
-import HoverMenu from './HoverMenu/HoverMenu';
 import { useRouter } from 'next/navigation';
+import { Flex, HStack, Text } from '@chakra-ui/react';
+
+import ConsultingSVG from '@/src/client/assets/consulting.svg';
+import InsuranceSVG from '@/src/client/assets/insurance.svg';
+import DebtSVG from '@/src/client/assets/debt.svg';
+import ExpenditureSVG from '@/src/client/assets/expenditure_management.svg';
+import InvestmentSVG from '@/src/client/assets/invest_consulting.svg';
+import RealEstateSVG from '@/src/client/assets/real_estate.svg';
+import SeedMoneySVG from '@/src/client/assets/seed_money.svg';
+import HoverMenu from './HoverMenu/HoverMenu';
 
 const CATEGORY_ITEMS = [
   {
     title: '종합재무상담',
-    image: <ConsultingSVG />,
+    image: <ConsultingSVG width="100%" height="100%" />,
   },
   {
     title: '보험진단',
-    image: <InsuranceSVG />,
+    image: <InsuranceSVG width="100%" height="100%" />,
   },
   {
     title: '부채상환',
-    image: <DebtSVG />,
+    image: <DebtSVG width="100%" height="100%" />,
   },
   {
     title: '투자점검',
-    image: <InvestmentSVG />,
+    image: <InvestmentSVG width="100%" height="100%" />,
   },
   {
     title: '종잣돈 마련',
-    image: <SeedMoneySVG />,
+    image: <SeedMoneySVG width="100%" height="100%" />,
   },
   {
     title: '지출관리',
-    image: <ExpenditureSVG />,
+    image: <ExpenditureSVG width="100%" height="100%" />,
   },
 
   {
     title: '부동산',
-    image: <RealEstateSVG />,
+    image: <RealEstateSVG width="100%" height="100%" />,
   },
 ];
 

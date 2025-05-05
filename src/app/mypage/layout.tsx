@@ -10,6 +10,7 @@ const MypageLayout = ({ children }: { children: React.ReactNode }) => {
       <Flex
         flexDirection="column"
         width="100%"
+        height="100%"
         maxWidth="1280px"
         minHeight="80vh"
         paddingTop="35px"

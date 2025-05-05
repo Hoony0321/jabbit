@@ -81,7 +81,7 @@ const FloatingCard = ({
                 border="2px solid var(--chakra-colors-primary)"
               >
                 <Flex flexDirection="column" gap="6px">
-                  <Text textStyle="sm" color="#848dc3">
+                  <Text textStyle="xs" color="#848dc3">
                     {priceInfo.name}
                   </Text>
                   <Text textStyle="md" color="primary">
@@ -100,7 +100,7 @@ const FloatingCard = ({
                 onClick={() => handlePriceTagClick(index)}
               >
                 <Flex flexDirection="column" gap="6px">
-                  <Text textStyle="sm" color="main.black_3">
+                  <Text textStyle="xs" color="main.black_3">
                     {priceInfo.name}
                   </Text>
                   <Text textStyle="md" color="main.black_1">
@@ -140,7 +140,7 @@ const FloatingCard = ({
             marginBottom: '-7px',
           }}
         >
-          <Text textStyle="sm" fontWeight={600} color="#5971b2">
+          <Text textStyle="xs" fontWeight={600} color="#5971b2">
             상담 요일과 시간은 전문가와 조율할 수 있어요
           </Text>
         </Flex>
