@@ -1,10 +1,8 @@
-import { createJwtToken } from '@/src/client/utils/jwt';
 import { getAccessToken, getUserInfo } from '@/src/client/utils/auth';
 import {
   createErrorApiResponse,
   createSuccessApiResponse,
 } from '@/src/server/utils/apiResponseUtils';
-import createUser from '@/src/client/lib/api/createUser';
 import getAllUsers from '@/src/client/lib/api/getAllUsers';
 import { User } from '@/src/server/types/domains';
 export async function GET(req: Request) {
@@ -30,28 +28,17 @@ export async function GET(req: Request) {
 
     // 사용자 정보 조회
     const userReadResponse = await getAllUsers();
-    let user = userReadResponse.data.find(
+    const user = userReadResponse.data.find(
       (user: User) => user.provider_id == userData.id,
+      (user: User) => user.provider == 'KAKAO',
     );
 
-    if (!user) {
-      user = await createUser({
-        provider_id: userData.id,
-        provider: 'KAKAO',
-        email: userData.kakao_account.email,
-      });
-    }
-
-    // JWT 토큰 생성
-    const jwtToken = createJwtToken({
-      id: user.id,
-      provider: 'KAKAO',
-    });
-
     return createSuccessApiResponse('READ_SUCCESS', {
-      id: user.id,
+      providerId: userData.id,
       provider: 'KAKAO',
-      token: jwtToken,
+      name: user ? user.name : null,
+      email: user ? user.email : null,
+      userId: user ? user.id : null,
     });
   } catch {
     return createErrorApiResponse('UNKNOWN_ERROR');

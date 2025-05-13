@@ -50,6 +50,10 @@ export const API_ERROR_INFOS = {
     statusCode: 400,
     message: '잘못된 요청',
   },
+  INVALID_USER_DATA: {
+    statusCode: 400,
+    message: '유효하지 않은 사용자 데이터',
+  },
   FETCH_FAILED: {
     statusCode: 500,
     message: '데이터 조회 실패',

@@ -1,10 +1,12 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { AppError } from '@/src/client/errors/AppError';
 import { useErrorToast } from '@/src/client/errors/useErrorToast';
-import { useAuthStore, User } from '@/src/client/store/authStore';
+import { useAuthStore } from '@/src/client/store/authStore';
 import { Spinner } from '@chakra-ui/react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { createJwtToken } from '@/src/client/lib/api/createJwt';
+import { AuthUser } from '@/src/client/store/authStore';
 
 const AuthPageContent = () => {
   const router = useRouter();
@@ -13,6 +15,31 @@ const AuthPageContent = () => {
   const { showErrorToast } = useErrorToast();
   const [isFetching, setIsFetching] = useState(false);
   const [executedCode, setExecutedCode] = useState<string | null>(null);
+
+  const handleAuth = async (data: {
+    provider: string;
+    providerId: string;
+    userId: string | null;
+    name: string | null;
+    email: string | null;
+  }) => {
+    if (data.userId) {
+      // 이미 가입된 유저일 경우 로그인 페이지로 라우팅
+      const user: AuthUser = {
+        id: data.userId,
+        name: data.name ?? 'Unknown',
+        email: data.email ?? 'Unknown',
+      };
+      const token = await createJwtToken(user);
+      setUser(user, token);
+      router.replace('/');
+    } else {
+      // 신규 유저일 경우 회원가입 페이지로 라우팅
+      router.replace(
+        `/signup?&provider=${data.provider}&providerId=${data.providerId}`,
+      );
+    }
+  };
 
   useEffect(() => {
     if (code && executedCode !== code && !isFetching) {
@@ -30,12 +57,7 @@ const AuthPageContent = () => {
             });
           }
 
-          const user: User = {
-            id: data.id,
-            provider: data.provider,
-          };
-          setUser(user, data.token);
-          router.replace('/');
+          handleAuth(data);
         })
         .catch((error) => {
           showErrorToast(error);

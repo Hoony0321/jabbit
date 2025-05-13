@@ -5,7 +5,6 @@ import { Flex, Stack, Text } from '@chakra-ui/react';
 import {
   EMPLOYMENT_STATUS_OPTIONS,
   INDEPENDENT_STATUS_OPTIONS,
-  GENDER_OPTIONS,
   MARITAL_STATUS_OPTIONS,
   FAMILY_SUPPORT_STATUS_OPTIONS,
   HEALTH_STATUS_OPTIONS,
@@ -28,41 +27,6 @@ function Step1() {
       </Stack>
 
       <Stack direction="column" gap="60px">
-        <Flex justifyContent="space-between" alignItems="flex-start">
-          <Field label="이름" required maxW="200px" gap="9px">
-            <Input
-              placeholder="이름을 입력하세요"
-              {...register('personal_info.name')}
-            />
-          </Field>
-
-          <Field label="출생연도" required maxW="200px" gap="9px">
-            <Input
-              type="number"
-              placeholder="출생연도를 입력하세요"
-              {...register('personal_info.birth_year', {
-                valueAsNumber: true,
-              })}
-            />
-          </Field>
-
-          <Field label="성별" required maxW="200px" gap="22px">
-            <Controller
-              name="personal_info.gender"
-              control={control}
-              render={({ field }) => (
-                <RadioGroup
-                  options={GENDER_OPTIONS}
-                  color="main.black_2"
-                  flexDir="row"
-                  gap="40px"
-                  {...field}
-                />
-              )}
-            />
-          </Field>
-        </Flex>
-
         <Flex justifyContent="space-between" alignItems="center" gap="88px">
           <Field label="직업" required>
             <Input

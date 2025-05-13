@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 
 const MyPageBtn = () => {
   const router = useRouter();
-  const { isAuthenticated } = useAuthStore();
+  const { isLoggedIn } = useAuthStore();
 
-  if (!isAuthenticated) {
+  if (!isLoggedIn) {
     return null;
   }
 

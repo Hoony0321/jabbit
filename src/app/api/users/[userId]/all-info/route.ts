@@ -61,6 +61,18 @@ export async function GET(
   try {
     const { userId } = await params;
     const userAllInfo = await userAllInfoService.getUserAllInfo(userId);
+
+    if (
+      !userAllInfo ||
+      !userAllInfo.user_personal_info ||
+      !userAllInfo.user_financial_goal ||
+      userAllInfo.user_financial_goal.length != 3 ||
+      !userAllInfo.user_financial_concern ||
+      !userAllInfo.user_cashflows
+    ) {
+      return createErrorApiResponse('NOT_FOUND_ERROR');
+    }
+
     return createSuccessApiResponse('READ_SUCCESS', userAllInfo);
   } catch (error) {
     console.error(error);

@@ -1,6 +1,8 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from '@/src/server/types/supabase';
-
+import { User } from '@/src/server/types/domains';
+type UserCreateForm = Omit<User, 'id' | 'created_at'>;
+type UserUpdateForm = Partial<UserCreateForm>;
 class UserService {
   constructor(private readonly supabase: SupabaseClient<Database, 'public'>) {}
 
@@ -24,10 +26,11 @@ class UserService {
     return data;
   }
 
-  async getUserByProviderId(provider_id: string) {
+  async getUserByProviderAndProviderId(provider: string, provider_id: string) {
     const { data, error } = await this.supabase
       .from('users')
       .select('*')
+      .eq('provider', provider)
       .eq('provider_id', provider_id)
       .single();
     if (error) {
@@ -36,23 +39,33 @@ class UserService {
     return data;
   }
 
-  async createUser({
-    provider_id,
-    provider,
-    email,
-  }: {
-    provider_id: string;
-    provider: string;
-    email: string;
-  }) {
-    const { data, error } = await this.supabase.from('users').insert({
-      provider_id,
-      provider,
-      email,
-      birth_year: 0,
-      has_children: false,
-      is_married: false,
-    });
+  async createUser(user: UserCreateForm) {
+    const { data, error } = await this.supabase
+      .from('users')
+      .insert(user)
+      .select();
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data[0];
+  }
+
+  async updateUser(id: string, user: UserUpdateForm) {
+    const { data, error } = await this.supabase
+      .from('users')
+      .update(user)
+      .eq('id', id);
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data;
+  }
+
+  async deleteUser(id: string) {
+    const { data, error } = await this.supabase
+      .from('users')
+      .delete()
+      .eq('id', id);
     if (error) {
       throw new Error(error.message);
     }

@@ -5,8 +5,8 @@ import LogoutBtn from './LogoutBtn';
 import LoginBtn from './LoginBtn';
 
 const AuthBtn = () => {
-  const { isAuthenticated } = useAuthStore();
-  return isAuthenticated ? <LogoutBtn /> : <LoginBtn />;
+  const { isLoggedIn } = useAuthStore();
+  return isLoggedIn ? <LogoutBtn /> : <LoginBtn />;
 };
 
 export default AuthBtn;

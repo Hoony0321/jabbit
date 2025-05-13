@@ -2,14 +2,6 @@ import { UserFinancialInfo } from '@/src/client/lib/api/postUserFinancialInfo';
 
 // STEP 1 : 인적 정보 입력
 
-export const GENDER_OPTIONS: {
-  value: UserFinancialInfo['personal_info']['gender'];
-  label: string;
-}[] = [
-  { value: 'male', label: '남성' },
-  { value: 'female', label: '여성' },
-];
-
 export const EMPLOYMENT_STATUS_OPTIONS: {
   value: UserFinancialInfo['personal_info']['employment_status'];
   label: string;

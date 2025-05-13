@@ -1,11 +1,9 @@
 import { getAccessToken, getUserInfo } from '@/src/client/utils/auth';
-import { createJwtToken } from '@/src/client/utils/jwt';
 import {
   createErrorApiResponse,
   createSuccessApiResponse,
 } from '@/src/server/utils/apiResponseUtils';
 import getAllUsers from '@/src/client/lib/api/getAllUsers';
-import createUser from '@/src/client/lib/api/createUser';
 import { User } from '@/src/server/types/domains';
 export async function GET(req: Request) {
   const url = new URL(req.url);
@@ -32,28 +30,17 @@ export async function GET(req: Request) {
 
     // 사용자 정보 조회
     const userReadResponse = await getAllUsers();
-    let user = userReadResponse.data.find(
-      (user: User) => user.provider_id === userData.response.id,
+    const user = userReadResponse.data.find(
+      (user: User) => user.provider_id == userData.response.id,
+      (user: User) => user.provider == 'NAVER',
     );
 
-    if (!user) {
-      user = await createUser({
-        provider_id: userData.response.id,
-        provider: 'NAVER',
-        email: userData.response.email,
-      });
-    }
-
-    // JWT 토큰 생성
-    const jwtToken = createJwtToken({
-      id: user.id,
-      provider: 'NAVER',
-    });
-
     return createSuccessApiResponse('READ_SUCCESS', {
-      id: user.id,
+      providerId: userData.response.id,
       provider: 'NAVER',
-      token: jwtToken,
+      name: user ? user.name : null,
+      email: user ? user.email : null,
+      userId: user ? user.id : null,
     });
   } catch {
     return createErrorApiResponse('UNKNOWN_ERROR');

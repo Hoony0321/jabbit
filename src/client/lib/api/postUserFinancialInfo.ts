@@ -1,9 +1,6 @@
 import { BASE_URL } from '@/src/server/constants/API';
 
 interface PersonalInfo {
-  name: string;
-  birth_year: number;
-  gender: 'male' | 'female';
   job: string;
   marital_status: 'married' | 'single';
   employment_status: 'stable' | 'unstable';

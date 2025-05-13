@@ -34,11 +34,23 @@ export async function POST(req: Request) {
   const userService = new UserService(supabase);
 
   try {
-    const { provider_id, provider, email } = await req.json();
+    const {
+      provider_id,
+      provider,
+      email,
+      name,
+      birth_year,
+      gender,
+      phone_number,
+    } = await req.json();
     const user = await userService.createUser({
       provider_id,
       provider,
       email,
+      name,
+      birth_year,
+      gender,
+      phone_number,
     });
     return createSuccessApiResponse('CREATE_SUCCESS', user);
   } catch (error) {

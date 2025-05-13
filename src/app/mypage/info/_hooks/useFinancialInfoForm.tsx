@@ -4,9 +4,6 @@ import { z } from 'zod';
 import { UserFinancialInfo } from '@/src/client/lib/api/postUserFinancialInfo';
 
 const personalInfoSchema = z.object({
-  name: z.string().min(1),
-  birth_year: z.number().min(1900).max(2025),
-  gender: z.enum(['male', 'female']),
   job: z.string().min(1),
   marital_status: z.enum(['married', 'single']),
   employment_status: z.enum(['stable', 'unstable']),
