@@ -4,8 +4,12 @@ import {
   defineConfig,
   defineTextStyles,
 } from '@chakra-ui/react';
+import { COLORS } from './colors';
+import { WEB_TEXT_STYLE, MOBILE_TEXT_STYLE } from './textStyle';
 
 export const textStyles = defineTextStyles({
+  ...WEB_TEXT_STYLE,
+  ...MOBILE_TEXT_STYLE,
   xs: {
     value: {
       fontSize: '14px',
@@ -49,6 +53,7 @@ const customConfig = defineConfig({
     textStyles,
     tokens: {
       colors: {
+        ...COLORS,
         primary: {
           value: '#334195',
         },
