@@ -15,5 +15,5 @@ export const createJwtToken = async (user: AuthUser): Promise<string> => {
   }
 
   const data = await response.json();
-  return data.token;
+  return data.data;
 };
