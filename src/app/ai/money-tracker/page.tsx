@@ -1,5 +1,7 @@
-function MoneyTrackerPage() {
-  return <div>MoneyTrackerPage</div>;
+import { redirect } from 'next/navigation';
+
+function MoneyPage() {
+  redirect('/ai/money-tracker/budget');
 }
 
-export default MoneyTrackerPage;
+export default MoneyPage;

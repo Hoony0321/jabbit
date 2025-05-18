@@ -1,8 +1,8 @@
 'use client';
 
 import { Stack } from '@chakra-ui/react';
-import ChatbotMessage from './_components/ChatbotMessage';
 import { useRouter } from 'next/navigation';
+import ChatbotMessage from './_components/ChatbotMessage';
 
 function CoachPage() {
   const { push } = useRouter();

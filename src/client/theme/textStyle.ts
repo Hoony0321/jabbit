@@ -55,6 +55,13 @@ export const MOBILE_TEXT_STYLE = {
       lineHeight: '130%',
     },
   },
+  mobile_menu: {
+    value: {
+      fontSize: '10px',
+      fontWeight: 600,
+      lineHeight: '130%',
+    },
+  },
 };
 
 export const WEB_TEXT_STYLE = {
