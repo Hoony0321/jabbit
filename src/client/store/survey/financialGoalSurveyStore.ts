@@ -12,7 +12,7 @@ interface financialGoalSurveyState {
   clearAnswers: () => void;
 }
 
-export const usefinancialGoalSurveyStore = create<financialGoalSurveyState>((set) => ({
+export const useFinancialGoalSurveyStore = create<financialGoalSurveyState>((set) => ({
   answers: {},
   setAnswer: (id, answer, text) =>
     set((state) => ({

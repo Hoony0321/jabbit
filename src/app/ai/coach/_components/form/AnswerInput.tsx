@@ -1,14 +1,19 @@
 import { Input } from '@chakra-ui/react';
-
 interface AnswerInputProps {
   value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onEnter: () => void;
 }
 
-function AnswerInput({ value, onChange }: AnswerInputProps) {
+function AnswerInput({ value, onChange, onEnter }: AnswerInputProps) {
+  const handleBlur = () => {
+    if (value) onEnter();
+  };
+
   return (
     <Input
-      type="number"
+      type="text"
+      inputMode="numeric"
       placeholder="0"
       size="lg"
       textAlign="right"
@@ -31,6 +36,7 @@ function AnswerInput({ value, onChange }: AnswerInputProps) {
         borderWidth: '2px',
         borderColor: 'brand.blue',
       }}
+      onBlur={handleBlur}
     />
   );
 }

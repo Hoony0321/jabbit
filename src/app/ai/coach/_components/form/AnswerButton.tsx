@@ -7,7 +7,7 @@ function AnswerButton({
 }: {
   isSelected: boolean;
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
   return (
     <Button

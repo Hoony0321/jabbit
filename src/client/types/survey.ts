@@ -1,0 +1,315 @@
+export interface AnswerChoice {
+  code: string;
+  label: string;
+}
+
+export interface Question {
+  id: number;
+  title: string;
+  description: string | null;
+  type: 'choice-full' | 'input-year' | 'choice-grid' | 'input-area';
+  answerChoices: AnswerChoice[];
+}
+
+export const buyHomeSurvey: Question[] = [
+  {
+    id: 1,
+    title: '10년 이내에 이루고 싶은 재무 목표는 무엇인가요?',
+    description: '현재는 ‘내 집 마련’ 목표 설정만 도와드려요.',
+    type: 'choice-full',
+    answerChoices: [{ code: 'a', label: '내 집 마련' }],
+  },
+  {
+    id: 2,
+    title: '내 집 마련은 언제쯤 하고 싶으신가요?',
+    description: null,
+    type: 'input-year',
+    answerChoices: [
+      { code: 'a', label: '자가' },
+      { code: 'b', label: '전세' },
+      { code: 'c', label: '월세' },
+      { code: 'd', label: '기타' },
+    ],
+  },
+  {
+    id: 3,
+    title: '미래에 결혼 계획이 있으신가요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '결혼해서 신혼부부에요' },
+      { code: 'b', label: '비혼으로 1인 가구로 살아요' },
+    ],
+  },
+  {
+    id: 4,
+    title: '어느 지역에 주거를 마련하고 싶으신가요?',
+    description: '초혼 신혼부부 54%가 서울/경기에 거주해요.',
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '서울' },
+      { code: 'b', label: '경기' },
+    ],
+  },
+  {
+    id: 5,
+    title: '시/구 단위로도 정해본다면요?',
+    description:
+      '초혼 신혼부부가 많이 사는 top5에요.<br /> 경기도 화성시 / 수원시 / 고양시 / 용인시 / 성남시',
+    type: 'choice-grid',
+    answerChoices: [],
+  },
+  {
+    id: 6,
+    title: '몇 평형대의 집을 원하시나요?',
+    description: '초혼 신혼부부는 11~15평으로 시작해요.',
+    type: 'input-area',
+    answerChoices: [],
+  },
+  {
+    id: 7,
+    title: '어떤 형태의 주거를 생각하고 계신가요?',
+    description: '초혼 신혼부부의 72%는 아파트에 거주해요.',
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '아파트' },
+      { code: 'b', label: '오피스텔' },
+      { code: 'c', label: '빌라' },
+    ],
+  },
+  {
+    id: 8,
+    title: '어떤 거주 형태로 살고 싶나요?',
+    description: '초혼 신혼부부의 41%는 자가로 구매했어요.',
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '자가(매매)' },
+      { code: 'b', label: '전세' },
+    ],
+  },
+];
+
+export const financialGoalSurvey: Question[] = [
+  {
+    id: 1,
+    title: '지금 저축을 시작한다면,<br /> 가장 먼저 하고 싶은 일은요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '비상금부터 준비하고 싶어요' },
+      { code: 'b', label: '나를 위한 목표부터 시작하고 싶어요' },
+      { code: 'c', label: '소액 투자로 연습해보고 싶어요' },
+      { code: 'd', label: '막막하지만 일단 시작하고 싶어요' },
+    ],
+  },
+  {
+    id: 2,
+    title: '3~5년 안에 꼭 이루고 싶은 목표가 있다면요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '이직이나 프리랜서 도전' },
+      { code: 'b', label: '여행이나 유학 같은 긴 휴식' },
+      { code: 'c', label: '차나 전셋집 마련' },
+      { code: 'd', label: '아직 딱히 없어요' },
+    ],
+  },
+  {
+    id: 3,
+    title: '10년 후, 어떤 모습이면 좋겠나요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '내가 원하는 일과 삶을 사는 모습' },
+      { code: 'b', label: '가족과 안정된 일상을 보내는 모습' },
+      { code: 'c', label: '돈 걱정 없는 경제적 자유' },
+      { code: 'd', label: '아직 상상이 잘 안 돼요' },
+    ],
+  },
+  {
+    id: 4,
+    title: "지금 나에게 '돈'이란 어떤 의미인가요?",
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '자유를 주는 수단' },
+      { code: 'b', label: '불안을 막아주는 울타리' },
+      { code: 'c', label: '노력의 결과이자 보상' },
+      { code: 'd', label: '깊게 생각해본 적 없어요' },
+    ],
+  },
+  {
+    id: 5,
+    title: '투자 성향은 어떤 편인가요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '안정이 가장 중요해요' },
+      { code: 'b', label: '적당한 변동은 괜찮아요' },
+      { code: 'c', label: '수익 크면 리스크도 감수해요' },
+      { code: 'd', label: '잘 모르지만 해보고 싶어요' },
+    ],
+  },
+  {
+    id: 6,
+    title: '‘지금 vs 미래’, 소비는 어떻게 결정하세요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '지금의 만족이 더 중요해요' },
+      { code: 'b', label: '미래를 위해 지금은 참아요' },
+      { code: 'c', label: '균형 있게 조절하려 해요' },
+      { code: 'd', label: '매번 고민이라 어려워요' },
+    ],
+  },
+  {
+    id: 7,
+    title: '미래 계획, <br /> 얼마나 세워보셨나요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '구체적으로 계획한 적 있어요' },
+      { code: 'b', label: '대략적인 생각만 있어요' },
+      { code: 'c', label: '세우고 싶지만 막막해요' },
+      { code: 'd', label: '아직 계획해본 적 없어요' },
+    ],
+  },
+  {
+    id: 8,
+    title: '투자 후 30% 손실이 나면 어떻게 하실 건가요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '바로 정리하고 그만둘 것 같아요' },
+      { code: 'b', label: '일단을 지켜볼 것 같아요' },
+      { code: 'c', label: '더 싸졌다고 생각하고 추가 매수' },
+      { code: 'd', label: '그래서 시작이 무서워요' },
+    ],
+  },
+  {
+    id: 9,
+    title: '갑자기 30만 원을 쓰게 된다면 어디에 쓰고 싶으세요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '친구들 외식이나 약속' },
+      { code: 'b', label: '취미나 배우고 싶은 클래스' },
+      { code: 'c', label: '저축이나 투자에 활용' },
+      { code: 'd', label: '고민 없이 바로 쓸 것 같아요' },
+    ],
+  },
+  {
+    id: 10,
+    title: '5년 뒤, 나의 재정 상태는 어땠으면 하나요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '전세금 수준의 목돈이 있었으면' },
+      { code: 'b', label: '월급 외 부수입이 있었으면' },
+      { code: 'c', label: '소비와 저축이 균형이 잡혔으면' },
+      { code: 'd', label: '대출 없이 안정되었으면' },
+    ],
+  },
+  {
+    id: 11,
+    title: '지금까지의 투자 경험은 어떤가요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '해본 적 거의 없어요' },
+      { code: 'b', label: '소액으로 간단히 해봤어요' },
+      { code: 'c', label: '다양하게 해봤고 지금도 해요' },
+      { code: 'd', label: '손해 보고 그만둔 적 있어요' },
+    ],
+  },
+  {
+    id: 12,
+    title: '돈을 쓸 때 가장 스트레스 받는 순간은 언제인가요?',
+    description: null,
+    type: 'choice-full',
+    answerChoices: [
+      { code: 'a', label: '남들보다 덜 쓰는 것 같을 때' },
+      { code: 'b', label: '큰돈 쓰면서 계획 없을 때' },
+      { code: 'c', label: '쓰고 나서 후회할 때' },
+      { code: 'd', label: '카드값 보고 현타 올 때' },
+    ],
+  },
+];
+
+export const region = {
+  SEOUL: [
+    { code: '1', label: '강남구' },
+    { code: '2', label: '강동구' },
+    { code: '3', label: '강북구' },
+    { code: '4', label: '강서구' },
+    { code: '5', label: '관악구' },
+    { code: '6', label: '광진구' },
+    { code: '7', label: '구로구' },
+    { code: '8', label: '금천구' },
+    { code: '9', label: '노원구' },
+    { code: '10', label: '도봉구' },
+    { code: '11', label: '동대문구' },
+    { code: '12', label: '동작구' },
+    { code: '13', label: '마포구' },
+    { code: '14', label: '서대문구' },
+    { code: '15', label: '서초구' },
+    { code: '16', label: '성동구' },
+    { code: '17', label: '성북구' },
+    { code: '18', label: '송파구' },
+    { code: '19', label: '양천구' },
+    { code: '20', label: '영등포구' },
+    { code: '21', label: '용산구' },
+    { code: '22', label: '은평구' },
+    { code: '23', label: '종로구' },
+    { code: '24', label: '중구' },
+    { code: '25', label: '중랑구' },
+  ],
+  KYEONGGI: [
+    { code: '26', label: '가평군' },
+    { code: '27', label: '고양시' },
+    { code: '28', label: '과천시' },
+    { code: '29', label: '광명시' },
+    { code: '30', label: '광주시' },
+    { code: '31', label: '구리시' },
+    { code: '32', label: '군포시' },
+    { code: '33', label: '김포시' },
+    { code: '34', label: '남양주시' },
+    { code: '35', label: '동두천시' },
+    { code: '36', label: '부천시' },
+    { code: '37', label: '북양주시' },
+    { code: '38', label: '사전시' },
+    { code: '39', label: '성남시' },
+    { code: '40', label: '수원시' },
+    { code: '41', label: '시흥시' },
+    { code: '42', label: '안산시' },
+    { code: '43', label: '안성시' },
+    { code: '44', label: '안양시' },
+    { code: '45', label: '양주시' },
+    { code: '46', label: '여주시' },
+    { code: '47', label: '연천군' },
+    { code: '48', label: '오산시' },
+    { code: '49', label: '용인시' },
+    { code: '50', label: '의왕시' },
+    { code: '51', label: '의정부시' },
+    { code: '52', label: '이천시' },
+    { code: '53', label: '파주시' },
+    { code: '54', label: '평택시' },
+  ],
+  ETC: [
+    { code: '55', label: '부산광역시' },
+    { code: '56', label: '대구광역시' },
+    { code: '57', label: '인천광역시' },
+    { code: '58', label: '대전광역시' },
+    { code: '59', label: '울산광역시' },
+    { code: '60', label: '광주광역시' },
+    { code: '61', label: '세종특별자치시' },
+    { code: '62', label: '강원도' },
+    { code: '63', label: '충청북도' },
+    { code: '64', label: '충청남도' },
+    { code: '65', label: '경상북도' },
+    { code: '66', label: '경상남도' },
+    { code: '67', label: '전라북도' },
+    { code: '68', label: '전라남도' },
+    { code: '69', label: '제주도' },
+  ],
+} as const;

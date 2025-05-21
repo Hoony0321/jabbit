@@ -1,25 +1,24 @@
 'use client';
 
 import { Box, Flex, Stack } from '@chakra-ui/react';
-import ProgressBar from '../../_components/form/ProgressBar';
+import ProgressBar from '@/src/app/ai/coach/_components/form/ProgressBar';
 import { useState } from 'react';
-import StepController from '../../_components/form/StepController';
-import Step from '../../_components/form/Step';
-import Question from '../../_components/form/Question';
-import Answer from '../../_components/form/Answer';
-import SurveyQuestions from '../../../../data/financial-goal-survey.json';
-import Modal from '../../../../common/Modal/Modal';
-import { usefinancialGoalSurveyStore } from '../../../../../client/store/survey/financialGoalSurveyStore';
+import StepController from '@/src/app/ai/coach/_components/form/StepController';
+import Step from '@/src/app/ai/coach/_components/form/Step';
+import Question from '@/src/app/ai/coach/_components/form/Question';
+import Answer from '@/src/app/ai/coach/_components/form/Answer';
+import { financialGoalSurvey } from '@/src/client/types/survey';
+import Modal from '@/src/app/common/Modal/Modal';
+import { useFinancialGoalSurveyStore } from '@/src/client/store/survey/financialGoalSurveyStore';
 import { useRouter } from 'next/navigation';
-import postFinancialGoalSurvey from '../../../../../client/lib/api/postFinancialGoalSurvey';
+import postFinancialGoalSurvey from '@/src/client/lib/api/postFinancialGoalSurvey';
 const totalStep = 12;
 
 function FinancialGoalFormPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-  const { setAnswer, answers } = usefinancialGoalSurveyStore();
-  console.log(answers);
+  const { setAnswer, answers } = useFinancialGoalSurveyStore();
 
   const handleConfirm = () => {
     setIsOpen(false);
@@ -31,16 +30,36 @@ function FinancialGoalFormPage() {
     setIsOpen(false);
   };
 
-  const handleAnswer = (answer: string | number, text: string) => {
+  const handleSelectClick = (answer: string | number, text: string) => {
     setAnswer(currentStep, answer, text);
+    goToNextPage();
+  };
 
+  const handleInputChange = (answer: string | number, text: string) => {
+    setAnswer(currentStep, answer, text);
+  };
+
+  const handleInputEnter = () => {
+    goToNextPage();
+  };
+
+  const goToNextPage = () => {
     if (currentStep === totalStep) {
       setIsOpen(true);
+    } else {
+      setCurrentStep(currentStep + 1);
     }
   };
 
+  const isAnswerValid = (step: number) => {
+    const answer = answers[step]?.answer;
+    return answer !== undefined && answer !== '' && answer !== null;
+  };
+
   const renderStepContent = () => {
-    const currentQuestion = SurveyQuestions.find((q) => q.id === currentStep);
+    const currentQuestion = financialGoalSurvey.find(
+      (q) => q.id === currentStep,
+    );
 
     if (!currentQuestion) return null;
 
@@ -54,7 +73,9 @@ function FinancialGoalFormPage() {
             type as 'input-year' | 'input-area' | 'choice-full' | 'choice-grid'
           }
           answerChoices={answerChoices}
-          onAnswerSelect={handleAnswer}
+          onClick={handleSelectClick}
+          onChange={handleInputChange}
+          onEnter={handleInputEnter}
           selectedAnswers={answers}
           currentStep={currentStep}
         />
@@ -82,6 +103,7 @@ function FinancialGoalFormPage() {
               totalStep={totalStep}
               onPrevStep={() => setCurrentStep(currentStep - 1)}
               onNextStep={() => setCurrentStep(currentStep + 1)}
+              isAnswered={isAnswerValid(currentStep)}
             />
           </Flex>
           {renderStepContent()}

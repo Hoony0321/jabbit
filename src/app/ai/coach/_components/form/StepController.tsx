@@ -6,6 +6,7 @@ interface StepControllerProps {
   totalStep: number;
   onPrevStep: () => void;
   onNextStep: () => void;
+  isAnswered: boolean;
 }
 
 function StepController({
@@ -13,6 +14,7 @@ function StepController({
   totalStep,
   onPrevStep,
   onNextStep,
+  isAnswered
 }: StepControllerProps) {
   return (
     <Flex gap="16px" alignItems="center">
@@ -43,7 +45,7 @@ function StepController({
         justifyContent="center"
         onClick={onNextStep}
         _disabled={{ opacity: 0.4 }}
-        disabled={currentStep === totalStep}
+        disabled={currentStep === totalStep || !isAnswered}
         color="font.700"
       >
         <LuChevronRight color="inherit" width="24px" height="24px" />

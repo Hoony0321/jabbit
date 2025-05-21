@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { Box, Stack, Text, Button, VStack, Flex } from '@chakra-ui/react';
-import { useBuyHomeSurveyStore } from '../../../../../../client/store/survey/buyHomeSurveyStore';
-import postBuyHomeSurvey from '../../../../../../client/lib/api/postBuyHomeSurvey';
+import { useBuyHomeSurveyStore } from '@/src/client/store/survey/buyHomeSurveyStore';
+import postBuyHomeSurvey from '@/src/client/lib/api/postBuyHomeSurvey';
 interface answer {
   id: number;
   answer: string | number;
@@ -36,7 +36,6 @@ function ResultRow({ label, value }: { label: string; value: string }) {
 function ResultPage() {
   const router = useRouter();
   const { answers } = useBuyHomeSurveyStore();
-
   const resultItems: ResultItem[] = [
     { label: '기간', value: (answers) => `${answers[2]?.text}년 뒤` },
     {
@@ -55,10 +54,42 @@ function ResultPage() {
     { label: '소유 형태', value: (answers) => answers[8]?.text },
   ];
 
+  const calculateEstimatedAmount = () => {
+    const region = answers[4]?.answer;
+    const buildingType = answers[7]?.answer;
+    const rentalType = answers[8]?.answer;
+
+    const estimateTable: Record<
+      string,
+      Record<string, Record<string, number>>
+    > = {
+      a: {
+        a: { a: 45000, b: 25000 },
+        b: { a: 35000, b: 20000 },
+        c: { a: 40000, b: 22000 },
+      },
+      b: {
+        a: { a: 30000, b: 17000 },
+        b: { a: 25000, b: 14000 },
+        c: { a: 28000, b: 16000 },
+      },
+    };
+
+    const estimatedAmount =
+      estimateTable[region]?.[buildingType]?.[rentalType] ?? 0;
+
+    const amountInBillions = Math.floor(estimatedAmount / 10000);
+    const amountInThousands = Math.floor((estimatedAmount % 10000) / 1000);
+    const formattedAmount = `${amountInBillions}억 ${amountInThousands}천만원`;
+    return formattedAmount;
+  };
+
+  const calculatedAmount = calculateEstimatedAmount();
+
   const handleSubmitSurvey = () => {
-    //todo: API 호출 
+    //todo: API 호출
     postBuyHomeSurvey(answers);
-    router.push('/ai/coach')
+    router.push('/ai/coach');
   };
 
   return (
@@ -81,7 +112,7 @@ function ResultPage() {
             color="brand.blue"
             textAlign="center"
           >
-            4억 5천만원
+            {calculatedAmount}
           </Text>
 
           <VStack align="stretch" gap="0" mt="54px">
