@@ -4,19 +4,14 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Route } from '../_constants/routes';
 import ArrowLeftSVG from '@/src/client/assets/arrow-left.svg';
 
-function Header({ title, hasPrev, rightButton }: Route['header']) {
+function Header(props: Route['header']) {
+  const { title, hasPrev, rightButton } = props || {};
   const router = useRouter();
 
   return (
-    <Flex
-      alignItems="center"
-      justifyContent="space-between"
-      p="20px"
-      pt="8px"
-      bgColor="brand.white"
-    >
+    <Flex alignItems="center" justifyContent="space-between" p="20px" pt="8px">
       {hasPrev ? (
-        <Button onClick={() => router.back()}>
+        <Button onClick={() => router.back()} backgroundColor="white">
           <ArrowLeftSVG width="24px" height="24px" />
         </Button>
       ) : (

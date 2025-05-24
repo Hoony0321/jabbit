@@ -11,20 +11,21 @@ function MobileLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const routeName =
     ROUTE_PATH_MAP[pathname as keyof typeof ROUTE_PATH_MAP] || '';
-  const { hasNav, header } = ROUTES[routeName as keyof typeof ROUTES] || {};
+  const { hasNav, header, pageBgColor, mobileBgColor } =
+    ROUTES[routeName as keyof typeof ROUTES] || {};
 
   return (
     <Flex
       justifyContent="center"
       alignItems="center"
       height="100vh"
-      bgColor="blue.200"
+      bgColor={pageBgColor}
     >
       <Box maxWidth="480px" width="100%" height="100vh">
         <Box
           width="100%"
           height="100%"
-          bgColor="brand.white"
+          bgColor={mobileBgColor}
           overflowY="scroll"
         >
           {header && <Header {...header} />}

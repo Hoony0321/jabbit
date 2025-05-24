@@ -1,6 +1,8 @@
 export const ROUTE_PATH_MAP = {
   '/ai/coach': 'COACH_MAIN',
-  '/ai/coach/goal': 'COACH_GOAL',
+  '/ai/coach/form/buy-home': 'COACH_FORM_BUY_HOME',
+  '/ai/coach/form/financial-goal': 'COACH_FORM_FINANCIAL_GOAL',
+  '/ai/coach/scenario': 'COACH_SCENARIO',
   '/ai/coach/plan': 'COACH_PLAN',
   '/ai/coach/routine': 'COACH_ROUTINE',
 
@@ -19,7 +21,7 @@ export const ROUTE_PATH_MAP = {
 
 export type Route = {
   path: string;
-  header: {
+  header?: {
     title: string;
     hasPrev: boolean;
     rightButton?: {
@@ -27,6 +29,8 @@ export type Route = {
     };
   };
   hasNav: boolean;
+  pageBgColor?: string;
+  mobileBgColor?: string;
 };
 
 export const ROUTES: Record<
@@ -41,24 +45,41 @@ export const ROUTES: Record<
       hasPrev: false,
     },
     hasNav: true,
+    pageBgColor: 'white',
+    mobileBgColor: 'app_background',
   },
-
-  COACH_GOAL: {
-    path: '/ai/coach/goal',
+  COACH_FORM_BUY_HOME: {
+    path: '/ai/coach/form/buy-home',
+    hasNav: false,
+    pageBgColor: 'white',
+    mobileBgColor: 'app_background',
+  },
+  COACH_FORM_FINANCIAL_GOAL: {
+    path: '/ai/coach/form/financial-goal',
+    hasNav: false,
+    pageBgColor: 'white',
+    mobileBgColor: 'app_background',
+  },
+  COACH_SCENARIO: {
+    path: '/ai/coach/scenario',
     header: {
-      title: '목표',
+      title: '시나리오',
       hasPrev: true,
     },
-    hasNav: true,
+    hasNav: false,
+    pageBgColor: 'white',
+    mobileBgColor: 'white',
   },
 
   COACH_PLAN: {
     path: '/ai/coach/plan',
     header: {
-      title: '계획',
+      title: '플랜',
       hasPrev: true,
     },
-    hasNav: true,
+    hasNav: false,
+    pageBgColor: 'white',
+    mobileBgColor: 'white',
   },
 
   COACH_ROUTINE: {
@@ -67,7 +88,9 @@ export const ROUTES: Record<
       title: '루틴',
       hasPrev: true,
     },
-    hasNav: true,
+    hasNav: false,
+    pageBgColor: 'white',
+    mobileBgColor: 'white',
   },
 
   // 루틴
@@ -78,6 +101,8 @@ export const ROUTES: Record<
       hasPrev: false,
     },
     hasNav: true,
+    pageBgColor: 'blue.200',
+    mobileBgColor: 'white',
   },
 
   GOAL_ROUTINE: {
@@ -87,6 +112,8 @@ export const ROUTES: Record<
       hasPrev: false,
     },
     hasNav: true,
+    pageBgColor: 'blue.200',
+    mobileBgColor: 'white',
   },
 
   GOAL_STATUS: {
@@ -96,6 +123,8 @@ export const ROUTES: Record<
       hasPrev: false,
     },
     hasNav: true,
+    pageBgColor: 'blue.200',
+    mobileBgColor: 'white',
   },
 
   // 가계부
@@ -106,6 +135,8 @@ export const ROUTES: Record<
       hasPrev: false,
     },
     hasNav: true,
+    pageBgColor: 'blue.200',
+    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_BUDGET: {
@@ -115,6 +146,8 @@ export const ROUTES: Record<
       hasPrev: false,
     },
     hasNav: true,
+    pageBgColor: 'blue.200',
+    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_BUDGET_SETTING: {
@@ -127,6 +160,8 @@ export const ROUTES: Record<
       },
     },
     hasNav: true,
+    pageBgColor: 'blue.200',
+    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_INCOME_EXPENSE: {
@@ -136,6 +171,8 @@ export const ROUTES: Record<
       hasPrev: false,
     },
     hasNav: true,
+    pageBgColor: 'blue.200',
+    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_INCOME_EXPENSE_CREATE: {
@@ -145,6 +182,8 @@ export const ROUTES: Record<
       hasPrev: true,
     },
     hasNav: false,
+    pageBgColor: 'blue.200',
+    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_INCOME_EXPENSE_DETAIL: {
@@ -157,5 +196,6 @@ export const ROUTES: Record<
       },
     },
     hasNav: false,
+    mobileBgColor: 'white',
   },
 };

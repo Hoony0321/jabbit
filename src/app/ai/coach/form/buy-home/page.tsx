@@ -8,8 +8,8 @@ import StepController from '@/src/app/ai/coach/_components/form/StepController';
 import Step from '@/src/app/ai/coach/_components/form/Step';
 import Question from '@/src/app/ai/coach/_components/form/Question';
 import Answer from '@/src/app/ai/coach/_components/form/Answer';
-import { buyHomeSurvey } from '@/src/client/types/survey';
-import { useBuyHomeSurveyStore } from '@/src/client/store/survey/buyHomeSurveyStore';
+import { buyHomeSurvey } from '@/src/app/ai/_constants/survey';
+import { useBuyHomeSurveyStore } from '@/src/app/ai/coach/_store/buyHomeSurveyStore';
 
 const totalStep = 8;
 
@@ -17,23 +17,22 @@ function BuyHomeFormPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [error, setError] = useState('');
-  const { setAnswer, answers } = useBuyHomeSurveyStore();
-  const handleSelectClick = (answer: string | number, text: string) => {
-    setAnswer(currentStep, answer, text);
+  const { setResponse, response } = useBuyHomeSurveyStore();
+
+  const handleSelectClick = (answer: string | number) => {
+    setResponse(currentStep, answer);
     goToNextPage();
   };
-  console.log('answers', answers);
-  console.log(answers[currentStep]?.answer !== undefined);
-  const handleInputChange = (answer: string | number, text: string) => {
+  const handleInputChange = (answer: string | number) => {
     const min = 1;
     const max = 50;
     const numAnswer = Number(answer);
     if (numAnswer < min || numAnswer > max) {
       setError('1과 50사이 값을 입력해주시기 바랍니다.');
-      setAnswer(currentStep, '', '');
+      setResponse(currentStep, '');
     } else {
       setError('');
-      setAnswer(currentStep, answer, text);
+      setResponse(currentStep, answer);
     }
   };
 
@@ -50,7 +49,7 @@ function BuyHomeFormPage() {
   };
 
   const isAnswerValid = (step: number) => {
-    const answer = answers[step]?.answer;
+    const answer = response[`q${step}`];
     return answer !== undefined && answer !== '' && answer !== null;
   };
 
@@ -72,7 +71,7 @@ function BuyHomeFormPage() {
           onClick={handleSelectClick}
           onChange={handleInputChange}
           onEnter={handleInputEnter}
-          selectedAnswers={answers}
+          selectedAnswers={response}
           currentStep={currentStep}
           error={error}
         />

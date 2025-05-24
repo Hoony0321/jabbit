@@ -77,7 +77,7 @@ function Modal({
           <Button
             colorScheme="blue"
             onClick={onConfirm}
-            backgroundColor="black"
+            backgroundColor="brand.blue"
             color="white"
             width="115px"
             height="44px"

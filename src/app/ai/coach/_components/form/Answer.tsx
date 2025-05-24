@@ -1,8 +1,8 @@
 import { Stack, Text, SimpleGrid, HStack } from '@chakra-ui/react';
 import AnswerButton from './AnswerButton';
 import AnswerInput from './AnswerInput';
-import { useBuyHomeSurveyStore } from '@/src/client/store/survey/buyHomeSurveyStore';
-import { region } from '@/src/client/types/survey';
+import { useBuyHomeSurveyStore } from '@/src/app/ai/coach/_store/buyHomeSurveyStore';
+import { region } from '@/src/app/ai/_constants/survey';
 
 interface AnswerChoice {
   code: string;
@@ -12,10 +12,10 @@ interface AnswerChoice {
 interface AnswerProps {
   type: 'choice-full' | 'input-year' | 'input-area' | 'choice-grid';
   answerChoices: AnswerChoice[];
-  onClick: (answer: string | number, text: string) => void;
-  onChange: (answer: string | number, text: string) => void;
+  onClick: (answer: string | number) => void;
+  onChange: (answer: string | number) => void;
   onEnter: () => void;
-  selectedAnswers: Record<number, { id: number; answer: string | number }>;
+  selectedAnswers: Record<string, string | number>;
   currentStep: number;
   error?: string;
 }
@@ -30,16 +30,17 @@ function Answer({
   currentStep,
   error,
 }: AnswerProps) {
-  const selectedAnswer = selectedAnswers[currentStep]?.answer;
-  const { answers } = useBuyHomeSurveyStore();
+  const selectedAnswer = selectedAnswers[`q${currentStep}`];
+
+  const { response } = useBuyHomeSurveyStore();
   const getRegionChoices = (): AnswerChoice[] => {
-    const prevChoice = answers[4]?.answer;
+    const prevChoice = response['q4'];
     switch (prevChoice) {
-      case 'a':
+      case '서울':
         return region.SEOUL.map((item) => ({ ...item }));
-      case 'b':
+      case '경기':
         return region.KYEONGGI.map((item) => ({ ...item }));
-      case 'c':
+      case '기타':
         return region.ETC.map((item) => ({ ...item }));
       default:
         return region.SEOUL.map((item) => ({ ...item }));
@@ -50,8 +51,8 @@ function Answer({
     choices.map((choice) => (
       <AnswerButton
         key={choice.code}
-        isSelected={selectedAnswer === choice.code}
-        onClick={() => onClick(choice.code, choice.label)}
+        isSelected={selectedAnswer === choice.label}
+        onClick={() => onClick(choice.label)}
       >
         {choice.label}
       </AnswerButton>
@@ -79,9 +80,7 @@ function Answer({
               </Text>
               <AnswerInput
                 value={selectedAnswer ?? ''}
-                onChange={(e) =>
-                  onChange(Number(e.target.value), e.target.value)
-                }
+                onChange={(e) => onChange(Number(e.target.value))}
                 onEnter={() => onEnter()}
               />
               <Text textStyle="mobile_b1_semi" color="font.700">
@@ -108,9 +107,7 @@ function Answer({
             <HStack align="center" justify="center" gap="12px">
               <AnswerInput
                 value={selectedAnswer ?? ''}
-                onChange={(e) =>
-                  onChange(Number(e.target.value), e.target.value)
-                }
+                onChange={(e) => onChange(Number(e.target.value))}
                 onEnter={onEnter}
               />
               <Text>평</Text>

@@ -4,17 +4,12 @@ import { Box, Stack, Text, VStack, Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CircularProgress from '@/src/app/ai/coach/_components/form/CircularProgress';
-import { useBuyHomeSurveyStore } from '@/src/client/store/survey/buyHomeSurveyStore';
+import { useBuyHomeSurveyStore } from '@/src/app/ai/coach/_store/buyHomeSurveyStore';
+import { Answer } from '@/src/app/ai/coach/_store/buyHomeSurveyStore';
 
-interface answer {
-  id: number;
-  answer: string | number;
-  text: string;
-  code?: string;
-}
 interface ResultItem {
   label: string;
-  value: (answers: Record<number, answer>) => string;
+  value: (response: Answer) => string | number;
 }
 
 function ResultRow({ label, value }: { label: string; value: string }) {
@@ -40,23 +35,25 @@ function ResultRow({ label, value }: { label: string; value: string }) {
 function SummaryPage() {
   const router = useRouter();
   const [percentage, setPercentage] = useState(0);
-  const { answers } = useBuyHomeSurveyStore();
+  const { response } = useBuyHomeSurveyStore();
+  const { q2, q3, q4, q5, q6, q7, q8 } = response;
+
   const resultItems: ResultItem[] = [
-    { label: '기간', value: (answers) => `${answers[2]?.text}년 뒤` },
+    { label: '기간', value: () => `${q2}년 뒤` },
     {
       label: '결혼계획',
-      value: (answers) =>
-        answers[3]?.code === 'a' ? '신혼부부' : '비혼으로 1인 가구',
+      value: () =>
+        q3 === '결혼해서 신혼부부에요' ? '신혼부부' : '비혼으로 1인 가구',
     },
     {
       label: '거주지역',
-      value: (answers) => `${answers[4]?.text} ${answers[5]?.text}`,
+      value: () => `${q4} ${q5}`,
     },
     {
       label: '거주 형태',
-      value: (answers) => `${answers[7]?.text} (${answers[6]?.text}평)`,
+      value: () => `${q7} (${q6}평)`,
     },
-    { label: '소유 형태', value: (answers) => answers[8]?.text },
+    { label: '소유 형태', value: () => String(q8) },
   ];
 
   useEffect(() => {
@@ -104,7 +101,11 @@ function SummaryPage() {
         <Box padding="0px 16px" borderRadius="24px" mt="54px" width="100%">
           <VStack align="stretch" gap="4px">
             {resultItems.map(({ label, value }) => (
-              <ResultRow key={label} label={label} value={value(answers)} />
+              <ResultRow
+                key={label}
+                label={label}
+                value={String(value(response))}
+              />
             ))}
           </VStack>
         </Box>

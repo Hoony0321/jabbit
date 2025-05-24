@@ -7,9 +7,9 @@ import StepController from '@/src/app/ai/coach/_components/form/StepController';
 import Step from '@/src/app/ai/coach/_components/form/Step';
 import Question from '@/src/app/ai/coach/_components/form/Question';
 import Answer from '@/src/app/ai/coach/_components/form/Answer';
-import { financialGoalSurvey } from '@/src/client/types/survey';
+import { financialGoalSurvey } from '@/src/app/ai/_constants/survey';
 import Modal from '@/src/app/common/Modal/Modal';
-import { useFinancialGoalSurveyStore } from '@/src/client/store/survey/financialGoalSurveyStore';
+import { useFinancialGoalSurveyStore } from '@/src/app/ai/coach/_store/financialGoalSurveyStore';
 import { useRouter } from 'next/navigation';
 import postFinancialGoalSurvey from '@/src/client/lib/api/postFinancialGoalSurvey';
 const totalStep = 12;
@@ -18,11 +18,12 @@ function FinancialGoalFormPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-  const { setAnswer, answers } = useFinancialGoalSurveyStore();
+  const { setResponse, response, submitSurvey } = useFinancialGoalSurveyStore();
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setIsOpen(false);
-    postFinancialGoalSurvey(answers);
+    submitSurvey();
+    await postFinancialGoalSurvey({ response });
     router.push('/ai/coach');
   };
 
@@ -30,13 +31,13 @@ function FinancialGoalFormPage() {
     setIsOpen(false);
   };
 
-  const handleSelectClick = (answer: string | number, text: string) => {
-    setAnswer(currentStep, answer, text);
+  const handleSelectClick = (answer: string | number) => {
+    setResponse(currentStep, answer);
     goToNextPage();
   };
 
-  const handleInputChange = (answer: string | number, text: string) => {
-    setAnswer(currentStep, answer, text);
+  const handleInputChange = (answer: string | number) => {
+    setResponse(currentStep, answer);
   };
 
   const handleInputEnter = () => {
@@ -52,7 +53,7 @@ function FinancialGoalFormPage() {
   };
 
   const isAnswerValid = (step: number) => {
-    const answer = answers[step]?.answer;
+    const answer = response[`q${step}`];
     return answer !== undefined && answer !== '' && answer !== null;
   };
 
@@ -76,7 +77,7 @@ function FinancialGoalFormPage() {
           onClick={handleSelectClick}
           onChange={handleInputChange}
           onEnter={handleInputEnter}
-          selectedAnswers={answers}
+          selectedAnswers={response}
           currentStep={currentStep}
         />
       </Stack>
