@@ -12,12 +12,11 @@ import { OAUTH } from '@/src/client/config/auth';
 const handleKakaoLogin = () => {
   const redirectTo = '/ai';
   const statePayload = {
-    csrfToken: uuidv4(),
     redirectTo,
   };
 
   const state = encodeURIComponent(btoa(JSON.stringify(statePayload)));
-  window.location.href = `${OAUTH.KAKAO.AUTH_URL}&state=${state}`;
+  window.location.href = OAUTH.KAKAO.AUTH_URL(state);
 };
 
 const handleNaverLogin = () => {
@@ -28,7 +27,7 @@ const handleNaverLogin = () => {
   };
 
   const state = encodeURIComponent(btoa(JSON.stringify(statePayload)));
-  window.location.href = `${OAUTH.NAVER.AUTH_URL}&state=${state}`;
+  window.location.href = OAUTH.NAVER.AUTH_URL(state);
 };
 
 const Login = () => {

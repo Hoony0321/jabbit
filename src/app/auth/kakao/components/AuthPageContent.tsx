@@ -11,6 +11,8 @@ import { AuthUser } from '@/src/client/store/authStore';
 const AuthPageContent = () => {
   const router = useRouter();
   const code = useSearchParams().get('code');
+  const state = useSearchParams().get('state');
+
   const { setUser } = useAuthStore();
   const { showErrorToast } = useErrorToast();
   const [isFetching, setIsFetching] = useState(false);
@@ -31,8 +33,12 @@ const AuthPageContent = () => {
         email: data.email ?? 'Unknown',
       };
       const token = await createJwtToken(user);
+      const decodedState = state
+        ? JSON.parse(atob(decodeURIComponent(state ?? '')))
+        : null;
+
       setUser(user, token);
-      router.replace('/');
+      router.replace(decodedState?.redirectTo || '/');
     } else {
       // 신규 유저일 경우 회원가입 페이지로 라우팅
       router.replace(

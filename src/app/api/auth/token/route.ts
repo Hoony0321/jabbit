@@ -13,7 +13,15 @@ export async function POST(request: Request) {
       return createErrorApiResponse('INVALID_USER_DATA');
     }
 
-    const token = jwt.sign(user, JWT.SECRET, {
+    const payload = {
+      sub: user.id,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      auth: 'ROLE_USER',
+    };
+
+    const token = jwt.sign(payload, JWT.SECRET, {
       expiresIn: JWT.EXPIRES_IN,
     });
 

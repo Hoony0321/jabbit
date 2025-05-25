@@ -1,6 +1,7 @@
 export const OAUTH = {
   KAKAO: {
-    AUTH_URL: `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`,
+    AUTH_URL: (state?: string) =>
+      `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=${state}`,
     TOKEN_URL: 'https://kauth.kakao.com/oauth/token',
     USER_INFO_URL: 'https://kapi.kakao.com/v2/user/me',
   },

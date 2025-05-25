@@ -1,15 +1,18 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { Flex, Text, Spinner } from '@chakra-ui/react';
+
+import { createJwtToken } from '@/src/client/lib/api/createJwt';
 import { AppError } from '@/src/client/errors/AppError';
 import { useErrorToast } from '@/src/client/errors/useErrorToast';
 import { useAuthStore } from '@/src/client/store/authStore';
-import { Spinner } from '@chakra-ui/react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { createJwtToken } from '@/src/client/lib/api/createJwt';
 import { AuthUser } from '@/src/client/store/authStore';
+
 const AuthPageContent = () => {
   const router = useRouter();
   const code = useSearchParams().get('code');
+  const state = useSearchParams().get('state');
+
   const { setUser: setUser } = useAuthStore();
   const { showErrorToast } = useErrorToast();
   const [executedCode, setExecutedCode] = useState<string | null>(null);
@@ -30,8 +33,12 @@ const AuthPageContent = () => {
         email: data.email ?? 'Unknown',
       };
       const token = await createJwtToken(user);
+      const decodedState = state
+        ? JSON.parse(atob(decodeURIComponent(state ?? '')))
+        : null;
+
       setUser(user, token);
-      router.replace('/');
+      router.replace(decodedState.redirectTo || '/');
     } else {
       // 신규 유저일 경우 회원가입 페이지로 라우팅
       router.replace(
@@ -45,7 +52,6 @@ const AuthPageContent = () => {
       setExecutedCode(code);
       setIsFetching(true);
 
-      const state = localStorage.getItem('naverState');
       fetch(`/api/auth/naver/callback?code=${code}&state=${state}`)
         .then(async (res) => {
           const response = await res.json();

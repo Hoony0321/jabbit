@@ -1,13 +1,14 @@
 'use client';
 
 import { Button } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const LoginBtn = () => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleLogin = () => {
-    router.push('/login');
+    router.push(`/login?redirectTo=${pathname}`);
   };
 
   return (
