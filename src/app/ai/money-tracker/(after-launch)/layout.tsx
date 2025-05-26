@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Tab from '../../components/Tab/Tab';
+import Tab from '@/src/app/components/Tab/Tab';
 
 const MONEY_TRACKER_TABS = [
   {

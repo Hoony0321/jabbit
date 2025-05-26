@@ -49,6 +49,14 @@ export const textStyles = defineTextStyles({
 });
 
 const customConfig = defineConfig({
+  globalCss: {
+    '::-webkit-scrollbar': {
+      display: 'none',
+    },
+    '::-webkit-scrollbar-thumb': {
+      display: 'none',
+    },
+  },
   theme: {
     textStyles,
     tokens: {

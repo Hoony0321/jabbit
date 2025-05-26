@@ -5,8 +5,8 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 import CoachSVG from '@/src/client/assets/coach.svg';
 import CoachActiveSVG from '@/src/client/assets/coach-active.svg';
-import RoutineSVG from '@/src/client/assets/routine.svg';
-import RoutineActiveSVG from '@/src/client/assets/routine-active.svg';
+import GoalSVG from '@/src/client/assets/goal.svg';
+import GoalActiveSVG from '@/src/client/assets/goal-active.svg';
 import MoneyTrackerSVG from '@/src/client/assets/money-tracker.svg';
 import MoneyTrackerActiveSVG from '@/src/client/assets/money-tracker-active.svg';
 
@@ -18,10 +18,10 @@ const NAVIGATION_LIST = [
     activeIcon: <CoachActiveSVG width="28" height="28" />,
   },
   {
-    label: '루틴',
+    label: '목표',
     url: '/ai/goal',
-    icon: <RoutineSVG width="28" height="28" />,
-    activeIcon: <RoutineActiveSVG width="28" height="28" />,
+    icon: <GoalSVG width="28" height="28" />,
+    activeIcon: <GoalActiveSVG width="28" height="28" />,
   },
   {
     label: '가계부',

@@ -9,6 +9,7 @@ export const ROUTE_PATH_MAP = {
   '/ai/goal': 'GOAL_MAIN',
   '/ai/goal/routine': 'GOAL_ROUTINE',
   '/ai/goal/status': 'GOAL_STATUS',
+  '/ai/goal/launch': 'GOAL_LAUNCH',
 
   '/ai/money-tracker': 'MONEY_TRACKER_MAIN',
   '/ai/money-tracker/budget': 'MONEY_TRACKER_BUDGET',
@@ -17,6 +18,7 @@ export const ROUTE_PATH_MAP = {
   '/ai/money-tracker/income-expense/create':
     'MONEY_TRACKER_INCOME_EXPENSE_CREATE',
   '/ai/money-tracker/income-expense/:id': 'MONEY_TRACKER_INCOME_EXPENSE_DETAIL',
+  '/ai/money-tracker/launch': 'MONEY_TRACKER_LAUNCH',
 } as const;
 
 export type Route = {
@@ -123,6 +125,11 @@ export const ROUTES: Record<
     mobileBgColor: 'white',
   },
 
+  GOAL_LAUNCH: {
+    path: '/ai/goal/launch',
+    hasNav: true,
+  },
+
   // 가계부
   MONEY_TRACKER_MAIN: {
     path: '/ai/money-tracker',
@@ -193,5 +200,10 @@ export const ROUTES: Record<
     },
     hasNav: false,
     mobileBgColor: 'white',
+  },
+
+  MONEY_TRACKER_LAUNCH: {
+    path: '/ai/money-tracker/launch',
+    hasNav: true,
   },
 };
