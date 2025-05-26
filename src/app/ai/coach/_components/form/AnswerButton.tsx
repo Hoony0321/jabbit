@@ -13,18 +13,23 @@ function AnswerButton({
     <Button
       borderRadius="10px"
       height="60px"
-      colorScheme={isSelected ? 'blue' : 'gray'}
-      variant={isSelected ? 'solid' : 'outline'}
       color="gray.700"
-      backgroundColor={isSelected ? 'blue.300' : 'white'}
       borderWidth="2px"
-      borderColor={isSelected ? 'brand.blue' : 'gray.100'}
+      backgroundColor="white"
+      borderColor="gray.100"
       _hover={{
-        backgroundColor: isSelected ? 'blue.300' : 'blue.300',
-        color: isSelected ? 'brand.blue' : 'gray.800',
+        backgroundColor: 'blue.300',
+        color: 'brand.blue',
         borderWidth: '2px',
         borderColor: 'brand.blue',
       }}
+      _selected={{
+        backgroundColor: 'blue.300',
+        color: 'brand.blue',
+        borderWidth: '2px',
+        borderColor: 'brand.blue',
+      }}
+      aria-selected={isSelected}
       width="full"
       onClick={onClick}
     >

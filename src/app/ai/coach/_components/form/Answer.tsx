@@ -61,7 +61,11 @@ function Answer({
   const renderAnswerChoices = () => {
     switch (type) {
       case 'choice-full':
-        return renderChoiceButtons(answerChoices);
+        return (
+          <Stack direction="column" minH="305px">
+            {renderChoiceButtons(answerChoices)}
+          </Stack>
+        );
 
       case 'choice-grid':
         const regionChoices = getRegionChoices();

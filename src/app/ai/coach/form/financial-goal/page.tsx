@@ -1,29 +1,35 @@
 'use client';
 
-import { Box, Flex, Stack } from '@chakra-ui/react';
-import ProgressBar from '@/src/app/ai/coach/_components/form/ProgressBar';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Box, Flex, Stack } from '@chakra-ui/react';
+import Modal from '@/src/app/common/Modal/Modal';
+import ProgressBar from '@/src/app/ai/coach/_components/form/ProgressBar';
 import StepController from '@/src/app/ai/coach/_components/form/StepController';
 import Step from '@/src/app/ai/coach/_components/form/Step';
 import Question from '@/src/app/ai/coach/_components/form/Question';
 import Answer from '@/src/app/ai/coach/_components/form/Answer';
 import { financialGoalSurvey } from '@/src/app/ai/_constants/survey';
-import Modal from '@/src/app/common/Modal/Modal';
 import { useFinancialGoalSurveyStore } from '@/src/app/ai/coach/_store/financialGoalSurveyStore';
-import { useRouter } from 'next/navigation';
+import { useGenerateAiSolutionStore } from '@/src/app/ai/coach/_store/generateAiSolutionStore';
+import postAiContent from '@/src/client/lib/api/postAiContent';
 import postFinancialGoalSurvey from '@/src/client/lib/api/postFinancialGoalSurvey';
+
 const totalStep = 12;
 
 function FinancialGoalFormPage() {
-  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const { setResponse, response, submitSurvey } = useFinancialGoalSurveyStore();
+  const { setScenarioRequested } = useGenerateAiSolutionStore();
+  const router = useRouter();
 
   const handleConfirm = async () => {
     setIsOpen(false);
     submitSurvey();
+    setScenarioRequested();
     await postFinancialGoalSurvey({ response });
+    await postAiContent({ contentType: 'SCENARIO' });
     router.push('/ai/coach');
   };
 

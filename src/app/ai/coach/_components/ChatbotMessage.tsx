@@ -34,7 +34,7 @@ function ChatbotMessage({
       <Flex
         bgColor="brand.white"
         border="1.5px solid"
-        borderColor="gray.200"
+        borderColor="line.gray"
         borderRadius="20px"
         px="12px"
         py="16px"

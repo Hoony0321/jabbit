@@ -75,7 +75,7 @@ export const extractDateOnly = (timestamp?: string): string => {
 };
 export const formatKoreanDate = (dateString: string) => {
   const [, month, day] = dateString.split('-');
-  return `${Number(month)}월 ${Number(day)}일`;
+  return `${month}월 ${day}일`;
 };
 
 export const groupMessagesByDate = (
