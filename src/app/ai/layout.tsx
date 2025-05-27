@@ -11,7 +11,7 @@ function MobileLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const routeName =
     ROUTE_PATH_MAP[pathname as keyof typeof ROUTE_PATH_MAP] || '';
-  const { hasNav, header, pageBgColor, mobileBgColor } =
+  const { hasNav, header, bgColor } =
     ROUTES[routeName as keyof typeof ROUTES] || {};
 
   return (
@@ -19,15 +19,10 @@ function MobileLayout({ children }: { children: React.ReactNode }) {
       justifyContent="center"
       alignItems="center"
       height="100vh"
-      bgColor={pageBgColor}
+      bgColor={bgColor || 'brand.white'}
     >
       <Box maxWidth="480px" width="100%" height="100vh">
-        <Box
-          width="100%"
-          height="100%"
-          bgColor={mobileBgColor}
-          overflowY="scroll"
-        >
+        <Box width="100%" height="100%" overflowY="scroll">
           {header && <Header {...header} />}
           <Box
             pt={header ? '52px' : '0px'}

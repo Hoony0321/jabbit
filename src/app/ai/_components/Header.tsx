@@ -28,8 +28,14 @@ function Header(props: Route['header']) {
         bgColor="brand.white"
       >
         {hasPrev ? (
-          <Button onClick={() => router.back()}>
-            <ArrowLeftSVG width="24px" height="24px" />
+          <Button
+            onClick={() => router.back()}
+            boxSize="24px"
+            p="0px"
+            bgColor="transparent"
+            minW="unset"
+          >
+            <ArrowLeftSVG width={24} height={24} />
           </Button>
         ) : (
           <Box boxSize="24px" />

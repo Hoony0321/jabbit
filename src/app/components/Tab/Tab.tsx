@@ -1,19 +1,20 @@
 import { Tabs } from '@chakra-ui/react';
 import { usePathname } from 'next/navigation';
 
-interface TabProps {
+interface TabProps extends Omit<Tabs.RootProps, 'onClick'> {
   menuList: {
     label: string;
     value: string;
+    link: string;
   }[];
-  onClick: (value: string) => void;
+  onClick: (value: TabProps['menuList'][number]) => void;
 }
 
-function Tab({ menuList, onClick }: TabProps) {
+function Tab({ menuList, onClick, ...props }: TabProps) {
   const pathname = usePathname();
 
   return (
-    <Tabs.Root defaultValue="members" borderColor="line.gray">
+    <Tabs.Root defaultValue="members" borderColor="line.gray" {...props}>
       <Tabs.List>
         {menuList.map((item) => {
           const isActive = pathname.includes(item.value);
@@ -23,7 +24,7 @@ function Tab({ menuList, onClick }: TabProps) {
               value={item.value}
               key={item.value}
               aria-selected={isActive}
-              onClick={() => onClick(item.value)}
+              onClick={() => onClick(item)}
               justifyContent="center"
               textStyle="mobile_b1_semi"
               pt="0px"

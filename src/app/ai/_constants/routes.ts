@@ -9,6 +9,7 @@ export const ROUTE_PATH_MAP = {
   '/ai/goal': 'GOAL_MAIN',
   '/ai/goal/routine': 'GOAL_ROUTINE',
   '/ai/goal/status': 'GOAL_STATUS',
+  '/ai/goal/guide': 'GOAL_GUIDE',
   '/ai/goal/launch': 'GOAL_LAUNCH',
 
   '/ai/money-tracker': 'MONEY_TRACKER_MAIN',
@@ -18,21 +19,34 @@ export const ROUTE_PATH_MAP = {
   '/ai/money-tracker/income-expense/create':
     'MONEY_TRACKER_INCOME_EXPENSE_CREATE',
   '/ai/money-tracker/income-expense/:id': 'MONEY_TRACKER_INCOME_EXPENSE_DETAIL',
+  '/ai/money-tracker/guide': 'MONEY_TRACKER_GUIDE',
   '/ai/money-tracker/launch': 'MONEY_TRACKER_LAUNCH',
 } as const;
+
+type RoutePathMap = typeof ROUTE_PATH_MAP;
+type RouteIdentifier = RoutePathMap[keyof RoutePathMap];
+
+export const IDENTIFIER_TO_PATH_MAP: {
+  [K in RouteIdentifier]: Extract<keyof RoutePathMap, string>;
+} = Object.entries(ROUTE_PATH_MAP).reduce(
+  (acc, [path, identifier]) => {
+    acc[identifier as RouteIdentifier] = path as keyof RoutePathMap;
+    return acc;
+  },
+  {} as { [K in RouteIdentifier]: keyof RoutePathMap },
+);
 
 export type Route = {
   path: string;
   header?: {
-    title: string;
+    title?: string;
     hasPrev: boolean;
     rightButton?: {
       label: string;
     };
   };
   hasNav: boolean;
-  pageBgColor?: string;
-  mobileBgColor?: string;
+  bgColor?: string;
 };
 
 export const ROUTES: Record<
@@ -43,21 +57,21 @@ export const ROUTES: Record<
   COACH_MAIN: {
     path: '/ai/coach',
     hasNav: true,
-    pageBgColor: 'white',
-    mobileBgColor: 'app_background',
+    bgColor: 'app_background',
   },
+
   COACH_FORM_BUY_HOME: {
     path: '/ai/coach/form/buy-home',
     hasNav: false,
-    pageBgColor: 'white',
-    mobileBgColor: 'app_background',
+    bgColor: 'app_background',
   },
+
   COACH_FORM_FINANCIAL_GOAL: {
     path: '/ai/coach/form/financial-goal',
     hasNav: false,
-    pageBgColor: 'white',
-    mobileBgColor: 'app_background',
+    bgColor: 'app_background',
   },
+
   COACH_SCENARIO: {
     path: '/ai/coach/scenario',
     header: {
@@ -65,8 +79,6 @@ export const ROUTES: Record<
       hasPrev: true,
     },
     hasNav: false,
-    pageBgColor: 'white',
-    mobileBgColor: 'white',
   },
 
   COACH_PLAN: {
@@ -76,8 +88,6 @@ export const ROUTES: Record<
       hasPrev: true,
     },
     hasNav: false,
-    pageBgColor: 'white',
-    mobileBgColor: 'white',
   },
 
   COACH_ROUTINE: {
@@ -87,42 +97,30 @@ export const ROUTES: Record<
       hasPrev: true,
     },
     hasNav: false,
-    pageBgColor: 'white',
-    mobileBgColor: 'white',
   },
 
   // 루틴
   GOAL_MAIN: {
     path: '/ai/goal',
-    header: {
-      title: '루틴',
-      hasPrev: false,
-    },
     hasNav: true,
-    pageBgColor: 'blue.200',
-    mobileBgColor: 'white',
   },
 
   GOAL_ROUTINE: {
     path: '/ai/goal/routine',
-    header: {
-      title: '루틴',
-      hasPrev: false,
-    },
     hasNav: true,
-    pageBgColor: 'blue.200',
-    mobileBgColor: 'white',
   },
 
   GOAL_STATUS: {
     path: '/ai/goal/status',
-    header: {
-      title: '루틴',
-      hasPrev: false,
-    },
     hasNav: true,
-    pageBgColor: 'blue.200',
-    mobileBgColor: 'white',
+  },
+
+  GOAL_GUIDE: {
+    path: '/ai/goal/routine/guide',
+    header: {
+      hasPrev: true,
+    },
+    hasNav: false,
   },
 
   GOAL_LAUNCH: {
@@ -133,24 +131,12 @@ export const ROUTES: Record<
   // 가계부
   MONEY_TRACKER_MAIN: {
     path: '/ai/money-tracker',
-    header: {
-      title: '가계부',
-      hasPrev: false,
-    },
     hasNav: true,
-    pageBgColor: 'blue.200',
-    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_BUDGET: {
     path: '/ai/money-tracker/budget',
-    header: {
-      title: '가계부',
-      hasPrev: false,
-    },
     hasNav: true,
-    pageBgColor: 'blue.200',
-    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_BUDGET_SETTING: {
@@ -163,19 +149,11 @@ export const ROUTES: Record<
       },
     },
     hasNav: true,
-    pageBgColor: 'blue.200',
-    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_INCOME_EXPENSE: {
     path: '/ai/money-tracker/income-expense',
-    header: {
-      title: '가계부',
-      hasPrev: false,
-    },
     hasNav: true,
-    pageBgColor: 'blue.200',
-    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_INCOME_EXPENSE_CREATE: {
@@ -185,8 +163,6 @@ export const ROUTES: Record<
       hasPrev: true,
     },
     hasNav: false,
-    pageBgColor: 'blue.200',
-    mobileBgColor: 'white',
   },
 
   MONEY_TRACKER_INCOME_EXPENSE_DETAIL: {
@@ -199,7 +175,14 @@ export const ROUTES: Record<
       },
     },
     hasNav: false,
-    mobileBgColor: 'white',
+  },
+
+  MONEY_TRACKER_GUIDE: {
+    path: '/ai/money-tracker/guide',
+    header: {
+      hasPrev: true,
+    },
+    hasNav: false,
   },
 
   MONEY_TRACKER_LAUNCH: {
