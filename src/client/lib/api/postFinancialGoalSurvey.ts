@@ -1,20 +1,9 @@
-import { AI_API_URL } from '@/src/client/constants/API';
+import { apiHandler } from '@/src/client/lib/api/apiHandler';
 
 const postFinancialGoalSurvey = async (survey: {
   response: Record<string, string | number>;
 }) => {
-  const response = await fetch(`${AI_API_URL}/survey?type=add-routine-info`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(survey),
-  });
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || 'Failed to create user');
-  }
-  return (await response.json()).data;
+  return apiHandler.post(`/survey?type=add-routine-info`, survey);
 };
 
 export default postFinancialGoalSurvey;

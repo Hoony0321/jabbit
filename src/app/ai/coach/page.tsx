@@ -58,7 +58,8 @@ function CoachPage() {
     onSuccess: () => void,
   ) => {
     const response = await getAiContent(type);
-    if (response.status === 200) {
+
+    if (response.body !== null) {
       onSuccess();
     }
   };
