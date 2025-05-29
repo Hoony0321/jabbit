@@ -37,14 +37,14 @@ export const buyHomeSurvey: Question[] = [
     description: null,
     type: 'choice-full',
     answerChoices: [
-      { code: 'a', label: '결혼해서 신혼부부에요' },
-      { code: 'b', label: '비혼으로 1인 가구로 살아요' },
+      { code: 'a', label: '결혼했어요 or 결혼할거에요' },
+      { code: 'b', label: '비혼으로 1인가구로 살거에요' },
     ],
   },
   {
     id: 4,
     title: '어느 지역에 주거를 마련하고 싶으신가요?',
-    description: '초혼 신혼부부 54%가 서울/경기에 거주해요.',
+    description: ' 54%가 서울/경기에 거주해요.',
     type: 'choice-full',
     answerChoices: [
       { code: 'a', label: '서울' },
@@ -55,21 +55,21 @@ export const buyHomeSurvey: Question[] = [
     id: 5,
     title: '시/구 단위로도 정해본다면요?',
     description:
-      '초혼 신혼부부가 많이 사는 top5에요.<br /> 경기도 화성시 / 수원시 / 고양시 / 용인시 / 성남시',
+      '가 많이 사는 top5에요.<br /> 경기도 화성시 / 수원시 / 고양시 / 용인시 / 성남시',
     type: 'choice-grid',
     answerChoices: [],
   },
   {
     id: 6,
     title: '몇 평형대의 집을 원하시나요?',
-    description: '초혼 신혼부부는 11~15평으로 시작해요.',
+    description: '는 11~15평으로 시작해요.',
     type: 'input-area',
     answerChoices: [],
   },
   {
     id: 7,
     title: '어떤 형태의 주거를 생각하고 계신가요?',
-    description: '초혼 신혼부부의 72%는 아파트에 거주해요.',
+    description: '의 72%는 아파트에 거주해요.',
     type: 'choice-full',
     answerChoices: [
       { code: 'a', label: '아파트' },
@@ -80,7 +80,7 @@ export const buyHomeSurvey: Question[] = [
   {
     id: 8,
     title: '어떤 거주 형태로 살고 싶나요?',
-    description: '초혼 신혼부부의 41%는 자가로 구매했어요.',
+    description: '의 41%는 자가로 구매했어요.',
     type: 'choice-full',
     answerChoices: [
       { code: 'a', label: '자가(매매)' },

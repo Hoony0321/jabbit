@@ -78,7 +78,7 @@ function FinancialGoalFormPage() {
     const { title, description, type, answerChoices } = currentQuestion;
 
     return (
-      <Stack gap="200px">
+      <Stack>
         <Question title={title} description={description} />
         <Answer
           type={

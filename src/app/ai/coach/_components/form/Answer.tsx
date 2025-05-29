@@ -62,7 +62,7 @@ function Answer({
     switch (type) {
       case 'choice-full':
         return (
-          <Stack direction="column" minH="305px">
+          <Stack direction="column" minH="305px" mt="200px">
             {renderChoiceButtons(answerChoices)}
           </Stack>
         );
@@ -70,7 +70,14 @@ function Answer({
       case 'choice-grid':
         const regionChoices = getRegionChoices();
         return (
-          <SimpleGrid columns={3} gap="8px" maxH="200px" overflowY="auto">
+          <SimpleGrid
+            columns={3}
+            gap="8px"
+            minH="200px"
+            maxH="348px"
+            overflowY="auto"
+            mt="98px"
+          >
             {renderChoiceButtons(regionChoices)}
           </SimpleGrid>
         );
@@ -78,7 +85,7 @@ function Answer({
       case 'input-year':
         return (
           <>
-            <HStack align="center" justify="center" gap="12px">
+            <HStack align="center" justify="center" gap="12px" mt="200px">
               <Text textStyle="mobile_b1_semi" color="font.700">
                 지금부터
               </Text>
@@ -108,7 +115,7 @@ function Answer({
       case 'input-area':
         return (
           <>
-            <HStack align="center" justify="center" gap="12px">
+            <HStack align="center" justify="center" gap="12px" mt="200px">
               <AnswerInput
                 value={selectedAnswer ?? ''}
                 onChange={(e) => onChange(Number(e.target.value))}
