@@ -16,6 +16,7 @@ import { useAuthStore } from '@/src/client/store/authStore';
 import { useGenerateAiSolutionStore } from '@/src/app/ai/coach/_store/generateAiSolutionStore';
 import postAiContentNotification from '@/src/client/lib/api/postAiContentNotification';
 import getAiContent from '@/src/client/lib/api/getAiContent';
+import mixpanel from 'mixpanel-browser';
 
 function CoachPage() {
   const { push } = useRouter();
@@ -114,6 +115,24 @@ function CoachPage() {
     }
   }, []);
 
+  const handleBuyHomeButtonClick = () => {
+    mixpanel.track('내 집 마련 비용 계산하기 버튼 클릭', {
+      location: '코치탭',
+      user_type: user?.name ? user.name : 'unknown',
+      user_email: user?.email,
+    });
+    push('/ai/coach/form/buy-home');
+  };
+
+  const handleFinancialGoalButtonClick = () => {
+    mixpanel.track('5분 설문 참여하기 버튼 클릭', {
+      location: '코치탭',
+      user_type: user?.name ? user.name : 'unknown',
+      user_email: user?.email,
+    });
+    push('/ai/coach/form/financial-goal');
+  };
+
   const messages = [
     dateFirstVisit && {
       date: extractDateOnly(dateFirstVisit),
@@ -122,7 +141,7 @@ function CoachPage() {
           <ChatbotMessage
             message="내 집 마련하려면 얼마나 있어야 할까요? 5분 안에 알고 싶다면?"
             buttonText="내 집 마련 비용 계산하기"
-            onButtonClick={() => push('/ai/coach/form/buy-home')}
+            onButtonClick={handleBuyHomeButtonClick}
             isDisabled={isBuyHomeSubmitted}
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
@@ -139,7 +158,7 @@ function CoachPage() {
           <ChatbotMessage
             message="맞춤형 재무 목표와 루틴을 만들기 위해 몇가지 여쭤볼게요."
             buttonText="5분 설문 참여하기"
-            onButtonClick={() => push('/ai/coach/form/financial-goal')}
+            onButtonClick={handleFinancialGoalButtonClick}
             isDisabled={isFinancialGoalSubmitted}
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
