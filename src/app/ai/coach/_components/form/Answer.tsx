@@ -86,7 +86,13 @@ function Answer({
         return (
           <>
             <HStack align="center" justify="center" gap="12px" mt="200px">
-              <Text textStyle="mobile_b1_semi" color="font.700" minW="56px">
+              <Text
+                textStyle="mobile_b1_semi"
+                color="font.700"
+                minW="56px"
+                whiteSpace="nowrap"
+                flexShrink={0}
+              >
                 지금부터
               </Text>
               <AnswerInput
@@ -94,7 +100,13 @@ function Answer({
                 onChange={(e) => onChange(Number(e.target.value))}
                 onEnter={() => onEnter()}
               />
-              <Text textStyle="mobile_b1_semi" color="font.700" minW="32px">
+              <Text
+                textStyle="mobile_b1_semi"
+                color="font.700"
+                minW="32px"
+                whiteSpace="nowrap"
+                flexShrink={0}
+              >
                 년 뒤
               </Text>
             </HStack>
