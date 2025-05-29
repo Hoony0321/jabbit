@@ -92,14 +92,14 @@ export const buyHomeSurvey: Question[] = [
 export const financialGoalSurvey: Question[] = [
   {
     id: 1,
-    title: '지금 저축을 시작한다면,<br /> 가장 먼저 하고 싶은 일은요?',
+    title: '지금 당장 돈을 모아야 한다면,<br /> 가장 먼저 떠오르는 건 무엇인가요?',
     description: null,
     type: 'choice-full',
     answerChoices: [
-      { code: 'a', label: '비상금부터 준비하고 싶어요' },
-      { code: 'b', label: '나를 위한 목표부터 시작하고 싶어요' },
-      { code: 'c', label: '소액 투자로 연습해보고 싶어요' },
-      { code: 'd', label: '막막하지만 일단 시작하고 싶어요' },
+      { code: 'a', label: '갑작스러운 상황에 대비해 비상자금부터 만들고 싶어요' },
+      { code: 'b', label: '나를 위한 보람 있는 소비 목표를 먼저 이루고 싶어요' },
+      { code: 'c', label: '투자 감각을 익히기 위해 소액부터 시작하고 싶어요' },
+      { code: 'd', label: '불안하긴 한데, 뭘 해야 할지 잘 모르겠어요' },
     ],
   },
   {
@@ -176,14 +176,14 @@ export const financialGoalSurvey: Question[] = [
   },
   {
     id: 8,
-    title: '투자 후 30% 손실이 나면 어떻게 하실 건가요?',
+    title: '100만 원 투자 후 <br /> 30% 손실이 난다면, <br />어떻게 반응하실 것 같나요?',
     description: null,
     type: 'choice-full',
     answerChoices: [
-      { code: 'a', label: '바로 정리하고 그만둘 것 같아요' },
-      { code: 'b', label: '일단을 지켜볼 것 같아요' },
-      { code: 'c', label: '더 싸졌다고 생각하고 추가 매수' },
-      { code: 'd', label: '그래서 시작이 무서워요' },
+      { code: 'a', label: '손실이 크다고 느껴져 바로 정리할 것 같아요' },
+      { code: 'b', label: '일단 시장 상황을 좀 더 지켜볼 것 같아요' },
+      { code: 'c', label: '오히려 기회라 생각하고 추가 매수할 수 있어요' },
+      { code: 'd', label: '이런 상황 자체가 무서워서 시작을 못 하고 있어요' },
     ],
   },
   {
@@ -224,14 +224,14 @@ export const financialGoalSurvey: Question[] = [
   },
   {
     id: 12,
-    title: '돈을 쓸 때 가장 스트레스 받는 순간은 언제인가요?',
+    title: '돈을 쓸 때 <br /> 어떤 순간이 가장 불편하거나 <br /> 스트레스가 되나요?',
     description: null,
     type: 'choice-full',
     answerChoices: [
-      { code: 'a', label: '남들보다 덜 쓰는 것 같을 때' },
-      { code: 'b', label: '큰돈 쓰면서 계획 없을 때' },
-      { code: 'c', label: '쓰고 나서 후회할 때' },
-      { code: 'd', label: '카드값 보고 현타 올 때' },
+      { code: 'a', label: '계획 없이 큰 지출을 했을 때' },
+      { code: 'b', label: '쓰고 나서 바로 후회가 밀려올 때' },
+      { code: 'c', label: '카드값 등 고정비가 예상보다 클 때' },
+      { code: 'd', label: '사람들 소비 수준과 비교하며 위축될 때' },
     ],
   },
 ];

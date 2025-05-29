@@ -113,7 +113,7 @@ export default function GuidePage() {
       await postAiContent({ contentType: 'ROUTINE' });
       router.push('/ai/coach');
     } else if (topicStr === 'routine') {
-      // 페이지 이동
+      router.push('/ai/goal/launch');
     }
   };
 

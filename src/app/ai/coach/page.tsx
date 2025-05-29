@@ -153,7 +153,7 @@ function CoachPage() {
       component: (
         <Flex align="flex-end" gap="8px" key="notification-scenario">
           <ChatbotMessage
-            message="코치가 나만을 위한 재무플랜을 만드는 중이에요. 완료되면 알림 드릴게요."
+            message="코치가 나만을 위한 재무 전략을 만드는 중이에요. 완료되면 알림 드릴게요."
             buttonText="알림받기"
             buttonDisabledText="알림신청 완료"
             onButtonClick={() => handleGetNotification('scenario')}
@@ -185,7 +185,7 @@ function CoachPage() {
       component: (
         <Flex align="flex-end" gap="8px" key="notification-plan">
           <ChatbotMessage
-            message="코치가 나만을 위한 재무플랜을 만드는 중이에요. 완료되면 알림 드릴게요."
+            message="코치가 나만을 위한 재무 전략을 만드는 중이에요. 완료되면 알림 드릴게요."
             buttonText="알림받기"
             buttonDisabledText="알림신청 완료"
             onButtonClick={() => handleGetNotification('plan')}
@@ -217,7 +217,7 @@ function CoachPage() {
       component: (
         <Flex align="flex-end" gap="8px" key="notification-routine">
           <ChatbotMessage
-            message="코치가 나만을 위한 재무플랜을 만드는 중이에요. 완료되면 알림 드릴게요."
+            message="코치가 나만을 위한 재무 전략을 만드는 중이에요. 완료되면 알림 드릴게요."
             buttonText="알림받기"
             buttonDisabledText="알림신청 완료"
             onButtonClick={() => handleGetNotification('routine')}
