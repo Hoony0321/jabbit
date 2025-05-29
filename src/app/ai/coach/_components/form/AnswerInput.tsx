@@ -19,7 +19,7 @@ function AnswerInput({ value, onChange, onEnter }: AnswerInputProps) {
       textAlign="right"
       height="60px"
       display="inline-block"
-      minWidth="200px"
+      minWidth="180px"
       maxWidth="280px"
       borderRadius="10px"
       padding="0 16px"
