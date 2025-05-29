@@ -59,7 +59,7 @@ function CoachPage() {
   ) => {
     const response = await getAiContent(type);
 
-    if (response.body !== null) {
+    if (response.body.response !== null) {
       onSuccess();
     }
   };
@@ -86,7 +86,8 @@ function CoachPage() {
   }, [dateRoutineRequested, dateRoutineCreated, setRoutineCreated]);
 
   const { user } = useAuthStore();
-
+  const displayName =
+    !user?.name || user.name === 'unknown' ? '회원' : user.name;
   const handleGetNotification = async (
     type: 'scenario' | 'plan' | 'routine',
   ) => {
@@ -201,7 +202,7 @@ function CoachPage() {
       component: (
         <Flex align="flex-end" gap="8px" key="plan">
           <ChatbotMessage
-            message={`${user?.name ? user.name : '회원'}님의 재무 목표, 어떻게 이룰 수 있을까요? 현실 가능한 여러 가지 플랜을 제안드릴게요.`}
+            message={`${displayName}님의 재무 목표, 어떻게 이룰 수 있을까요? 현실 가능한 여러 가지 플랜을 제안드릴게요.`}
             buttonText="읽어보기"
             onButtonClick={() => push('/ai/coach/plan')}
           />

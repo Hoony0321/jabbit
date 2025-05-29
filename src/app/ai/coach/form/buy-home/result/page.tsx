@@ -89,8 +89,13 @@ function ResultPage() {
 
   const handleSubmitSurvey = async () => {
     submitSurvey();
-    await postBuyHomeSurvey({ response });
-    router.push('/ai/coach');
+    try {
+      await postBuyHomeSurvey({ response });
+    } catch (error) {
+      console.error('설문 전송 중 오류 발생:', error);
+    } finally {
+      router.push('/ai/coach');
+    }
   };
 
   return (

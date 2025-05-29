@@ -28,9 +28,14 @@ function FinancialGoalFormPage() {
     setIsOpen(false);
     submitSurvey();
     setScenarioRequested();
-    await postFinancialGoalSurvey({ response });
-    await postAiContent({ contentType: 'SCENARIO' });
-    router.push('/ai/coach');
+    try {
+      await postFinancialGoalSurvey({ response });
+      await postAiContent({ contentType: 'SCENARIO' });
+    } catch (error) {
+      console.log('설문 전송 중 오류 발생:', error);
+    } finally {
+      router.push('/ai/coach');
+    }
   };
 
   const handleClose = () => {

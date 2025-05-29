@@ -4,8 +4,14 @@ type ContentPayload = 'SCENARIO' | 'PLAN' | 'ROUTINE';
 interface ApiResponse {
   code?: string;
   message?: string;
-  body: string | null;
+  body: AiContentBody;
 }
+interface AiContentBody {
+  contentType?: string;
+  response?: string | null;
+  createdAt?: string;
+}
+
 const getAiContent = async (payload: ContentPayload): Promise<ApiResponse> => {
   return apiHandler.get(`/ai/content/${payload}`);
 };
