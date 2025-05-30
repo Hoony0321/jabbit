@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Button, Stack, Text } from '@chakra-ui/react';
+import { mixpanelTrack } from '@/src/client/utils/mixpanelHelpers';
+import { useAuthStore } from '@/src/client/store/authStore';
 
 interface LaunchPageProps {
   type: 'money-tracker' | 'goal';
@@ -22,6 +24,7 @@ const CONTENT_BG_COLOR_MAP = ['blue.400', 'blue.200', 'blue.100'];
 function LaunchPage({ launchData, type }: LaunchPageProps) {
   const [isLaunchAlaramRegistered, setIsLaunchAlaramRegistered] =
     useState(false);
+  const { user } = useAuthStore();
 
   useEffect(() => {
     const launchAlarmStatus = localStorage.getItem('launchAlarmStatus');
@@ -34,7 +37,15 @@ function LaunchPage({ launchData, type }: LaunchPageProps) {
 
   const onLaunchAlarmClick = () => {
     const launchAlarmStatus = localStorage.getItem('launchAlarmStatus');
-
+    const typeMap = {
+      'money-tracker': '가계부탭',
+      'goal': '목표탭',
+    };
+    mixpanelTrack(
+      `${typeMap[type]}`,
+      `${typeMap[type]} 출시 알림 받기 버튼 클릭`,
+      user,
+    );
     if (!launchAlarmStatus) {
       const launchAlarmStatusObj = {} as LaunchAlarmStatus;
       launchAlarmStatusObj[type as keyof LaunchAlarmStatus] = true;

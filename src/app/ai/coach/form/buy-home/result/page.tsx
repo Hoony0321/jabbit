@@ -5,6 +5,8 @@ import { Box, Stack, Text, Button, VStack, Flex } from '@chakra-ui/react';
 import { useBuyHomeSurveyStore } from '@/src/app/ai/coach/_store/buyHomeSurveyStore';
 import postBuyHomeSurvey from '@/src/client/lib/api/postBuyHomeSurvey';
 import { Answer } from '@/src/app/ai/coach/_store/buyHomeSurveyStore';
+import { mixpanelTrack } from '@/src/client/utils/mixpanelHelpers';
+import { useAuthStore } from '@/src/client/store/authStore';
 
 interface ResultItem {
   label: string;
@@ -31,6 +33,7 @@ function ResultRow({ label, value }: { label: string; value: string }) {
 
 function ResultPage() {
   const router = useRouter();
+  const { user } = useAuthStore();
   const { response, submitSurvey } = useBuyHomeSurveyStore();
   const { q2, q3, q4, q5, q6, q7, q8 } = response;
 
@@ -88,6 +91,7 @@ function ResultPage() {
   const calculatedAmount = calculateEstimatedAmount();
 
   const handleSubmitSurvey = async () => {
+    mixpanelTrack('코치탭', '장기 목표 설정 버튼 클릭', user);
     submitSurvey();
     try {
       await postBuyHomeSurvey({ response });

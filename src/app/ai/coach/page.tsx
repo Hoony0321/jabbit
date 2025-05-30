@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Stack, Text, Flex, Box } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import ChatbotMessage from './_components/ChatbotMessage';
@@ -16,7 +16,7 @@ import { useAuthStore } from '@/src/client/store/authStore';
 import { useGenerateAiSolutionStore } from '@/src/app/ai/coach/_store/generateAiSolutionStore';
 import postAiContentNotification from '@/src/client/lib/api/postAiContentNotification';
 import getAiContent from '@/src/client/lib/api/getAiContent';
-import mixpanel from 'mixpanel-browser';
+import { mixpanelTrackWithCallback } from '@/src/client/utils/mixpanelHelpers';
 
 function CoachPage() {
   const { push } = useRouter();
@@ -116,21 +116,59 @@ function CoachPage() {
   }, []);
 
   const handleBuyHomeButtonClick = () => {
-    mixpanel.track('내 집 마련 비용 계산하기 버튼 클릭', {
-      location: '코치탭',
-      user_type: user?.name ? user.name : 'unknown',
-      user_email: user?.email,
-    });
-    push('/ai/coach/form/buy-home');
+    mixpanelTrackWithCallback(
+      '코치탭',
+      '내 집 마련 비용 계산하기 버튼 클릭',
+      user,
+      () => {
+        push('/ai/coach/form/buy-home');
+      },
+    );
   };
 
   const handleFinancialGoalButtonClick = () => {
-    mixpanel.track('5분 설문 참여하기 버튼 클릭', {
-      location: '코치탭',
-      user_type: user?.name ? user.name : 'unknown',
-      user_email: user?.email,
-    });
-    push('/ai/coach/form/financial-goal');
+    mixpanelTrackWithCallback(
+      '코치탭',
+      '5분 설문 참여하기 버튼 클릭',
+      user,
+      () => {
+        push('/ai/coach/form/financial-goal');
+      },
+    );
+  };
+
+  const handleGetNotificationClick = (
+    type: 'scenario' | 'plan' | 'routine',
+  ) => {
+    const typeMap = {
+      scenario: '시나리오',
+      plan: '플랜',
+      routine: '루틴',
+    };
+    mixpanelTrackWithCallback(
+      '코치탭',
+      `${typeMap[type]} 알림 받기 버튼 클릭`,
+      user,
+      () => {
+        handleGetNotification(type);
+      },
+    );
+  };
+
+  const handleReadAiContentClick = (type: 'scenario' | 'plan' | 'routine') => {
+    const typeMap = {
+      scenario: '시나리오',
+      plan: '플랜',
+      routine: '루틴',
+    };
+    mixpanelTrackWithCallback(
+      '코치탭',
+      `${typeMap[type]} 읽어보기 버튼 클릭`,
+      user,
+      () => {
+        push(`/ai/coach/${type}`);
+      },
+    );
   };
 
   const messages = [
@@ -175,7 +213,7 @@ function CoachPage() {
             message="코치가 나만을 위한 재무 전략을 만드는 중이에요. 완료되면 알림 드릴게요."
             buttonText="알림받기"
             buttonDisabledText="알림신청 완료"
-            onButtonClick={() => handleGetNotification('scenario')}
+            onButtonClick={() => handleGetNotificationClick('scenario')}
             isDisabled={isScenarioNotificationEnabled}
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
@@ -191,7 +229,7 @@ function CoachPage() {
           <ChatbotMessage
             message="내 집 마련 목표, 지금 뭐부터 해야 할까요? 쪼개서 알려드릴게요."
             buttonText="읽어보기"
-            onButtonClick={() => push('/ai/coach/scenario')}
+            onButtonClick={() => handleReadAiContentClick('scenario')}
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
             {parseTimeFromTimestamp(dateScenarioCreated)}
@@ -207,7 +245,7 @@ function CoachPage() {
             message="코치가 나만을 위한 재무 전략을 만드는 중이에요. 완료되면 알림 드릴게요."
             buttonText="알림받기"
             buttonDisabledText="알림신청 완료"
-            onButtonClick={() => handleGetNotification('plan')}
+            onButtonClick={() => handleGetNotificationClick('plan')}
             isDisabled={isPlanNotificationEnabled}
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
@@ -223,7 +261,7 @@ function CoachPage() {
           <ChatbotMessage
             message={`${displayName}님의 재무 목표, 어떻게 이룰 수 있을까요? 현실 가능한 여러 가지 플랜을 제안드릴게요.`}
             buttonText="읽어보기"
-            onButtonClick={() => push('/ai/coach/plan')}
+            onButtonClick={() => handleReadAiContentClick('plan')}
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
             {parseTimeFromTimestamp(datePlanCreated)}
@@ -239,7 +277,7 @@ function CoachPage() {
             message="코치가 나만을 위한 재무 전략을 만드는 중이에요. 완료되면 알림 드릴게요."
             buttonText="알림받기"
             buttonDisabledText="알림신청 완료"
-            onButtonClick={() => handleGetNotification('routine')}
+            onButtonClick={() => handleGetNotificationClick('routine')}
             isDisabled={isRoutineNotificationEnabled}
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
@@ -255,7 +293,7 @@ function CoachPage() {
           <ChatbotMessage
             message="목표를 이루기 위한 루틴이 도착했어요. 작지만 꾸준히 실천할 수 있는 루틴을 추천드려요."
             buttonText="읽어보기"
-            onButtonClick={() => push('/ai/coach/routine')}
+            onButtonClick={() => handleReadAiContentClick('routine')}
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
             {parseTimeFromTimestamp(dateRoutineCreated)}
@@ -266,6 +304,11 @@ function CoachPage() {
   ].filter(Boolean) as { date: string; component: React.ReactNode }[];
 
   const grouped = groupMessagesByDate(messages);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
     <Stack direction="column" gap="20px" px="20px" height="100%" mt="24px">
@@ -280,6 +323,7 @@ function CoachPage() {
           </Flex>
           <Stack direction="column" gap="20px">
             {items}
+            <div ref={bottomRef} />
           </Stack>
         </Box>
       ))}
