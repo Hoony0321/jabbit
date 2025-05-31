@@ -119,6 +119,7 @@ function CoachPage() {
     mixpanelTrackWithCallback(
       '코치탭',
       '내 집 마련 비용 계산하기 버튼 클릭',
+      '내 집 마련 비용 계산하기 버튼',
       user,
       () => {
         push('/ai/coach/form/buy-home');
@@ -129,7 +130,8 @@ function CoachPage() {
   const handleFinancialGoalButtonClick = () => {
     mixpanelTrackWithCallback(
       '코치탭',
-      '5분 설문 참여하기 버튼 클릭',
+      '5분 설문 참여하기 버튼 클릭',  
+      '5분 설문 참여하기 버튼',
       user,
       () => {
         push('/ai/coach/form/financial-goal');
@@ -148,6 +150,7 @@ function CoachPage() {
     mixpanelTrackWithCallback(
       '코치탭',
       `${typeMap[type]} 알림 받기 버튼 클릭`,
+      `${typeMap[type]} 알림 받기 버튼`,
       user,
       () => {
         handleGetNotification(type);
@@ -164,6 +167,7 @@ function CoachPage() {
     mixpanelTrackWithCallback(
       '코치탭',
       `${typeMap[type]} 읽어보기 버튼 클릭`,
+      `${typeMap[type]} 읽어보기 버튼`,
       user,
       () => {
         push(`/ai/coach/${type}`);

@@ -28,7 +28,7 @@ function FinancialGoalFormPage() {
   const { user } = useAuthStore();
 
   const handleConfirm = async () => {
-    mixpanelTrack('코치탭', '제출하기 버튼 클릭', user);
+    mixpanelTrack('코치탭', '제출하기 버튼 클릭', '제출하기 버튼', user);
     setIsOpen(false);
     submitSurvey();
     setScenarioRequested();

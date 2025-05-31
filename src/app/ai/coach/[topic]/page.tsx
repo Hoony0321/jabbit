@@ -108,17 +108,17 @@ export default function GuidePage() {
 
   const handleButtonClick = async () => {
     if (topicStr === 'scenario') {
-      mixpanelTrack('코치탭', '시나리오 추가하기 버튼 클릭', user);
+      mixpanelTrack('코치탭', '시나리오 추가하기 버튼 클릭', '시나리오 추가하기 버튼', user);
       setPlanRequested();
       await postAiContent({ contentType: 'PLAN' });
       router.push('/ai/coach');
     } else if (topicStr === 'plan') {
-      mixpanelTrack('코치탭', '플랜으로 설정하기 버튼 클릭', user);
+      mixpanelTrack('코치탭', '플랜으로 설정하기 버튼 클릭', '플랜으로 설정하기 버튼', user);
       setRoutineRequested();
       await postAiContent({ contentType: 'ROUTINE' });
       router.push('/ai/coach');
     } else if (topicStr === 'routine') {
-      mixpanelTrack('코치탭', '루틴으로 설정하기 버튼 클릭', user);
+      mixpanelTrack('코치탭', '루틴으로 설정하기 버튼 클릭', '루틴으로 설정하기 버튼', user);
       router.push('/ai/goal/launch');
     }
   };

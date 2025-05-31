@@ -44,6 +44,7 @@ function LaunchPage({ launchData, type }: LaunchPageProps) {
     mixpanelTrack(
       `${typeMap[type]}`,
       `${typeMap[type]} 출시 알림 받기 버튼 클릭`,
+      `${typeMap[type]} 출시 알림 받기 버튼`,
       user,
     );
     if (!launchAlarmStatus) {

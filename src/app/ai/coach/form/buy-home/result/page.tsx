@@ -91,7 +91,7 @@ function ResultPage() {
   const calculatedAmount = calculateEstimatedAmount();
 
   const handleSubmitSurvey = async () => {
-    mixpanelTrack('코치탭', '장기 목표 설정 버튼 클릭', user);
+    mixpanelTrack('코치탭', '장기 목표 설정 버튼 클릭', '장기 목표 설정 버튼', user);
     submitSurvey();
     try {
       await postBuyHomeSurvey({ response });
