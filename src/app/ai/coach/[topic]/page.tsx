@@ -10,6 +10,9 @@ import postAiContent from '@/src/client/lib/api/postAiContent';
 import getAiContent from '@/src/client/lib/api/getAiContent';
 import { mixpanelTrack } from '@/src/client/utils/mixpanelHelpers';
 import { useAuthStore } from '@/src/client/store/authStore';
+import Scenario from './_components/Scenario';
+import Plan from './_components/Plan';
+import Routine from './_components/Routine';
 
 function Loading({ message }: { message: string }) {
   const typing = keyframes`
@@ -108,17 +111,32 @@ export default function GuidePage() {
 
   const handleButtonClick = async () => {
     if (topicStr === 'scenario') {
-      mixpanelTrack('코치탭', '시나리오 추가하기 버튼 클릭', '시나리오 추가하기 버튼', user);
+      mixpanelTrack(
+        '코치탭',
+        '시나리오 추가하기 버튼 클릭',
+        '시나리오 추가하기 버튼',
+        user,
+      );
       setPlanRequested();
       await postAiContent({ contentType: 'PLAN' });
       router.push('/ai/coach');
     } else if (topicStr === 'plan') {
-      mixpanelTrack('코치탭', '플랜으로 설정하기 버튼 클릭', '플랜으로 설정하기 버튼', user);
+      mixpanelTrack(
+        '코치탭',
+        '플랜으로 설정하기 버튼 클릭',
+        '플랜으로 설정하기 버튼',
+        user,
+      );
       setRoutineRequested();
       await postAiContent({ contentType: 'ROUTINE' });
       router.push('/ai/coach');
     } else if (topicStr === 'routine') {
-      mixpanelTrack('코치탭', '루틴으로 설정하기 버튼 클릭', '루틴으로 설정하기 버튼', user);
+      mixpanelTrack(
+        '코치탭',
+        '루틴으로 설정하기 버튼 클릭',
+        '루틴으로 설정하기 버튼',
+        user,
+      );
       router.push('/ai/goal/launch');
     }
   };
@@ -129,7 +147,13 @@ export default function GuidePage() {
     <Box>
       <Box px="20px" rounded="md" mt="16px" pb="80px">
         <Text textStyle="mobile_b1_med" color="main.black_1">
-          {JSON.stringify(data)}
+          {topicStr === 'scenario' ? (
+            <Scenario data={data} />
+          ) : topicStr === 'plan' ? (
+            <Plan data={data} />
+          ) : topicStr === 'routine' ? (
+            <Routine data={data} />
+          ) : null}
         </Text>
       </Box>
       <Button

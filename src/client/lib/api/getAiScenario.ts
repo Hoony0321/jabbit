@@ -1,5 +1,7 @@
-const getAiScenario = async () => {
-  const response = await fetch(`/api/survey`, {
+type ContentPayload = 'SCENARIO' | 'PLAN' | 'ROUTINE';
+
+const getAiScenario = async (payload: ContentPayload) => {
+  const response = await fetch(`/api/survey/${payload}`, {
     method: 'GET',
     next: {
       revalidate: 3600,
