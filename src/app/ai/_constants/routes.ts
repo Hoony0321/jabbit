@@ -43,6 +43,7 @@ export type Route = {
     hasPrev: boolean;
     rightButton?: {
       label: string;
+      color?: string;
     };
   };
   hasNav: boolean;
@@ -146,9 +147,10 @@ export const ROUTES: Record<
       hasPrev: true,
       rightButton: {
         label: '저장',
+        color: 'brand.blue',
       },
     },
-    hasNav: true,
+    hasNav: false,
   },
 
   MONEY_TRACKER_INCOME_EXPENSE: {

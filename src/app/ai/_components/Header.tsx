@@ -17,6 +17,7 @@ function Header(props: Route['header']) {
       justifyContent="center"
       alignItems="center"
       w="100%"
+      zIndex={1000}
     >
       <Flex
         alignItems="center"
@@ -42,7 +43,13 @@ function Header(props: Route['header']) {
         )}
         <Text textStyle="mobile_b1_semi">{title}</Text>
         {rightButton ? (
-          <Button onClick={() => console.log('clicked')}>
+          <Button
+            variant="plain"
+            onClick={() => console.log('clicked')}
+            color={rightButton.color || 'font.900'}
+            h="22px"
+            p="0px"
+          >
             {rightButton.label}
           </Button>
         ) : (

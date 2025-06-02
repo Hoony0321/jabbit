@@ -1,10 +1,11 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { Flex, Text, Spinner } from '@chakra-ui/react';
+import mixpanel from 'mixpanel-browser';
+
 import { AppError } from '@/src/client/errors/AppError';
 import { useErrorToast } from '@/src/client/errors/useErrorToast';
 import { useAuthStore } from '@/src/client/store/authStore';
-import { Spinner } from '@chakra-ui/react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { createJwtToken } from '@/src/client/lib/api/createJwt';
 import { AuthUser } from '@/src/client/store/authStore';
 
@@ -38,6 +39,11 @@ const AuthPageContent = () => {
         : null;
 
       setUser(user, token);
+      mixpanel.identify(user.id);
+      mixpanel.people.set({
+        $email: user.email,
+        $name: user.name,
+      });
       router.replace(decodedState?.redirectTo || '/');
     } else {
       // 신규 유저일 경우 회원가입 페이지로 라우팅

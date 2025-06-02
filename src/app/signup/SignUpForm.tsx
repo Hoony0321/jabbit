@@ -1,24 +1,25 @@
 'use client';
 
+import mixpanel from 'mixpanel-browser';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Flex, Text, Button, Link, Box } from '@chakra-ui/react';
+import { Controller, FormProvider } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
+
 import Input from '@/src/app/components/Input/Input';
 import Field from '@/src/app/components/Field/Field';
 import RadioGroup from '@/src/app/components/RadioGroup/RadioGroup';
 import Checkbox from '@/src/app/components/Checkbox/Checkbox';
-import { Controller, FormProvider } from 'react-hook-form';
-import postUser from '@/src/client/lib/api/postUser';
-import { DevTool } from '@hookform/devtools';
-import { useSignUpForm } from './_hooks/useSignUpForm';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
-import { AuthUser, useAuthStore } from '@/src/client/store/authStore';
-import { createJwtToken } from '@/src/client/lib/api/createJwt';
-import { useErrorToast } from '@/src/client/errors/useErrorToast';
 import {
   PRIVACY_POLICY_URL,
   TERMS_OF_SERVICE_URL,
 } from '@/src/client/constants/URL';
+import postUser from '@/src/client/lib/api/postUser';
+import { AuthUser, useAuthStore } from '@/src/client/store/authStore';
+import { createJwtToken } from '@/src/client/lib/api/createJwt';
+import { useErrorToast } from '@/src/client/errors/useErrorToast';
 import Logo from '../common/Logo/Logo';
+import { useSignUpForm } from './_hooks/useSignUpForm';
 
 const GENDER_OPTIONS = [
   { value: 'male', label: '남성' },
@@ -59,6 +60,12 @@ const SignUp = () => {
       };
       const token = await createJwtToken(user);
       setUser(user, token);
+      mixpanel.alias(user.id);
+      mixpanel.identify(user.id);
+      mixpanel.people.set({
+        $email: user.email,
+        $name: user.name,
+      });
       router.replace('/');
     } catch (error) {
       router.replace('/login');
