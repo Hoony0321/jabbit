@@ -9,6 +9,8 @@ import GoalSVG from '@/src/client/assets/goal.svg';
 import GoalActiveSVG from '@/src/client/assets/goal-active.svg';
 import MoneyTrackerSVG from '@/src/client/assets/money-tracker.svg';
 import MoneyTrackerActiveSVG from '@/src/client/assets/money-tracker-active.svg';
+import { mixpanelTrack } from '@/src/client/utils/mixpanelHelpers';
+import { useAuthStore } from '@/src/client/store/authStore';
 
 const NAVIGATION_LIST = [
   {
@@ -34,6 +36,7 @@ const NAVIGATION_LIST = [
 function Navigation() {
   const pathname = usePathname();
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
 
   return (
     <Flex
@@ -69,6 +72,12 @@ function Navigation() {
                 gap="4px"
                 cursor="pointer"
                 onClick={() => {
+                  mixpanelTrack(
+                    item.url,
+                    `${item.label}탭 클릭`,
+                    item.label,
+                    user,
+                  );
                   router.push(item.url);
                 }}
               >
