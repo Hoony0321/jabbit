@@ -16,6 +16,7 @@ import postAiContent from '@/src/client/lib/api/postAiContent';
 import postFinancialGoalSurvey from '@/src/client/lib/api/postFinancialGoalSurvey';
 import { mixpanelTrack } from '@/src/client/utils/mixpanelHelpers';
 import { useAuthStore } from '@/src/client/store/authStore';
+import { IDENTIFIER_TO_PATH_MAP } from '@/src/app/ai/_constants/routes';
 
 const totalStep = 12;
 
@@ -43,7 +44,7 @@ function FinancialGoalFormPage() {
     } catch (error) {
       console.error('AI 콘텐츠 전송 오류:', error);
     }
-    router.push('/ai/coach');
+    router.push(IDENTIFIER_TO_PATH_MAP['COACH_MAIN']);
   };
 
   const handleClose = () => {

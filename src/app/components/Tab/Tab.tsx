@@ -2,7 +2,7 @@ import { Tabs } from '@chakra-ui/react';
 import { usePathname } from 'next/navigation';
 
 interface TabProps extends Omit<Tabs.RootProps, 'onClick'> {
-  menuList: {
+  menuList: readonly {
     label: string;
     value: string;
     link: string;

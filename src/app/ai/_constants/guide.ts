@@ -6,10 +6,10 @@ export const GUIDE_BUTTONS = {
     description: '이 루틴, 왜 따라야 하나요?',
     link: IDENTIFIER_TO_PATH_MAP['GOAL_GUIDE'],
   },
-  'money-tracker': {
+  'account-book': {
     title: '가계부 작성 이유',
     description: '가계부, 귀찮은데 왜 써야 하나요?',
-    link: IDENTIFIER_TO_PATH_MAP['MONEY_TRACKER_GUIDE'],
+    link: IDENTIFIER_TO_PATH_MAP['ACCOUNT_BOOK_GUIDE'],
   },
 };
 
@@ -46,7 +46,7 @@ export const ROUTINE_GUIDE_CONTENT: GuideContent = {
   ],
 };
 
-export const MONEY_TRACKER_GUIDE_CONTENT: GuideContent = {
+export const ACCOUNT_BOOK_GUIDE_CONTENT: GuideContent = {
   title: '📌 가계부, 귀찮은데 왜 써야 하나요?',
   description:
     'AI 재무 리포트를 받기 위해서예요.\n\n 매주 한 번, AI가 당신의 재무 습관을 분석해\n개인 맞춤형 피드백 리포트를 보내드립니다.',

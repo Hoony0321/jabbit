@@ -7,7 +7,7 @@ import { mixpanelTrack } from '@/src/client/utils/mixpanelHelpers';
 import { useAuthStore } from '@/src/client/store/authStore';
 
 interface LaunchPageProps {
-  type: 'money-tracker' | 'goal';
+  type: 'account-book' | 'goal';
   launchData: {
     mainTitle: string;
     contents: {
@@ -17,7 +17,7 @@ interface LaunchPageProps {
   };
 }
 
-type LaunchAlarmStatus = Record<'money-tracker' | 'goal', boolean>;
+type LaunchAlarmStatus = Record<'account-book' | 'goal', boolean>;
 
 const CONTENT_BG_COLOR_MAP = ['blue.400', 'blue.200', 'blue.100'];
 
@@ -38,8 +38,8 @@ function LaunchPage({ launchData, type }: LaunchPageProps) {
   const onLaunchAlarmClick = () => {
     const launchAlarmStatus = localStorage.getItem('launchAlarmStatus');
     const typeMap = {
-      'money-tracker': '가계부탭',
-      'goal': '목표탭',
+      'account-book': '가계부탭',
+      goal: '목표탭',
     };
     mixpanelTrack(
       `${typeMap[type]}`,

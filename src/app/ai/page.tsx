@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/src/client/store/authStore';
+import { IDENTIFIER_TO_PATH_MAP } from './_constants/routes';
 
 function AIMainPage() {
   const { user } = useAuthStore();
@@ -12,7 +13,7 @@ function AIMainPage() {
     router.replace('/ai/login');
   } else {
     console.log('redirecting to coach');
-    router.replace('/ai/coach');
+    router.replace(IDENTIFIER_TO_PATH_MAP['COACH_MAIN']);
   }
 }
 

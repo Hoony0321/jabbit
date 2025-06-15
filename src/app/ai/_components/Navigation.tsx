@@ -11,23 +11,24 @@ import MoneyTrackerSVG from '@/src/client/assets/money-tracker.svg';
 import MoneyTrackerActiveSVG from '@/src/client/assets/money-tracker-active.svg';
 import { mixpanelTrack } from '@/src/client/utils/mixpanelHelpers';
 import { useAuthStore } from '@/src/client/store/authStore';
+import { IDENTIFIER_TO_PATH_MAP } from '../_constants/routes';
 
 const NAVIGATION_LIST = [
   {
     label: '코치',
-    url: '/ai/coach',
+    url: IDENTIFIER_TO_PATH_MAP['COACH_MAIN'],
     icon: <CoachSVG width="28" height="28 " />,
     activeIcon: <CoachActiveSVG width="28" height="28" />,
   },
   {
     label: '목표',
-    url: '/ai/goal',
+    url: IDENTIFIER_TO_PATH_MAP['GOAL_MAIN'],
     icon: <GoalSVG width="28" height="28" />,
     activeIcon: <GoalActiveSVG width="28" height="28" />,
   },
   {
     label: '가계부',
-    url: '/ai/money-tracker',
+    url: IDENTIFIER_TO_PATH_MAP['ACCOUNT_BOOK_MAIN'],
     icon: <MoneyTrackerSVG width="28" height="28" />,
     activeIcon: <MoneyTrackerActiveSVG width="28" height="28" />,
   },

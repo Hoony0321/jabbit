@@ -1,4 +1,4 @@
-import { Box, Button, Text, Flex } from '@chakra-ui/react';
+import { Box, Button, Text, Flex, ButtonProps } from '@chakra-ui/react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,6 +8,10 @@ interface ModalProps {
   content: string;
   confirmText?: string;
   cancelText?: string;
+  customStyle?: {
+    confirmButton?: ButtonProps;
+    cancelButton?: ButtonProps;
+  };
 }
 
 function Modal({
@@ -18,6 +22,7 @@ function Modal({
   content,
   confirmText = '확인',
   cancelText = '취소',
+  customStyle,
 }: ModalProps) {
   if (!isOpen) return null;
 
@@ -71,6 +76,7 @@ function Modal({
             width="115px"
             height="44px"
             borderRadius="10px"
+            {...customStyle?.cancelButton}
           >
             {cancelText}
           </Button>
@@ -82,6 +88,7 @@ function Modal({
             width="115px"
             height="44px"
             borderRadius="10px"
+            {...customStyle?.confirmButton}
           >
             {confirmText}
           </Button>

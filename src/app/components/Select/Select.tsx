@@ -9,12 +9,19 @@ const Select = ({ placeholder, ...props }: SelectProps) => {
     <ChakraSelect.Root width="100%" {...props}>
       <ChakraSelect.HiddenSelect />
       <ChakraSelect.Control>
-        <ChakraSelect.Trigger borderRadius="12px" height="50px">
+        <ChakraSelect.Trigger
+          borderRadius="12px"
+          height="50px"
+          bgColor="blue.100"
+          borderColor="font.400"
+          _placeholderShown={{
+            color: 'font.600',
+          }}
+          color="font.900"
+        >
           <ChakraSelect.ValueText
             placeholder={placeholder}
-            textStyle="xs"
-            fontWeight={600}
-            color="main.black_2"
+            textStyle="mobile_b2"
           />
         </ChakraSelect.Trigger>
         <ChakraSelect.IndicatorGroup>
@@ -23,14 +30,27 @@ const Select = ({ placeholder, ...props }: SelectProps) => {
       </ChakraSelect.Control>
       <Portal>
         <ChakraSelect.Positioner>
-          <ChakraSelect.Content w="190px" borderRadius="12px">
+          <ChakraSelect.Content
+            p="0"
+            w="100%"
+            borderRadius="12px"
+            bgColor="blue.100"
+            maxHeight="250px"
+          >
             {props.collection.items.map((option) => (
               <ChakraSelect.Item
                 item={option}
                 key={option.value}
-                textStyle="xs"
-                fontWeight={600}
-                color="main.black_2"
+                textStyle="mobile_b2"
+                color="font.900"
+                bgColor="blue.100"
+                px="16px"
+                py="14px"
+                _notLast={{
+                  borderBottom: '1px solid',
+                  borderColor: 'font.400',
+                }}
+                borderRadius="0"
               >
                 {option.label}
                 <ChakraSelect.ItemIndicator />

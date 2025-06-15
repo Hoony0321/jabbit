@@ -13,6 +13,7 @@ import { useAuthStore } from '@/src/client/store/authStore';
 import Scenario from './_components/Scenario';
 import Plan from './_components/Plan';
 import Routine from './_components/Routine';
+import { IDENTIFIER_TO_PATH_MAP } from '../../_constants/routes';
 
 function Loading({ message }: { message: string }) {
   const typing = keyframes`
@@ -119,7 +120,7 @@ export default function GuidePage() {
       );
       setPlanRequested();
       await postAiContent({ contentType: 'PLAN' });
-      router.push('/ai/coach');
+      router.push(IDENTIFIER_TO_PATH_MAP['COACH_MAIN']);
     } else if (topicStr === 'plan') {
       mixpanelTrack(
         '코치탭',
@@ -129,7 +130,7 @@ export default function GuidePage() {
       );
       setRoutineRequested();
       await postAiContent({ contentType: 'ROUTINE' });
-      router.push('/ai/coach');
+      router.push(IDENTIFIER_TO_PATH_MAP['COACH_MAIN']);
     } else if (topicStr === 'routine') {
       mixpanelTrack(
         '코치탭',
@@ -137,7 +138,7 @@ export default function GuidePage() {
         '루틴으로 설정하기 버튼',
         user,
       );
-      router.push('/ai/goal/launch');
+      router.push(IDENTIFIER_TO_PATH_MAP['GOAL_LAUNCH']);
     }
   };
 

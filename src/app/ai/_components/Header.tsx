@@ -1,11 +1,15 @@
 import { useRouter } from 'next/navigation';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
-
-import { Route } from '../_constants/routes';
 import ArrowLeftSVG from '@/src/client/assets/arrow-left.svg';
 
-function Header(props: Route['header']) {
-  const { title, hasPrev, rightButton } = props || {};
+type HeaderProps = {
+  title?: string;
+  hasPrev?: boolean;
+  children?: React.ReactNode;
+};
+
+function Header(props: HeaderProps) {
+  const { title, hasPrev, children } = props || {};
   const router = useRouter();
 
   return (
@@ -42,19 +46,7 @@ function Header(props: Route['header']) {
           <Box boxSize="24px" />
         )}
         <Text textStyle="mobile_b1_semi">{title}</Text>
-        {rightButton ? (
-          <Button
-            variant="plain"
-            onClick={() => console.log('clicked')}
-            color={rightButton.color || 'font.900'}
-            h="22px"
-            p="0px"
-          >
-            {rightButton.label}
-          </Button>
-        ) : (
-          <Box boxSize="24px" />
-        )}
+        {children || <Box boxSize="24px" />}
       </Flex>
     </Flex>
   );

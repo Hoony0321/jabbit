@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { Box, Stack, Text, Button, VStack, Flex } from '@chakra-ui/react';
 import { useBuyHomeSurveyStore } from '@/src/app/ai/coach/_store/buyHomeSurveyStore';
+import { IDENTIFIER_TO_PATH_MAP } from '@/src/app/ai/_constants/routes';
 import postBuyHomeSurvey from '@/src/client/lib/api/postBuyHomeSurvey';
 import { Answer } from '@/src/app/ai/coach/_store/buyHomeSurveyStore';
 import { mixpanelTrack } from '@/src/client/utils/mixpanelHelpers';
@@ -91,14 +92,19 @@ function ResultPage() {
   const calculatedAmount = calculateEstimatedAmount();
 
   const handleSubmitSurvey = async () => {
-    mixpanelTrack('코치탭', '장기 목표 설정 버튼 클릭', '장기 목표 설정 버튼', user);
+    mixpanelTrack(
+      '코치탭',
+      '장기 목표 설정 버튼 클릭',
+      '장기 목표 설정 버튼',
+      user,
+    );
     submitSurvey();
     try {
       await postBuyHomeSurvey({ response });
     } catch (error) {
       console.error('설문 전송 중 오류 발생:', error);
     } finally {
-      router.push('/ai/coach');
+      router.push(IDENTIFIER_TO_PATH_MAP['COACH_MAIN']);
     }
   };
 

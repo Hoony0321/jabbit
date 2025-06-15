@@ -25,7 +25,14 @@ export async function POST(request: Request) {
       expiresIn: JWT.EXPIRES_IN,
     });
 
-    return createSuccessApiResponse('CREATE_SUCCESS', token);
+    const response = createSuccessApiResponse('CREATE_SUCCESS', token);
+
+    response.headers.set(
+      'Set-Cookie',
+      `token=${token}; HttpOnly; Path=/; Secure; SameSite=Strict; Max-Age=3600`,
+    );
+
+    return response;
   } catch (error) {
     console.error(error);
     return createErrorApiResponse('UNKNOWN_ERROR');
