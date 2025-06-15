@@ -11,12 +11,19 @@ import ExpenditureSVG from '@/src/client/assets/expenditure_management.svg';
 import InvestmentSVG from '@/src/client/assets/invest_consulting.svg';
 import RealEstateSVG from '@/src/client/assets/real_estate.svg';
 import SeedMoneySVG from '@/src/client/assets/seed_money.svg';
+import { COLORS } from '@/src/client/theme/colors';
 import HoverMenu from './HoverMenu/HoverMenu';
 
 const CATEGORY_ITEMS = [
   {
     title: '종합재무상담',
-    image: <ConsultingSVG width="100%" height="100%" />,
+    image: (
+      <ConsultingSVG
+        width="100%"
+        height="100%"
+        color={COLORS.brand.black.value}
+      />
+    ),
   },
   {
     title: '보험진단',

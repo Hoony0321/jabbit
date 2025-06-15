@@ -7,9 +7,10 @@ import DebtSVG from '@/src/client/assets/debt.svg';
 import InvestmentConsultingSVG from '@/src/client/assets/invest_consulting.svg';
 import ChildCareSVG from '@/src/client/assets/child_care.svg';
 import InsuranceSVG from '@/src/client/assets/insurance.svg';
-import SeedMoneySVG from '@/src/client/assets/seed_money.svg';
+import SeedMoneySVG from '@/src/client/assets/seed_money.svg';  
 import ConsultingSVG from '@/src/client/assets/consulting.svg';
 import { UserFinancialInfo } from '@/src/client/lib/api/postUserFinancialInfo';
+import { COLORS } from '@/src/client/theme/colors';
 import { FINANCIAL_CONCERN_OPTIONS } from '../../_constants/financial-info-form';
 
 const FINANCIAL_CONCERN_OPTIONS_ICON_MAP: Record<string, React.ReactNode> = {
@@ -19,7 +20,9 @@ const FINANCIAL_CONCERN_OPTIONS_ICON_MAP: Record<string, React.ReactNode> = {
   '내 집 마련': <RealEstateSVG width="43px" height="43px" />,
   '부채 관리': <DebtSVG width="43px" height="43px" />,
   '투자 및 자산관리': <InvestmentConsultingSVG width="43px" height="43px" />,
-  '노후/은퇴 준비': <ConsultingSVG width="43px" height="43px" />,
+  '노후/은퇴 준비': (
+    <ConsultingSVG width="43px" height="43px" color={COLORS.brand.black.value} />
+  ),
   '자녀 교육 및 양육비': <ChildCareSVG width="43px" height="43px" />,
   절세: <InsuranceSVG width="43px" height="43px" />,
   '종잣돈 마련': <SeedMoneySVG width="43px" height="43px" />,

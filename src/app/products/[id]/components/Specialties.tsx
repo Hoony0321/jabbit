@@ -1,3 +1,5 @@
+import { Flex, Text } from '@chakra-ui/react';
+
 import ConsultingSVG from '@/src/client/assets/consulting.svg';
 import InsuranceSVG from '@/src/client/assets/insurance.svg';
 import DebtSVG from '@/src/client/assets/debt.svg';
@@ -5,12 +7,18 @@ import ExpenditureSVG from '@/src/client/assets/expenditure_management.svg';
 import InvestmentSVG from '@/src/client/assets/invest_consulting.svg';
 import RealEstateSVG from '@/src/client/assets/real_estate.svg';
 import SeedMoneySVG from '@/src/client/assets/seed_money.svg';
-import { Flex, Text } from '@chakra-ui/react';
+import { COLORS } from '@/src/client/theme/colors';
 
 const CATEGORY_ITEMS = [
   {
     title: '종합재무상담',
-    image: <ConsultingSVG width="80px" height="80px" />,
+    image: (
+      <ConsultingSVG
+        width="80px"
+        height="80px"
+        color={COLORS.brand.black.value}
+      />
+    ),
   },
   {
     title: '보험진단',

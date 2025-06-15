@@ -24,13 +24,14 @@ function MobileLayout({ children }: { children: React.ReactNode }) {
       <Box maxWidth="480px" width="100%" height="100vh">
         <Box width="100%" height="100%" overflowY="scroll">
           {header && <Header {...header} />}
-          <Box
+          <Flex
+            flexDirection="column"
             pt={header ? '52px' : '0px'}
             pb={hasNav ? '68px' : '0px'}
             minH="100vh"
           >
             {children}
-          </Box>
+          </Flex>
           {hasNav && <Navigation />}
         </Box>
       </Box>

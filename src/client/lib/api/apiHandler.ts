@@ -75,6 +75,23 @@ export const apiHandler = {
     return response.json();
   },
 
+  patch: async <T>(
+    endpoint: string,
+    options: RequestOptions = {},
+  ): Promise<T> => {
+    const response = await fetch(`${AI_API_URL}${endpoint}`, {
+      method: 'PATCH',
+      headers: await getHeaders(),
+      ...options,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  },
+
   delete: async <T>(
     endpoint: string,
     options: RequestOptions = {},
