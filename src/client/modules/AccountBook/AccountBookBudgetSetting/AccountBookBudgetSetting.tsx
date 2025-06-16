@@ -36,15 +36,17 @@ function AccountBookBudgetSetting() {
     },
   });
 
+  const defaultValues = typedObjectEntries(EXPENSE_CATEGORY_MAP).reduce(
+    (acc, [key]) => {
+      const categoryKey = key;
+      acc[categoryKey] = data.body.categoryBudgets[key]?.budget ?? undefined;
+      return acc;
+    },
+    {} as BudgetFormType,
+  );
+
   const { control, getValues } = useBudgeSetForm({
-    defaultValues: typedObjectEntries(EXPENSE_CATEGORY_MAP).reduce(
-      (acc, [key]) => {
-        const categoryKey = key;
-        acc[categoryKey] = data.body.categoryBudgets[key].budget;
-        return acc;
-      },
-      {} as BudgetFormType,
-    ),
+    defaultValues,
   });
 
   const handleSubmit = () => {
