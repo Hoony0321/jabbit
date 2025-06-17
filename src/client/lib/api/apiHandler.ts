@@ -1,8 +1,5 @@
 import { AI_API_URL } from '@/src/client/constants/API';
-import { getAccessToken } from '@/src/client/utils/token';
-import { useAuthStore } from '@/src/client/store/authStore';
-import { deleteJwtToken } from '@/src/client/lib/api/deleteJwt';
-import { redirect } from 'next/navigation';
+import { getAccessToken } from '../../utils/token';
 
 interface RequestOptions extends RequestInit {
   body?: any;
@@ -10,83 +7,105 @@ interface RequestOptions extends RequestInit {
 
 const getHeaders = async (): Promise<HeadersInit> => {
   const accessToken = await getAccessToken();
-  return {
+
+  const headers: HeadersInit = {
     'Content-Type': 'application/json',
-    ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-  };
-};
-
-const handleClientUnauthorized = async () => {
-  const { logout } = useAuthStore.getState();
-
-  try {
-    await deleteJwtToken();
-  } catch (error) {
-    console.error('Failed to delete server cookie:', error);
-  } finally {
-    logout();
-    window.location.href = '/login';
-  }
-};
-
-const handleServerUnauthorized = () => {
-  redirect('/login');
-};
-
-const handleUnauthorized = async () => {
-  const isClientSide = typeof window !== 'undefined';
-  if (isClientSide) {
-    await handleClientUnauthorized();
-  } else {
-    handleServerUnauthorized();
-  }
-};
-
-const handleResponse = async <T>(response: Response): Promise<T> => {
-  if (!response.ok) {
-    if (response.status === 401) {
-      await handleUnauthorized();
-      throw new Error('Unauthorized access');
-    }
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  return response.json();
-};
-
-const request = async <T>(
-  method: string,
-  endpoint: string,
-  data?: any,
-  options: RequestOptions = {},
-): Promise<T> => {
-  const headers = await getHeaders();
-  const fetchOptions: RequestInit = {
-    method,
-    headers,
-    ...options,
   };
 
-  if (data) {
-    fetchOptions.body = JSON.stringify(data);
+  if (accessToken) {
+    headers['Authorization'] = `Bearer ${accessToken}`;
   }
 
-  const response = await fetch(`${AI_API_URL}${endpoint}`, fetchOptions);
-  return handleResponse<T>(response);
+  return headers;
 };
 
 export const apiHandler = {
-  get: <T>(endpoint: string, options?: RequestOptions) =>
-    request<T>('GET', endpoint, undefined, options),
+  get: async <T>(
+    endpoint: string,
+    options: RequestOptions = {},
+  ): Promise<T> => {
+    const response = await fetch(`${AI_API_URL}${endpoint}`, {
+      method: 'GET',
+      headers: await getHeaders(),
+      ...options,
+    });
 
-  post: <T>(endpoint: string, data?: any, options?: RequestOptions) =>
-    request<T>('POST', endpoint, data, options),
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-  put: <T>(endpoint: string, data?: any, options?: RequestOptions) =>
-    request<T>('PUT', endpoint, data, options),
+    return response.json();
+  },
 
-  patch: <T>(endpoint: string, data?: any, options?: RequestOptions) =>
-    request<T>('PATCH', endpoint, data, options),
+  post: async <T>(
+    endpoint: string,
+    data?: any,
+    options: RequestOptions = {},
+  ): Promise<T> => {
+    const response = await fetch(`${AI_API_URL}${endpoint}`, {
+      method: 'POST',
+      headers: await getHeaders(),
+      body: data ? JSON.stringify(data) : undefined,
+      ...options,
+    });
 
-  delete: <T>(endpoint: string, options?: RequestOptions) =>
-    request<T>('DELETE', endpoint, undefined, options),
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  },
+
+  put: async <T>(
+    endpoint: string,
+    data?: any,
+    options: RequestOptions = {},
+  ): Promise<T> => {
+    const response = await fetch(`${AI_API_URL}${endpoint}`, {
+      method: 'PUT',
+      headers: await getHeaders(),
+      body: data ? JSON.stringify(data) : undefined,
+      ...options,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  },
+
+  patch: async <T>(
+    endpoint: string,
+    options: RequestOptions = {},
+  ): Promise<T> => {
+    const response = await fetch(`${AI_API_URL}${endpoint}`, {
+      method: 'PATCH',
+      headers: await getHeaders(),
+      ...options,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  },
+
+  delete: async <T>(
+    endpoint: string,
+    options: RequestOptions = {},
+  ): Promise<T> => {
+    const response = await fetch(`${AI_API_URL}${endpoint}`, {
+      method: 'DELETE',
+      headers: await getHeaders(),
+      ...options,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  },
 };
