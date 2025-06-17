@@ -8,7 +8,6 @@ import {
   createListCollection,
   Flex,
   Stack,
-  Text,
 } from '@chakra-ui/react';
 
 import Modal from '@/src/app/common/Modal/Modal';
@@ -24,6 +23,7 @@ import {
 } from '../constants/categoryOptions';
 import { formatNumberWithCommas, unformatNumber } from '../utils/number';
 import useHistoryEdit from './hooks/useHistoryEdit';
+import Field from '@/src/app/components/Field/Field';
 
 function AccountBookHistoryDetail() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -54,8 +54,7 @@ function AccountBookHistoryDetail() {
       <form>
         <Box p="20px" pt="68px">
           <Stack gap="20px">
-            <Stack gap="8px">
-              <Text textStyle="mobile_b2">날짜</Text>
+            <Field label="날짜" required gap="8px" textStyle="mobile_b2">
               <Input
                 placeholder="날짜를 선택해주세요"
                 bgColor="blue.100"
@@ -65,9 +64,9 @@ function AccountBookHistoryDetail() {
                 type="date"
                 {...register('dateTime')}
               />
-            </Stack>
-            <Stack gap="8px">
-              <Text textStyle="mobile_b2">금액</Text>
+            </Field>
+
+            <Field label="금액" required gap="8px" textStyle="mobile_b2">
               <Controller
                 name="amount"
                 control={control}
@@ -91,9 +90,8 @@ function AccountBookHistoryDetail() {
                   />
                 )}
               />
-            </Stack>
-            <Stack gap="8px">
-              <Text textStyle="mobile_b2">카테고리</Text>
+            </Field>
+            <Field label="카테고리" required gap="8px" textStyle="mobile_b2">
               <Controller
                 name="category"
                 control={control}
@@ -113,10 +111,9 @@ function AccountBookHistoryDetail() {
                   />
                 )}
               />
-            </Stack>
+            </Field>
             {transactionData.type === 'expense' && (
-              <Stack gap="8px">
-                <Text textStyle="mobile_b2">결제수단</Text>
+              <Field label="결제수단" required gap="8px" textStyle="mobile_b2">
                 <Controller
                   name="paymentMethod"
                   control={control}
@@ -133,10 +130,9 @@ function AccountBookHistoryDetail() {
                     />
                   )}
                 />
-              </Stack>
+              </Field>
             )}
-            <Stack gap="8px">
-              <Text textStyle="mobile_b2">메모</Text>
+            <Field label="메모" gap="8px" textStyle="mobile_b2">
               <Textarea
                 placeholder="메모를 입력해주세요"
                 bgColor="blue.100"
@@ -146,7 +142,7 @@ function AccountBookHistoryDetail() {
                 resize="none"
                 {...register('memo')}
               />
-            </Stack>
+            </Field>
           </Stack>
 
           <Flex

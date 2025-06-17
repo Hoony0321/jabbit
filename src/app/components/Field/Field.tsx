@@ -11,9 +11,9 @@ function Field({
   return (
     <ChakraField.Root {...props}>
       <ChakraField.Label
-        textStyle={props.textStyle || 'sm'}
         fontWeight={props.fontWeight || 600}
         fontSize={props.fontSize || '16px'}
+        textStyle={props.textStyle || 'sm'}
       >
         {label}
         {props.required && <ChakraField.RequiredIndicator />}

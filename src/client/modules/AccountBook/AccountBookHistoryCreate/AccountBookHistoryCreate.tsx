@@ -8,7 +8,6 @@ import {
   createListCollection,
   Flex,
   Stack,
-  Text,
 } from '@chakra-ui/react';
 
 import Modal from '@/src/app/common/Modal/Modal';
@@ -24,6 +23,7 @@ import {
 } from '../constants/categoryOptions';
 import { TransactionTabType } from '../constants/tabMenus';
 import useHistoryCreate from './hooks/useHistoryCreate';
+import Field from '@/src/app/components/Field/Field';
 
 function AccountBookHistoryCreate({ type }: { type: TransactionTabType }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,8 +36,7 @@ function AccountBookHistoryCreate({ type }: { type: TransactionTabType }) {
       <form>
         <Box p="20px">
           <Stack gap="20px">
-            <Stack gap="8px">
-              <Text textStyle="mobile_b2">날짜</Text>
+            <Field label="날짜" required gap="8px" textStyle="mobile_b2">
               <Input
                 placeholder="날짜를 선택해주세요"
                 bgColor="blue.100"
@@ -47,9 +46,8 @@ function AccountBookHistoryCreate({ type }: { type: TransactionTabType }) {
                 type="date"
                 {...register('dateTime')}
               />
-            </Stack>
-            <Stack gap="8px">
-              <Text textStyle="mobile_b2">금액</Text>
+            </Field>
+            <Field label="금액" required gap="8px" textStyle="mobile_b2">
               <Controller
                 name="amount"
                 control={control}
@@ -73,9 +71,8 @@ function AccountBookHistoryCreate({ type }: { type: TransactionTabType }) {
                   />
                 )}
               />
-            </Stack>
-            <Stack gap="8px">
-              <Text textStyle="mobile_b2">카테고리</Text>
+            </Field>
+            <Field label="카테고리" required gap="8px" textStyle="mobile_b2">
               <Controller
                 name="category"
                 control={control}
@@ -94,10 +91,9 @@ function AccountBookHistoryCreate({ type }: { type: TransactionTabType }) {
                   />
                 )}
               />
-            </Stack>
+            </Field>
             {type === 'expense' && (
-              <Stack gap="8px">
-                <Text textStyle="mobile_b2">결제수단</Text>
+              <Field label="결제수단" required gap="8px" textStyle="mobile_b2">
                 <Controller
                   name="paymentMethod"
                   control={control}
@@ -113,10 +109,9 @@ function AccountBookHistoryCreate({ type }: { type: TransactionTabType }) {
                     />
                   )}
                 />
-              </Stack>
+              </Field>
             )}
-            <Stack gap="8px">
-              <Text textStyle="mobile_b2">메모</Text>
+            <Field label="메모" gap="8px" textStyle="mobile_b2">
               <Textarea
                 placeholder="메모를 입력해주세요"
                 bgColor="blue.100"
@@ -126,7 +121,7 @@ function AccountBookHistoryCreate({ type }: { type: TransactionTabType }) {
                 resize="none"
                 {...register('memo')}
               />
-            </Stack>
+            </Field>
           </Stack>
 
           <Flex

@@ -2,7 +2,7 @@ import { Flex, Stack, Text } from '@chakra-ui/react';
 import ConsultingSVG from '@/src/client/assets/consulting.svg';
 import { COLORS } from '@/src/client/theme/colors';
 
-function EmtyView({
+function EmptyView({
   title,
   description,
 }: {
@@ -35,4 +35,4 @@ function EmtyView({
   );
 }
 
-export default EmtyView;
+export default EmptyView;

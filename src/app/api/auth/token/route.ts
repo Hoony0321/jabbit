@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     response.headers.set(
       'Set-Cookie',
-      `token=${token}; HttpOnly; Path=/; Secure; SameSite=Strict; Max-Age=3600`,
+      `token=${token}; HttpOnly; Path=/; Secure; SameSite=Strict; Max-Age=60`,
     );
 
     return response;
@@ -37,4 +37,15 @@ export async function POST(request: Request) {
     console.error(error);
     return createErrorApiResponse('UNKNOWN_ERROR');
   }
+}
+
+export async function DELETE() {
+  const response = createSuccessApiResponse('DELETE_SUCCESS');
+
+  response.headers.set(
+    'Set-Cookie',
+    'token=; HttpOnly; Path=/; Secure; SameSite=Strict; Max-Age=0',
+  );
+
+  return response;
 }

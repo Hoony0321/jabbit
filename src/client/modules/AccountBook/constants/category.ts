@@ -89,7 +89,7 @@ export const EXPENSE_CATEGORY_MAP: Record<
     icon: '📙',
   },
   car: {
-    name: '교육/자동차',
+    name: '교통/자동차',
     icon: '🚖',
   },
   gift: {

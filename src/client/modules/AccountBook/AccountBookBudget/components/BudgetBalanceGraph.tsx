@@ -20,7 +20,7 @@ function BudgetBalanceGraph() {
   const chartData = {
     datasets: [
       {
-        data: [totalSpent, Math.max(leftBudget, 0)],
+        data: [Math.max(leftBudget, 0), totalSpent],
         backgroundColor: [COLORS.brand.blue.value, COLORS.blue_gray[200].value],
         borderWidth: 1,
         borderColor: 'transparent',

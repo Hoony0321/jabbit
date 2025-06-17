@@ -1,6 +1,6 @@
 import { Secret } from 'jsonwebtoken';
 
-export const JWT_EXPIRES_IN = '3d';
+export const JWT_EXPIRES_IN = '1m';
 
 const isDev = process.env.NODE_ENV === 'development';
 

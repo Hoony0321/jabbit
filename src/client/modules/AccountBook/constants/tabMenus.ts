@@ -7,7 +7,7 @@ export const ACCOUNT_BOOK_TABS = [
     link: IDENTIFIER_TO_PATH_MAP['ACCOUNT_BOOK_BUDGET'],
   },
   {
-    label: '수입/지출',
+    label: '지출/수입',
     value: 'history',
     link: IDENTIFIER_TO_PATH_MAP['ACCOUNT_BOOK_HISTORY'],
   },

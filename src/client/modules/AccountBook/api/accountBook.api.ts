@@ -20,7 +20,7 @@ export const postBudget = async (budget: BudgetFormType) => {
   return apiHandler.post(`/account-book/budget`, budget);
 };
 
-// 수입/지출 내역
+// 지출/수입 내역
 export const getAccountBookHistory =
   async (): Promise<GetAccountBookHistoryResponse> => {
     return apiHandler.get('/account-book/history');
