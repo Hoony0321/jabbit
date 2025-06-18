@@ -1,7 +1,6 @@
 import { AI_API_URL } from '@/src/client/constants/API';
 import { getAccessToken } from '@/src/client/utils/token';
 import { useAuthStore } from '@/src/client/store/authStore';
-import { deleteJwtToken } from '@/src/client/lib/api/deleteJwt';
 import { redirect } from 'next/navigation';
 
 interface RequestOptions extends RequestInit {
@@ -18,15 +17,8 @@ const getHeaders = async (): Promise<HeadersInit> => {
 
 const handleClientUnauthorized = async () => {
   const { logout } = useAuthStore.getState();
-
-  try {
-    await deleteJwtToken();
-  } catch (error) {
-    console.error('Failed to delete server cookie:', error);
-  } finally {
-    logout();
-    window.location.href = '/login';
-  }
+  logout();
+  window.location.href = '/login';
 };
 
 const handleServerUnauthorized = () => {
