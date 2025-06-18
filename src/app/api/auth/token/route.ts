@@ -38,3 +38,14 @@ export async function POST(request: Request) {
     return createErrorApiResponse('UNKNOWN_ERROR');
   }
 }
+
+export async function DELETE() {
+  const response = createSuccessApiResponse('DELETE_SUCCESS');
+
+  response.headers.set(
+    'Set-Cookie',
+    'token=; HttpOnly; Path=/; Secure; SameSite=Strict; Max-Age=0',
+  );
+
+  return response;
+}
