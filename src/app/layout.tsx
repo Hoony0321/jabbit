@@ -5,7 +5,6 @@ import { Toaster } from '@/src/client/components/ui/toaster';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import ChannelTalk from './common/ChannelTalk/ChannelTalk';
 import Provider from './common/Provider/Provider';
-import PwaCheckerProvider from './common/Provider/PwaCheckerProvider';
 
 export const metadata: Metadata = {
   title: 'JABBIT (재빗)',
@@ -39,12 +38,10 @@ export default function RootLayout({
     <html suppressHydrationWarning className={pretendard.className}>
       <body>
         <ChannelTalk />
-        <PwaCheckerProvider>
           <Provider>
             <Theme>{children}</Theme>
             <Toaster />
           </Provider>
-        </PwaCheckerProvider>
         <GoogleAnalytics gaId="G-Q797S4KDG1" />
         <GoogleTagManager gtmId="GTM-TGKKWCHC" />
       </body>
