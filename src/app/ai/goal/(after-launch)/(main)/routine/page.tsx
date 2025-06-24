@@ -7,14 +7,14 @@ import {
 } from '@tanstack/react-query';
 
 import GoalRoutine from '@/src/client/modules/Goal/GoalRoutine';
-import { getRoutine } from '@/src/client/modules/Goal/api/routine.api';
-import { ROUTINE_QUERY_KEY } from '@/src/client/modules/Goal/hooks/routine.query';
+import { getRoutine } from '@/src/client/modules/Goal/api/goal.api';
+import { GOAL_QUERY_KEY } from '@/src/client/modules/Goal/hooks/goal.query';
 
 export default async function GoalRoutinePage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ROUTINE_QUERY_KEY.GET,
+    queryKey: GOAL_QUERY_KEY.GET_ROUTINE,
     queryFn: getRoutine,
   });
 

@@ -9,6 +9,7 @@ export const ROUTE_PATH_MAP = {
   '/ai/goal': 'GOAL_MAIN',
   '/ai/goal/routine': 'GOAL_ROUTINE',
   '/ai/goal/status': 'GOAL_STATUS',
+  '/ai/goal/status/:goalId/connect': 'GOAL_STATUS_CONNECT',
   '/ai/goal/guide': 'GOAL_GUIDE',
   '/ai/goal/launch': 'GOAL_LAUNCH',
 
@@ -110,6 +111,11 @@ export const ROUTES: Record<
   GOAL_STATUS: {
     path: '/ai/goal/status',
     hasNav: true,
+  },
+
+  GOAL_STATUS_CONNECT: {
+    path: '/ai/goal/status/:goalId/connect',
+    hasNav: false,
   },
 
   GOAL_GUIDE: {

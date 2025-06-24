@@ -6,7 +6,7 @@ import GuideLinkButton from '@/src/app/ai/_components/GuideLinkButton';
 import { GUIDE_BUTTONS } from '@/src/app/ai/_constants/guide';
 
 import { formatDate } from '../utils/date';
-import { useGetRoutine } from '../hooks/routine.query';
+import { useGetRoutine } from '../hooks/goal.query';
 import EmptyView from '../components/EmptyView';
 
 import RoutineItem from './components/RoutineItem';

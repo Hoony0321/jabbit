@@ -13,7 +13,7 @@ interface PersonalInfo {
   years_of_experience: number;
 }
 
-interface FinancialGoalItem {
+export interface FinancialGoalItem {
   goal_type: 'short_term' | 'mid_term' | 'long_term';
   goal_title: string;
   target_years: number;

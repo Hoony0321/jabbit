@@ -1,12 +1,9 @@
+import { useState } from 'react';
 import { Flex, Checkbox } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 
-import {
-  ROUTINE_QUERY_KEY,
-  usePatchRoutineItem,
-} from '../../hooks/routine.query';
-import { useState } from 'react';
 import Modal from '@/src/app/common/Modal/Modal';
+import { GOAL_QUERY_KEY, usePatchRoutineItem } from '../../hooks/goal.query';
 
 interface RoutineItemProps extends Checkbox.RootProps {
   title: string;
@@ -46,7 +43,7 @@ function RoutineItem({ title, id, ...props }: RoutineItemProps) {
   const { mutate: patchRoutineItem } = usePatchRoutineItem({
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ROUTINE_QUERY_KEY.GET,
+        queryKey: GOAL_QUERY_KEY.GET_ROUTINE,
       });
       setIsModalOpen(false);
     },
