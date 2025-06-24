@@ -7,12 +7,14 @@ import { getGoalAsset } from '@/src/client/modules/Goal/api/goal.api';
 import GoalStatusConnect from '@/src/client/modules/Goal/GoalStatusConnect';
 import { GOAL_QUERY_KEY } from '@/src/client/modules/Goal/hooks/goal.query';
 
+interface GoalStatusConnectPageProps {
+  params: Promise<{ goalId: string }>;
+}
+
 export default async function GoalStatusConnectPage({
   params,
-}: {
-  params: { goalId: string };
-}) {
-  const { goalId } = params;
+}: GoalStatusConnectPageProps) {
+  const { goalId } = await params;
 
   const queryClient = new QueryClient();
 
