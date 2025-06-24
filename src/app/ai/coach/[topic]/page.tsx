@@ -138,7 +138,7 @@ export default function GuidePage() {
         '루틴으로 설정하기 버튼',
         user,
       );
-      router.push(IDENTIFIER_TO_PATH_MAP['GOAL_LAUNCH']);
+      router.push(IDENTIFIER_TO_PATH_MAP['GOAL_MAIN']);
     }
   };
 
