@@ -54,6 +54,12 @@ export const useGetGoalStatus = () => {
   return useSuspenseQuery({
     queryKey: GOAL_QUERY_KEY.GET_GOAL_STATUS,
     queryFn: getGoalStatus,
+    select: (data) => {
+      return {
+        ...data,
+        body: data.body.sort((a, b) => a.targetYears - b.targetYears),
+      };
+    },
   });
 };
 
@@ -61,6 +67,12 @@ export const useGetGoalAsset = (goalId: string) => {
   return useSuspenseQuery({
     queryKey: GOAL_QUERY_KEY.GET_GOAL_ASSET(goalId),
     queryFn: () => getGoalAsset(goalId),
+    select: (data) => {
+      return {
+        ...data,
+        body: data.body.filter((goal) => goal.assetAmount > 0),
+      };
+    },
   });
 };
 

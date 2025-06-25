@@ -54,7 +54,7 @@ function GoalStatusConnect() {
     <Fragment>
       <Header hasPrev />
 
-      <Stack gap="16px" p="20px" pt="68px">
+      <Stack gap="16px" p="20px" pt="68px" pb="120px">
         <Stack gap="8px">
           <Text textStyle="mobile_h2">
             이 목표와 연동할 자산을 선택해주세요
@@ -77,12 +77,14 @@ function GoalStatusConnect() {
 
       <Flex
         position="fixed"
-        bottom="18px"
+        bottom="0"
         left="0"
         right="0"
-        py="20px"
+        pt="20px"
+        pb="38px"
         zIndex="100"
         justifyContent="center"
+        bgColor="brand.white"
       >
         <Button
           bgColor="brand.blue"
