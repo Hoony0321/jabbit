@@ -17,6 +17,10 @@ import { useGenerateAiSolutionStore } from '@/src/app/ai/coach/_store/generateAi
 import postAiContentNotification from '@/src/client/lib/api/postAiContentNotification';
 import getAiContent from '@/src/client/lib/api/getAiContent';
 import { mixpanelTrackWithCallback } from '@/src/client/utils/mixpanelHelpers';
+import getAiScenario from '@/src/client/lib/api/getAiScenario';
+import { getAiFeedback } from '@/src/client/modules/Coach/api/coach.api';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 function CoachPage() {
   const { push } = useRouter();
@@ -46,21 +50,38 @@ function CoachPage() {
       createdAt: dateRoutineCreated,
       requestedAt: dateRoutineRequested,
     },
+    selfFeedback: {
+      requestedAt: dateSelfFeedbackRequested,
+      isSubmitted: isSelfFeedbackSubmitted,
+    },
+    weeklyFeedback: { createdAt: dateWeeklyFeedbackCreated },
     setScenarioCreated,
     setPlanCreated,
     setRoutineCreated,
     setScenarioNotification,
     setPlanNotification,
     setRoutineNotification,
+    setWeeklyFeedbackCreated,
   } = useGenerateAiSolutionStore();
 
   const fetchAiContentAndSet = async (
     type: 'SCENARIO' | 'PLAN' | 'ROUTINE',
     onSuccess: () => void,
   ) => {
-    const response = await getAiContent(type);
+    const response = isDev
+      ? await getAiScenario(type)
+      : await getAiContent(type);
 
     if (response.body.response !== null) {
+      onSuccess();
+    }
+  };
+
+  const fetchAiFeedbackAndSet = async (onSuccess: () => void) => {
+    const response = isDev
+      ? await getAiScenario('WEEKLY-FEEDBACK')
+      : await getAiFeedback();
+    if (response.body !== null) {
       onSuccess();
     }
   };
@@ -81,10 +102,22 @@ function CoachPage() {
 
   useEffect(() => {
     if (!dateRoutineRequested) return;
+
     if (dateRoutineRequested && !dateRoutineCreated) {
       fetchAiContentAndSet('ROUTINE', setRoutineCreated);
     }
   }, [dateRoutineRequested, dateRoutineCreated, setRoutineCreated]);
+
+  useEffect(() => {
+    const setTime = new Date('2025-06-30T08:00:00+09:00');
+    const now = new Date();
+
+    if (now < setTime) return;
+    if (!dateRoutineCreated) return;
+    if (dateRoutineCreated && !dateWeeklyFeedbackCreated) {
+      fetchAiFeedbackAndSet(setWeeklyFeedbackCreated);
+    }
+  }, [dateRoutineCreated, dateWeeklyFeedbackCreated]);
 
   const { user } = useAuthStore();
   const displayName =
@@ -130,7 +163,7 @@ function CoachPage() {
   const handleFinancialGoalButtonClick = () => {
     mixpanelTrackWithCallback(
       '코치탭',
-      '5분 설문 참여하기 버튼 클릭',  
+      '5분 설문 참여하기 버튼 클릭',
       '5분 설문 참여하기 버튼',
       user,
       () => {
@@ -158,11 +191,14 @@ function CoachPage() {
     );
   };
 
-  const handleReadAiContentClick = (type: 'scenario' | 'plan' | 'routine') => {
+  const handleReadAiContentClick = (
+    type: 'scenario' | 'plan' | 'routine' | 'weekly-feedback',
+  ) => {
     const typeMap = {
       scenario: '시나리오',
       plan: '플랜',
       routine: '루틴',
+      'weekly-feedback': '주간 피드백',
     };
     mixpanelTrackWithCallback(
       '코치탭',
@@ -171,6 +207,18 @@ function CoachPage() {
       user,
       () => {
         push(`/ai/coach/${type}`);
+      },
+    );
+  };
+
+  const handleSelfFeedbackClick = () => {
+    mixpanelTrackWithCallback(
+      '코치탭',
+      `셀프 피드백 작성하기 버튼 클릭`,
+      `셀프 피드백 작성하기 버튼`,
+      user,
+      () => {
+        push(`/ai/coach/self-feedback`);
       },
     );
   };
@@ -301,6 +349,38 @@ function CoachPage() {
           />
           <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
             {parseTimeFromTimestamp(dateRoutineCreated)}
+          </Text>
+        </Flex>
+      ),
+    },
+    dateRoutineCreated &&
+      dateWeeklyFeedbackCreated && {
+        date: extractDateOnly(dateWeeklyFeedbackCreated),
+        component: (
+          <Flex align="flex-end" gap="8px" key="weekly-feedback">
+            <ChatbotMessage
+              message="이번 주 피드백이 도착했어요."
+              buttonText="읽어보기"
+              onButtonClick={() => handleReadAiContentClick('weekly-feedback')}
+            />
+            <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
+              {parseTimeFromTimestamp(dateWeeklyFeedbackCreated)}
+            </Text>
+          </Flex>
+        ),
+      },
+    dateSelfFeedbackRequested && {
+      date: extractDateOnly(dateSelfFeedbackRequested),
+      component: (
+        <Flex align="flex-end" gap="8px" key="self-feedback">
+          <ChatbotMessage
+            message="이번 주를 되돌아보며 나에게 주는 피드백을 적어보세요."
+            buttonText="작성하기"
+            onButtonClick={handleSelfFeedbackClick}
+            isDisabled={isSelfFeedbackSubmitted}
+          />
+          <Text textStyle="mobile_cap" color="blue.600" whiteSpace="nowrap">
+            {parseTimeFromTimestamp(dateSelfFeedbackRequested)}
           </Text>
         </Flex>
       ),

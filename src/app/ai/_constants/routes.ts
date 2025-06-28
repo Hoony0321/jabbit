@@ -5,6 +5,8 @@ export const ROUTE_PATH_MAP = {
   '/ai/coach/scenario': 'COACH_SCENARIO',
   '/ai/coach/plan': 'COACH_PLAN',
   '/ai/coach/routine': 'COACH_ROUTINE',
+  '/ai/coach/self-feedback': 'COACH_SELF_FEEDBACK',
+  '/ai/coach/weekly-feedback': 'COACH_WEEKLY_FEEDBACK',
 
   '/ai/goal': 'GOAL_MAIN',
   '/ai/goal/routine': 'GOAL_ROUTINE',
@@ -92,6 +94,24 @@ export const ROUTES: Record<
     path: '/ai/coach/routine',
     header: {
       title: '루틴',
+      hasPrev: true,
+    },
+    hasNav: false,
+  },
+
+  COACH_SELF_FEEDBACK: {
+    path: '/ai/coach/self-feedback',
+    header: {
+      title: '셀프 피드백',
+      hasPrev: true,
+    },
+    hasNav: false,
+  },
+
+  COACH_WEEKLY_FEEDBACK: {
+    path: '/ai/coach/weekly-feedback',
+    header: {
+      title: '주간 피드백',
       hasPrev: true,
     },
     hasNav: false,

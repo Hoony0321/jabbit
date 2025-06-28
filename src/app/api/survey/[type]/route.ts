@@ -19,6 +19,18 @@ export async function GET(request: NextRequest) {
     category?: string;
     frequency?: string;
     description?: string;
+    statusCheckRoutine?: string;
+    statusCheckBudget?: string;
+    emotionCarePositive?: string;
+    emotionCareNegative?: string;
+    forecastAssetChange?: string;
+    forecastCashFlow?: string;
+    routineRecoList?: { 
+      name: string;
+      category: string;
+      frequency: string;
+      description: string;
+    }[];
   };
 
   type SurveyBody = {
@@ -179,6 +191,53 @@ export async function GET(request: NextRequest) {
         frequency: 'MONTHLY',
         description:
           '내 집 마련, 투자 시드금 등 목표 달성 현황을 확인하고, 진행률을 숫자로 표현해보세요.',
+      },
+    ];
+  } else if (type === 'WEEKLY-FEEDBACK') {
+    base.body.response = [
+      {
+        statusCheckRoutine:
+          '총 8개의 주간 루틴 중 5개 수행 완료 (63%).\nETF 매수 성공 🎯.\n감정 소비 기록 작성 Good!\n소비 기준 설정은 이번 주 미수행.',
+        statusCheckBudget:
+          '이번 주 총 지출: ₩420,000,\n예산대비 지출률: 84% (양호).\n주요 지출: 식비(180,000), 교통(85,000), 게임 관련(50,000)',
+        emotionCarePositive:
+          '지난주보다 감정 소비 횟수가 2회 → 1회로 감소 🎉.\n첫 ETF 매수 경험 완료! 포트폴리오 시작에 의미를 부여했어요.',
+        emotionCareNegative:
+          '매달 설정했던 소비 기준(배달 5회 이하) 체크가 누락되었어요.\n감정 리포트 피드백 작성이 비어 있었어요.\n이번 주 마무리하며 짧게라도 남겨보는 건 어때요?',
+        forecastAssetChange:
+          'ETF 포함 투자자산이 처음으로 ₩100,000 돌파!\n학자금 부채는 아직 변동 없음 (상환 시작은 2026년 예정).',
+        forecastCashFlow:
+          '예상 잉여 자금: 약 ₩250,000.\n목표 비상금 300만 원까지 남은 금액: 약 ₩2,750,000',
+        routineRecoList: [
+          {
+            name: '매일 · 1회 – 가계부 tab에 지출내역 쓰기',
+            category: 'DAILY',
+            frequency: 'DAILY',
+            description:
+              '모든 지출을 당일 기록하세요. 작게는 커피 한 잔, 크게는 쇼핑까지 기록하는 습관이 돈 관리의 출발입니다.',
+          },
+          {
+            name: '매일 · 1회 – 감정 소비한 날 기록 남기기',
+            category: 'DAILY',
+            frequency: 'DAILY',
+            description:
+              '감정으로 지출한 날에는 무엇을, 왜 샀는지를 짧게라도 기록해보세요. 감정과 소비의 연결고리를 알 수 있어요.',
+          },
+          {
+            name: '매주 · 1회 – ETF 샀어요 기록 남기기',
+            category: 'REVIEW',
+            frequency: 'WEEKLY',
+            description:
+              'ETF를 구매한 후 느낀 감정이나 이유를 자유롭게 기록해보세요. 투자 경험이 쌓이기 시작해요.',
+          },
+          {
+            name: '매주 · 1회 – 소비 기준 체크 + 이모지 평가 남기기',
+            category: 'REVIEW',
+            frequency: 'WEEKLY',
+            description:
+              '이번 주 내가 설정한 소비 기준을 잘 지켰는지 돌아보세요. 이모지로 감정 상태도 함께 남겨보세요.',
+          },
+        ],
       },
     ];
   } else {

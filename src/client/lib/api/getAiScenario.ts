@@ -1,4 +1,4 @@
-type ContentPayload = 'SCENARIO' | 'PLAN' | 'ROUTINE';
+type ContentPayload = 'SCENARIO' | 'PLAN' | 'ROUTINE' | 'WEEKLY-FEEDBACK';
 
 const getAiScenario = async (payload: ContentPayload) => {
   const response = await fetch(`/api/survey/${payload}`, {

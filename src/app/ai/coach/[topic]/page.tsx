@@ -14,6 +14,7 @@ import Scenario from './_components/Scenario';
 import Plan from './_components/Plan';
 import Routine from './_components/Routine';
 import { IDENTIFIER_TO_PATH_MAP } from '../../_constants/routes';
+import getAiScenario from '@/src/client/lib/api/getAiScenario';
 
 function Loading({ message }: { message: string }) {
   const typing = keyframes`
@@ -80,7 +81,7 @@ export default function GuidePage() {
 
   const loadingMessage = `재무코치가 나만을 위한 ${topicKrMap[topicStr]} 만들고 있어요...`;
   const [data, setData] = useState<any>(null);
-
+  const isDev = process.env.NODE_ENV === 'development';
   const { setPlanRequested, setRoutineRequested } =
     useGenerateAiSolutionStore();
 
@@ -92,7 +93,14 @@ export default function GuidePage() {
     const fetchData = async () => {
       try {
         const [response] = await Promise.all([
-          getAiContent(
+          isDev
+            ? getAiScenario(
+                topicStr.toUpperCase() as 'SCENARIO' | 'PLAN' | 'ROUTINE',
+              )
+            : getAiContent(
+                topicStr.toUpperCase() as 'SCENARIO' | 'PLAN' | 'ROUTINE',
+              ),
+          getAiScenario(
             topicStr.toUpperCase() as 'SCENARIO' | 'PLAN' | 'ROUTINE',
           ),
           new Promise((resolve) => setTimeout(resolve, 5000)),
