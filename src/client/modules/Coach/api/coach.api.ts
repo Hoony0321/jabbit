@@ -6,5 +6,5 @@ export const getAiFeedback = async (): Promise<GetAiFeedbackResponse> => {
 };
 
 export const postAiFeedback = async (feedback: PostAiFeedbackRequest): Promise<PostAiFeedbackRequest> => {
-  return apiHandler.post('/ai/feedback', {response: feedback});
+  return apiHandler.post('/feedback', {response: feedback});
 };
